@@ -12,6 +12,7 @@
 
 namespace Azuyalabs\WAQI\Test;
 
+use Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException;
 use Azuyalabs\WAQI\Exceptions\QuotaExceededException;
 use Azuyalabs\WAQI\Exceptions\UnknownStationException;
 use Azuyalabs\WAQI\WAQI;
@@ -413,11 +414,31 @@ class WAQITest extends TestCase
      */
     public function shouldRaiseExceptionWhenQuotaExceeded(): void
     {
-        $station = 'new york';
+        $station = $this->faker->city;
 
         $this->waqi->shouldReceive('getObservationByStation')
             ->once()
+            ->with($station)
             ->andThrow(QuotaExceededException::class);
+
+        $this->waqi->getObservationByStation($station);
+    }
+
+    /**
+     * Tests that an InvalidAccessTokenException is thrown when an invalid access token is provided
+     * The default quota is maximum 1000 (thousand) requests per minute.
+     *
+     * @test
+     * @expectedException \Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException
+     */
+    public function shouldRaiseExceptionWhenInvalidToken(): void
+    {
+        $station = $this->faker->city;
+
+        $this->waqi->shouldReceive('getObservationByStation')
+            ->once()
+            ->with($station)
+            ->andThrow(InvalidAccessTokenException::class);
 
         $this->waqi->getObservationByStation($station);
     }
