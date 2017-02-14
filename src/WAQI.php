@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- *  @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
 namespace Azuyalabs\WAQI;
@@ -224,39 +224,43 @@ class WAQI
      * Returns the carbon monoxide (CO) level measured at this monitoring station at the time of measurement.
      *
      * CO concentration levels are typically expressed in Parts per million (PPM) or density, however the World Air
-     * Quality levels is using the EPA standard (converted from micrograms / m3).
+     * Quality levels is using the US EPA 0-500 AQI scale.
      *
-     * @return float the carbon monoxide (CO) level measured at this monitoring station at the time of measurement
+     * @return float|null the carbon monoxide (CO) level measured at this monitoring station at the time of measurement.
+     *                    If the monitoring station does not measure PM10 levels, a 'null' value is returned
      */
-    public function getCO(): float
+    public function getCO()
     {
-        return (float)$this->raw_data->data->iaqi->co->v;
+        return $this->raw_data->data->iaqi->co->v ?? null;
     }
 
     /**
      * Returns the nitrogen dioxide (NO2) level measured at this monitoring station at the time of measurement.
      *
      * NO2 concentration levels are typically expressed in Parts per million (PPM) or density, however the World Air
-     * Quality levels is using the EPA standard (converted from micrograms / m3).
+     * Quality levels is using the US EPA 0-500 AQI scale.
      *
-     * @return float the nitrogen dioxide (NO2) level measured at this monitoring station at the time of measurement
+     * @return float|null the nitrogen dioxide (NO2) level measured at this monitoring station at the time of
+     *                    measurement. If the monitoring station does not measure PM10 levels, a 'null' value is
+     *                    returned
      */
-    public function getNO2(): float
+    public function getNO2()
     {
-        return (float)$this->raw_data->data->iaqi->no2->v;
+        return $this->raw_data->data->iaqi->no2->v ?? null;
     }
 
     /**
      * Returns the ozone (O3) level measured at this monitoring station at the time of measurement.
      *
      * O3 concentration levels are typically expressed in Parts per million (PPM) or density, however the World Air
-     * Quality levels is using the EPA standard (converted from micrograms / m3).
+     * Quality levels is using the US EPA 0-500 AQI scale.
      *
-     * @return float the ozone (O3) level measured at this monitoring station at the time of measurement
+     * @return float|null the ozone (O3) level measured at this monitoring station at the time of measurement. If the
+     *                    monitoring station does not measure PM10 levels, a 'null' value is returned
      */
-    public function getO3(): float
+    public function getO3()
     {
-        return (float)$this->raw_data->data->iaqi->o3->v;
+        return $this->raw_data->data->iaqi->o3->v ?? null;
     }
 
     /**
@@ -264,14 +268,15 @@ class WAQI
      * station at the time of measurement.
      *
      * PM10 levels are typically expressed in Parts per million (PPM) or density, however the World Air
-     * Quality levels is using the EPA standard (converted from micrograms / m3).
+     * Quality levels is using the US EPA 0-500 AQI scale.
      *
-     * @return float the level of particulate matter 10 micrometers or less (PM10), measured at this monitoring station
-     *               at the time of measurement
+     * @return float|null the level of particulate matter 10 micrometers or less (PM10), measured at this monitoring
+     *                    station at the time of measurement. If the monitoring station does not measure PM10 levels,
+     *                    a 'null' value is returned
      */
-    public function getPM10(): float
+    public function getPM10()
     {
-        return (float)$this->raw_data->data->iaqi->pm10->v;
+        return $this->raw_data->data->iaqi->pm10->v ?? null;
     }
 
     /**
@@ -279,27 +284,29 @@ class WAQI
      * station at the time of measurement.
      *
      * PM2.5 levels are typically expressed in Parts per million (PPM) or density, however the World Air
-     * Quality levels is using the EPA standard (converted from micrograms / m3).
+     * Quality levels is using the US EPA 0-500 AQI scale.
      *
-     * @return float the level of particulate matter 2.5 micrometers or less (PM2.5), measured at this monitoring station
-     *               at the time of measurement
+     * @return float|null the level of particulate matter 2.5 micrometers or less (PM2.5), measured at this monitoring
+     *                    station at the time of measurement. If the monitoring station does not measure PM10 levels,
+     *                    a 'null' value is returned
      */
-    public function getPM25(): float
+    public function getPM25()
     {
-        return (float)$this->raw_data->data->iaqi->pm25->v;
+        return $this->raw_data->data->iaqi->pm25->v ?? null;
     }
 
     /**
      * Returns the sulfur dioxide (SO2) level measured at this monitoring station at the time of measurement.
      *
      * SO2 concentration levels are typically expressed in Parts per million (PPM) or density, however the World Air
-     * Quality levels is using the EPA standard (converted from micrograms / m3).
+     * Quality levels is using the US EPA 0-500 AQI scale.
      *
-     * @return float the sulfur dioxide (SO2) level measured at this monitoring station at the time of measurement
+     * @return float|null the sulfur dioxide (SO2) level measured at this monitoring station at the time of measurement.
+     *                    If the monitoring station does not measure PM10 levels, a 'null' value is returned
      */
-    public function getSO2(): float
+    public function getSO2()
     {
-        return (float)$this->raw_data->data->iaqi->so2->v;
+        return $this->raw_data->data->iaqi->so2->v ?? null;
     }
 
     /**

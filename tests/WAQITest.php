@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- *  @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
 namespace Azuyalabs\WAQI\Test;
@@ -115,7 +115,21 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid value for the respirable particulate matter, 10 micrometers or less (PM2.5), is returned.
+     * Tests that a null value for for the respirable particulate matter, 2.5 micrometers or less (PM2.5), is returned
+     * in the situation that a monitoring station does not provide a PM2.5 reading.
+     *
+     * @test
+     * @covers \Azuyalabs\WAQI\WAQI::getPM25()
+     *
+     * @return void
+     */
+    public function shouldGetNullIfNoPM25(): void
+    {
+        $this->assertNoPollutantReading('getPM25');
+    }
+
+    /**
+     * Tests that a valid value for the respirable particulate matter, 10 micrometers or less (PM10), is returned.
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPM10()
@@ -125,6 +139,20 @@ class WAQITest extends TestCase
     public function shouldGetPM10(): void
     {
         $this->assertPollutantLevel('getPM10', $this->faker->randomFloat(2, 0, 500));
+    }
+
+    /**
+     * Tests that a null value for for the respirable particulate matter, 10 micrometers or less (PM10), is returned
+     * in the situation that a monitoring station does not provide a PM10 reading.
+     *
+     * @test
+     * @covers \Azuyalabs\WAQI\WAQI::getPM10()
+     *
+     * @return void
+     */
+    public function shouldGetNullIfNoPM10(): void
+    {
+        $this->assertNoPollutantReading('getPM10');
     }
 
     /**
@@ -141,6 +169,20 @@ class WAQITest extends TestCase
     }
 
     /**
+     * Tests that a valid CO (carbon monoxide) value is returned in the situation that a monitoring station does not
+     * provide a CO reading.
+     *
+     * @test
+     * @covers \Azuyalabs\WAQI\WAQI::getCO()
+     *
+     * @return void
+     */
+    public function shouldGetNullIfNoCO(): void
+    {
+        $this->assertNoPollutantReading('getCO');
+    }
+
+    /**
      * Tests that a valid NO2 (nitrogen dioxide) value is returned.
      *
      * @test
@@ -151,6 +193,20 @@ class WAQITest extends TestCase
     public function shouldGetNO2(): void
     {
         $this->assertPollutantLevel('getNO2', $this->faker->randomFloat(2, 0, 500));
+    }
+
+    /**
+     * Tests that a valid NO2 (nitrogen dioxide) value is returned in the situation that a monitoring station does not
+     * provide a NO2 reading.
+     *
+     * @test
+     * @covers \Azuyalabs\WAQI\WAQI::getNO2()
+     *
+     * @return void
+     */
+    public function shouldGetNullIfNoNO2(): void
+    {
+        $this->assertNoPollutantReading('getNO2');
     }
 
     /**
@@ -167,6 +223,20 @@ class WAQITest extends TestCase
     }
 
     /**
+     * Tests that a valid O3 (ozone) value is returned in the situation that a monitoring station does not
+     * provide an O3 reading.
+     *
+     * @test
+     * @covers \Azuyalabs\WAQI\WAQI::getO3()
+     *
+     * @return void
+     */
+    public function shouldGetNullIfNoO3(): void
+    {
+        $this->assertNoPollutantReading('getO3');
+    }
+
+    /**
      * Tests that a valid SO2 (sulfur dioxide) value is returned.
      *
      * @test
@@ -177,6 +247,20 @@ class WAQITest extends TestCase
     public function shouldGetSO2(): void
     {
         $this->assertPollutantLevel('getSO2', $this->faker->randomFloat(2, 0, 500));
+    }
+
+    /**
+     * Tests that a valid SO2 (sulfur dioxide) value is returned in the situation that a monitoring station does not
+     * provide a SO2 reading.
+     *
+     * @test
+     * @covers \Azuyalabs\WAQI\WAQI::getSO2()
+     *
+     * @return void
+     */
+    public function shouldGetNullIfNoSO2(): void
+    {
+        $this->assertNoPollutantReading('getSO2');
     }
 
     /**
@@ -336,5 +420,24 @@ class WAQITest extends TestCase
         $result = $this->waqi->$method();
 
         $this->assertValue($result, $expectedValue, 'float');
+    }
+
+    /**
+     * Performs assertions for monitoring stations that do not provide a particular pollutant reading.
+     * In such a case the respective WAQI method returns a null value.
+     *
+     * @param string $method the class method that obtains the pollutant level value
+     */
+    private function assertNoPollutantReading(string $method): void
+    {
+        $this->waqi->shouldReceive($method)
+            ->once()
+            ->withNoArgs()
+            ->andReturnNull();
+
+        $result = $this->waqi->$method();
+
+        $this->assertNull($result);
+        $this->assertEmpty($result);
     }
 }
