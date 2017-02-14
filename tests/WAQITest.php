@@ -22,8 +22,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Unit test class containing tests for the WAQI class
- *
- * @package Azuyalabs\WAQI\Test
  */
 class WAQITest extends TestCase
 {
@@ -38,7 +36,7 @@ class WAQITest extends TestCase
     private $faker;
 
     /**
-     * Prepare and initialize tests
+     * Prepare and initialize tests.
      *
      * @return void
      */
@@ -51,7 +49,7 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Clean up after tests have been performed
+     * Clean up after tests have been performed.
      *
      * @return void
      */

@@ -23,7 +23,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
 
 /**
- * Class WAQI
+ * Class WAQI.
  */
 class WAQI
 {
@@ -38,7 +38,7 @@ class WAQI
     private $raw_data;
 
     /**
-     * The endpoint URL of the World Quality Index API
+     * The endpoint URL of the World Quality Index API.
      */
     private const API_ENDPOINT = 'https://api.waqi.info/api';
 
@@ -60,6 +60,7 @@ class WAQI
      *
      * If the $station argument is left blank, the Air Quality Index observation is obtained of the nearest monitoring
      * station close to the user location (based on the user's public IP address)
+     *
      * @param string $station name of the monitoring station (or city name). This parameter can be left blank to get the
      *                        observation of the nearest monitoring station close to the user location (based on the
      *                        user's public IP address)
@@ -75,7 +76,7 @@ class WAQI
         $client = new Client(['base_uri' => self::API_ENDPOINT]);
 
         try {
-            $response = $client->request('GET', 'feed/' . $station . '/', ['query' => 'token=' . $this->token]);
+            $response = $client->request('GET', 'feed/'.$station.'/', ['query' => 'token=' . $this->token]);
         } catch (ClientException $e) {
             echo Psr7\str($e->getRequest());
             echo Psr7\str($e->getResponse());

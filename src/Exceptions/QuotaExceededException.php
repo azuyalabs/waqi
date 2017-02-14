@@ -20,14 +20,11 @@ use Exception;
  * The default quota is maximum 1000 (thousand) requests per minute.
  *
  * @link http://aqicn.org/api
- *
- * @package Azuyalabs\WAQI\Exceptions
  */
 class QuotaExceededException extends Exception
 {
     /**
      * QuotaExceededException constructor.
-     *
      */
     public function __construct()
     {

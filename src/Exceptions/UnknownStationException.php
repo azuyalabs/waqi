@@ -16,8 +16,6 @@ use Exception;
 
 /**
  * Class for representing the exception that the WAQI API does not know the given monitoring station or city name.
- *
- * @package Azuyalabs\WAQI\Exceptions
  */
 class UnknownStationException extends Exception
 {

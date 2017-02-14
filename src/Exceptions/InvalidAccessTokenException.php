@@ -16,14 +16,11 @@ use Exception;
 
 /**
  * Class for representing the exception that an invalid access token has been given.
- *
- * @package Azuyalabs\WAQI\Exceptions
  */
 class InvalidAccessTokenException extends Exception
 {
     /**
      * InvalidAccessTokenException constructor.
-     *
      */
     public function __construct()
     {
