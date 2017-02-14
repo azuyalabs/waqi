@@ -1,8 +1,17 @@
 {
   "name": "azuyalabs/waqi",
   "description": "WAQI",
-  "type": "project",
-  "homepage": "https://www.example.com",
+  "keywords": [
+    "air quality",
+    "AQI",
+    "API",
+    "pollution",
+    "pm2.5",
+    "WAQI",
+    "air"
+  ],
+  "type": "library",
+  "homepage": "https://github.com/azuyalabs/waqi",
   "license": "MIT",
   "authors": [
     {
