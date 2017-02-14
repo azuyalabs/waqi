@@ -34,7 +34,7 @@ Next, use the `getObservationByStation` method with the desired city or monitori
 'new york'). This will obtain the latest air quality observations:
 
 ```php
-$waqi->getObservationByStation('yokosuka');
+$waqi->getObservationByStation('new york');
 ``` 
  
 If all goes well, use the various API methods to get details about the retrieved Air Quality Index of the chosen
@@ -54,12 +54,12 @@ This returns an array structure containing the Air Quality Index measured at thi
  - 'cautionary_statement': a cautionary statement associated with the measured pollution level (only for PM2.5)
  
 Example output (for 'New York'):
-`
+```
  - 'aqi': 15
  - 'pollution_level': Good
  - 'health_implications': Air quality is considered satisfactory, and air pollution poses little or no risk.
  - 'cautionary_statement': None
-`
+```
                                        
 
 ## Changelog
