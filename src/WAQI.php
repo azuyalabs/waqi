@@ -12,6 +12,7 @@
 
 namespace Azuyalabs\WAQI;
 
+use Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException;
 use Azuyalabs\WAQI\Exceptions\QuotaExceededException;
 use Azuyalabs\WAQI\Exceptions\UnknownStationException;
 use DateTime;
@@ -63,6 +64,10 @@ class WAQI
      *                        observation of the nearest monitoring station close to the user location (based on the
      *                        user's public IP address)
      *
+     * @throws \Azuyalabs\WAQI\Exceptions\UnknownStationException
+     * @throws \Azuyalabs\WAQI\Exceptions\QuotaExceededException
+     * @throws \Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException
+     *
      * @return void
      */
     public function getObservationByStation(string $station = 'here'): void
@@ -94,6 +99,8 @@ class WAQI
                     throw new UnknownStationException($station);
                 case 'Over quota':
                     throw new QuotaExceededException();
+                case 'Invalid key':
+                    throw new InvalidAccessTokenException();
             }
             exit();
         }
