@@ -1,0 +1,38 @@
+{
+  "name": "azuyalabs/waqi",
+  "description": "WAQI",
+  "type": "project",
+  "homepage": "https://www.example.com",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sacha Telgenhof",
+      "email": "stelgenhof@gmail.com",
+      "homepage": "https://www.sachatelgenhof.nl",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0",
+    "guzzlehttp/guzzle": "^6.2",
+    "mockery/mockery": "^0.9",
+    "friendsofphp/php-cs-fixer": "^2.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.0",
+    "fzaninotto/faker": "^1.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Azuyalabs\\WAQI\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Azuyalabs\\WAQI\\Test\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  }
+}
