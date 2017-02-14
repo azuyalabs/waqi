@@ -25,11 +25,9 @@ class UnknownStationException extends Exception
      * UnknownStationException constructor.
      *
      * @param string $station the name of the unknown monitoring station or city name
-     * @param int $code error code associated with this exception
-     * @param Exception|null $previous possible previous exception
      */
-    public function __construct(string $station, $code = 0, Exception $previous = null)
+    public function __construct(string $station)
     {
-        parent::__construct(sprintf('Unknown monitoring station or city: "%s"', $station), $code, $previous);
+        parent::__construct(sprintf('Unknown monitoring station or city: "%s"', $station), 0, null);
     }
 }
