@@ -28,19 +28,17 @@ use GuzzleHttp\Psr7;
 class WAQI
 {
     /**
+     * The endpoint URL of the World Quality Index API.
+     */
+    private const API_ENDPOINT = 'https://api.waqi.info/api';
+    /**
      * @var string World Air Quality access token
      */
     private $token;
-
     /**
      * @var
      */
     private $raw_data;
-
-    /**
-     * The endpoint URL of the World Quality Index API.
-     */
-    private const API_ENDPOINT = 'https://api.waqi.info/api';
 
     /**
      * WAQI class constructor.
@@ -76,7 +74,7 @@ class WAQI
         $client = new Client(['base_uri' => self::API_ENDPOINT]);
 
         try {
-            $response = $client->request('GET', 'feed/'.$station.'/', ['query' => 'token=' . $this->token]);
+            $response = $client->request('GET', 'feed/'.$station.'/', ['query' => 'token='.$this->token]);
         } catch (ClientException $e) {
             echo Psr7\str($e->getRequest());
             echo Psr7\str($e->getResponse());
@@ -171,9 +169,9 @@ class WAQI
         }
 
         return [
-            'aqi' => (float)$aqi,
-            'pollution_level' => (string)$narrative_level,
-            'health_implications' => (string)$narrative_health,
+            'aqi'                  => (float)$aqi,
+            'pollution_level'      => (string)$narrative_level,
+            'health_implications'  => (string)$narrative_health,
             'cautionary_statement' => (string)$narrative_cautionary
         ];
     }
@@ -202,13 +200,13 @@ class WAQI
     public function getMonitoringStation(): array
     {
         return [
-            'id' => (int)$this->raw_data->idx,
-            'name' => (string)$this->raw_data->city->name,
+            'id'          => (int)$this->raw_data->idx,
+            'name'        => (string)$this->raw_data->city->name,
             'coordinates' => [
-                'latitude' => (float)$this->raw_data->city->geo[0],
+                'latitude'  => (float)$this->raw_data->city->geo[0],
                 'longitude' => (float)$this->raw_data->city->geo[1],
             ],
-            'url' => (string)$this->raw_data->city->url
+            'url'         => (string)$this->raw_data->city->url
         ];
     }
 
@@ -247,7 +245,8 @@ class WAQI
     /**
      * Returns the barometric pressure (in millibars) measured at this monitoring station at the time of measurement.
      *
-     * @return float the barometric pressure (in millibars) measured at this monitoring station at the time of measurement
+     * @return float the barometric pressure (in millibars) measured at this monitoring station at the time of
+     *               measurement
      */
     public function getPressure(): float
     {

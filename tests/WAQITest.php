@@ -300,13 +300,13 @@ class WAQITest extends TestCase
     public function shouldGetMonitoringStationInformation(): void
     {
         $expectedValue = [
-            'id' => $this->faker->randomDigitNotNull(),
-            'name' => $this->faker->text(50),
+            'id'          => $this->faker->randomDigitNotNull(),
+            'name'        => $this->faker->text(50),
             'coordinates' => [
-                'latitude' => $this->faker->latitude(),
+                'latitude'  => $this->faker->latitude(),
                 'longitude' => $this->faker->longitude()
             ],
-            'url' => $this->faker->url()
+            'url'         => $this->faker->url()
         ];
 
         $this->waqi->shouldReceive('getMonitoringStation')
@@ -340,9 +340,9 @@ class WAQITest extends TestCase
     public function shouldGetAQIInformation(): void
     {
         $expectedValue = [
-            'aqi' => $this->faker->randomFloat(2, 0, 500),
-            'pollution_level' => $this->faker->text(50),
-            'health_implications' => $this->faker->text(150),
+            'aqi'                  => $this->faker->randomFloat(2, 0, 500),
+            'pollution_level'      => $this->faker->text(50),
+            'health_implications'  => $this->faker->text(150),
             'cautionary_statement' => $this->faker->text(150)
         ];
 
@@ -444,9 +444,9 @@ class WAQITest extends TestCase
     /**
      * Performs basic assertions on a result value.
      *
-     * @param $result mixed the value to be asserted
-     * @param $expectedValue mixed the expected value
-     * @param string $type the internal type representing the given value (e.g. 'int', 'string', etc.)
+     * @param        $result        mixed the value to be asserted
+     * @param        $expectedValue mixed the expected value
+     * @param string $type          the internal type representing the given value (e.g. 'int', 'string', etc.)
      */
     private function assertValue($result, $expectedValue, string $type): void
     {
@@ -465,8 +465,8 @@ class WAQITest extends TestCase
     /**
      * Performs basic assertions on a pollutant level value.
      *
-     * @param string $method the class method that obtains the pollutant level value
-     * @param float $expectedValue the expected value the provided method should be
+     * @param string $method        the class method that obtains the pollutant level value
+     * @param float  $expectedValue the expected value the provided method should be
      */
     private function assertPollutantLevel(string $method, float $expectedValue): void
     {
