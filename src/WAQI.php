@@ -343,7 +343,7 @@ class WAQI
     }
 
     /**
-     * Returns the (internal) name of the primary pollutant at this monitoring station at the time of measurement.
+     * Returns the name of the primary pollutant at this monitoring station at the time of measurement.
      *
      * For example if the primary pollutant is PM2.5, the value of 'pm25' will be returned.
      *
