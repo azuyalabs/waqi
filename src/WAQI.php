@@ -12,6 +12,7 @@
 
 namespace Azuyalabs\WAQI;
 
+use Azuyalabs\WAQI\Exceptions\UnknownStationException;
 use DateTime;
 use DateTimeZone;
 use GuzzleHttp\Client;
@@ -52,7 +53,18 @@ class WAQI
         $this->token = $token;
     }
 
-    public function getFeedByStation(string $station = 'here')
+    /**
+     * Retrieves the real-time Air Quality Index observation monitoring station name (or city name).
+     *
+     * If the $station argument is left blank, the Air Quality Index observation is obtained of the nearest monitoring
+     * station close to the user location (based on the user's public IP address)
+     * @param string $station name of the monitoring station (or city name). This parameter can be left blank to get the
+     *                        observation of the nearest monitoring station close to the user location (based on the
+     *                        user's public IP address)
+     *
+     * @return void
+     */
+    public function getObservationByStation(string $station = 'here'): void
     {
         $client = new Client(['base_uri' => self::API_ENDPOINT]);
 
@@ -70,7 +82,18 @@ class WAQI
             echo $e->getMessage();
             exit();
         }
-        $this->raw_data = json_decode($response->getBody());
+
+        $_response_body = json_decode($response->getBody());
+
+        if ($_response_body->status == 'ok') {
+            $this->raw_data = $_response_body;
+        } elseif ($_response_body->status == 'error') {
+            switch ($_response_body->data) {
+                case 'Unknown station':
+                    throw new UnknownStationException($station);
+            }
+            exit();
+        }
     }
 
     /**

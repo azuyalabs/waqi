@@ -12,6 +12,7 @@
 
 namespace Azuyalabs\WAQI\Test;
 
+use Azuyalabs\WAQI\Exceptions\UnknownStationException;
 use Azuyalabs\WAQI\WAQI;
 use Faker\Factory;
 use Mockery;
@@ -381,6 +382,25 @@ class WAQITest extends TestCase
         $result = $this->waqi->getPrimaryPollutant();
 
         $this->assertValue($result, $expectedValue, 'string');
+    }
+
+    /**
+     * Tests that an UnknownStationException is thrown if an unknown monitoring station name is given upon get the
+     * stations' real-time observation.
+     *
+     * @test
+     * @expectedException \Azuyalabs\WAQI\Exceptions\UnknownStationException
+     */
+    public function shouldAllowValidStationNamesOnly(): void
+    {
+        $station = 'xxxx';
+
+        $this->waqi->shouldReceive('getObservationByStation')
+            ->once()
+            ->with($station)
+            ->andThrow(UnknownStationException::class);
+
+        $this->waqi->getObservationByStation($station);
     }
 
     /**
