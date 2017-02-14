@@ -24,12 +24,44 @@ Start with including the Composer autoload file in your project:
 <?php
 require 'vendor/autoload.php';
 ```
-Then, using your AQI access token, create an instance of the WAQI object:
+Using your AQI access token, create an instance of the WAQI object:
  
 ```php
 $waqi = new WAQI(<your access token>);
 ``` 
+
+Next, use the `getObservationByStation` method with the desired city or monitoring station name (e.g. 
+'new york'). This will obtain the latest air quality observations:
+
+```php
+$waqi->getObservationByStation('yokosuka');
+``` 
  
+If all goes well, use the various API methods to get details about the retrieved Air Quality Index of the chosen
+city or monitoring station.
+
+To get the AQI (Air Quality Index), use the method `getAQI`:
+
+```php
+$waqi->getAQI();
+``` 
+ 
+This returns an array structure containing the Air Quality Index measured at this monitoring station at the time of
+ measurement. It contains 4 elements:
+ - 'aqi': the AQI level (which is defined by the monitoring stations' dominant pollution type)
+ - 'pollution_level': a narrative describing the air pollution level
+ - 'health_implications': a narrative describing the health implications associated with the measured pollution level
+ - 'cautionary_statement': a cautionary statement associated with the measured pollution level (only for PM2.5)
+ 
+Example output (for 'New York'):
+`
+ - 'aqi': 15
+ - 'pollution_level': Good
+ - 'health_implications': Air quality is considered satisfactory, and air pollution poses little or no risk.
+ - 'cautionary_statement': None
+`
+                                       
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed.
