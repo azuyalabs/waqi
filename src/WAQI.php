@@ -92,7 +92,7 @@ class WAQI
         $_response_body = json_decode($response->getBody());
 
         if ($_response_body->status == 'ok') {
-            $this->raw_data = $_response_body;
+            $this->raw_data = $_response_body->data;
         } elseif ($_response_body->status == 'error') {
             switch ($_response_body->data) {
                 case 'Unknown station':
@@ -121,7 +121,7 @@ class WAQI
      */
     public function getAQI(): array
     {
-        $aqi = (int)$this->raw_data->data->aqi;
+        $aqi = (int)$this->raw_data->aqi;
 
         $narrative_level = '';
         $narrative_health = '';
@@ -184,7 +184,7 @@ class WAQI
      */
     public function getMeasurementTime(): DateTime
     {
-        return new DateTime($this->raw_data->data->time->s, new DateTimeZone($this->raw_data->data->time->tz));
+        return new DateTime($this->raw_data->time->s, new DateTimeZone($this->raw_data->time->tz));
     }
 
     /**
@@ -201,13 +201,13 @@ class WAQI
     public function getMonitoringStation(): array
     {
         return [
-            'id' => (int)$this->raw_data->data->idx,
-            'name' => (string)$this->raw_data->data->city->name,
+            'id' => (int)$this->raw_data->idx,
+            'name' => (string)$this->raw_data->city->name,
             'coordinates' => [
-                'latitude' => (float)$this->raw_data->data->city->geo[0],
-                'longitude' => (float)$this->raw_data->data->city->geo[1],
+                'latitude' => (float)$this->raw_data->city->geo[0],
+                'longitude' => (float)$this->raw_data->city->geo[1],
             ],
-            'url' => (string)$this->raw_data->data->city->url
+            'url' => (string)$this->raw_data->city->url
         ];
     }
 
@@ -220,7 +220,7 @@ class WAQI
      */
     public function getAttributions(): array
     {
-        return (array)json_decode(json_encode($this->raw_data->data->attributions), true);
+        return (array)json_decode(json_encode($this->raw_data->attributions), true);
     }
 
     /**
@@ -230,7 +230,7 @@ class WAQI
      */
     public function getHumidity(): float
     {
-        return (float)$this->raw_data->data->iaqi->h->v;
+        return (float)$this->raw_data->iaqi->h->v;
     }
 
     /**
@@ -240,7 +240,7 @@ class WAQI
      */
     public function getTemperature(): float
     {
-        return (float)$this->raw_data->data->iaqi->t->v;
+        return (float)$this->raw_data->iaqi->t->v;
     }
 
     /**
@@ -250,7 +250,7 @@ class WAQI
      */
     public function getPressure(): float
     {
-        return (float)$this->raw_data->data->iaqi->p->v;
+        return (float)$this->raw_data->iaqi->p->v;
     }
 
     /**
@@ -264,7 +264,7 @@ class WAQI
      */
     public function getCO()
     {
-        return $this->raw_data->data->iaqi->co->v ?? null;
+        return $this->raw_data->iaqi->co->v ?? null;
     }
 
     /**
@@ -279,7 +279,7 @@ class WAQI
      */
     public function getNO2()
     {
-        return $this->raw_data->data->iaqi->no2->v ?? null;
+        return $this->raw_data->iaqi->no2->v ?? null;
     }
 
     /**
@@ -293,7 +293,7 @@ class WAQI
      */
     public function getO3()
     {
-        return $this->raw_data->data->iaqi->o3->v ?? null;
+        return $this->raw_data->iaqi->o3->v ?? null;
     }
 
     /**
@@ -309,7 +309,7 @@ class WAQI
      */
     public function getPM10()
     {
-        return $this->raw_data->data->iaqi->pm10->v ?? null;
+        return $this->raw_data->iaqi->pm10->v ?? null;
     }
 
     /**
@@ -325,7 +325,7 @@ class WAQI
      */
     public function getPM25()
     {
-        return $this->raw_data->data->iaqi->pm25->v ?? null;
+        return $this->raw_data->iaqi->pm25->v ?? null;
     }
 
     /**
@@ -339,7 +339,7 @@ class WAQI
      */
     public function getSO2()
     {
-        return $this->raw_data->data->iaqi->so2->v ?? null;
+        return $this->raw_data->iaqi->so2->v ?? null;
     }
 
     /**
@@ -351,6 +351,6 @@ class WAQI
      */
     public function getPrimaryPollutant(): string
     {
-        return (string)$this->raw_data->data->dominentpol;
+        return (string)$this->raw_data->dominentpol;
     }
 }
