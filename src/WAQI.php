@@ -84,7 +84,6 @@ class WAQI
             if ($e->hasResponse()) {
                 echo Psr7\str($e->getResponse());
             }
-            echo $e->getMessage();
             exit();
         }
 
