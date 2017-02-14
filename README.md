@@ -1,4 +1,4 @@
-# A simple PHP Wrapper for the World Quality Index API
+# A simple PHP Wrapper for the World Air Quality Index API
 
 The [World Air Quality Index](http://waqi.info) project is an initiative to map the current and real-time air quality 
 around the globe. The Air Quality indexes are based on PM2.5, PM10, Ozone, NO2, SO2 and CO hourly measurements 
@@ -37,6 +37,7 @@ Next, use the `getObservationByStation` method with the desired city or monitori
 $waqi->getObservationByStation('new york');
 ``` 
  
+### Air Quality 
 If all goes well, use the various API methods to get details about the retrieved Air Quality Index of the chosen
 city or monitoring station.
 
@@ -60,7 +61,40 @@ Example output (for 'New York'):
  - 'health_implications': Air quality is considered satisfactory, and air pollution poses little or no risk.
  - 'cautionary_statement': None
 ```
+
+In addition to the general Air Quality Information, specific pollutant level information is available as well. Be aware
+that not every monitoring station captures all pollutant types, so some of these API functions may return 'null'.
+
+The following API functions are available to get specific pollutant level information:
+
+- `getCO()`: returns the carbon monoxide (CO) level measured at the monitoring station at the time of measurement.
+- `getNO2()`: returns the nitrogen dioxide (NO2) level measured at the monitoring station at the time of measurement.
+- `getO3()`: returns the ozone (O3) level measured at the monitoring station at the time of measurement.
+- `getSO2()`: returns the sulfur dioxide (SO2) level measured at the monitoring station at the time of measurement.
+- `getPM10()`: returns the level of particulate matter 10 micrometers or less (PM10), measured at this monitoring
+               station at the time of measurement.
+- `getPM25()`: returns the level of particulate matter 2.5 micrometers or less (PM2.5), measured at this monitoring
+               station at the time of measurement.
+               
+### Monitoring Station
+Information about the monitoring station can be obtained through two API methods. 
+
+First, using the API method `getMonitoringStation()`, will return information about the given monitoring station:
+ - 'id': the unique ID for this monitoring station
+ - 'name': the name (or description) of this monitoring station
+ - 'coordinates': the geographical coordinates of this monitoring station (array of 'longitude' and 'latitude')
+ - 'url': the URL of this monitoring station                                      
                                        
+Secondly, the API method `getAttributions()` will return a list of EPA attributions for this monitoring station.
+
+### Other
+Other API methods that provide additional information, are:
+  
+- `getMeasurementTime()`: returns the date/time the last measurement was taken. (as a DateTime object).
+- `getHumidity()`: returns the humidity (in %) measured at this monitoring station at the time of measurement.
+- `getTemperature()`: returns the temperature (in degrees Celsius) measured at this monitoring station at the time of measurement.
+- `getPressure()`: returns the barometric pressure (in millibars) measured at this monitoring station at the time of measurement.
+- `getPrimaryPollutant()`: returns the name of the primary pollutant at this monitoring station at the time of measurement (e.g. 'pm25').
 
 ## Changelog
 
