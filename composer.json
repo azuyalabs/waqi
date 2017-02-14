@@ -1,6 +1,6 @@
 {
   "name": "azuyalabs/waqi",
-  "description": "WAQI",
+  "description": "Simple PHP Wrapper for the World Air Quality Index API",
   "keywords": [
     "air quality",
     "AQI",
