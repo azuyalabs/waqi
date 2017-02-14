@@ -12,6 +12,7 @@
 
 namespace Azuyalabs\WAQI;
 
+use Azuyalabs\WAQI\Exceptions\QuotaExceededException;
 use Azuyalabs\WAQI\Exceptions\UnknownStationException;
 use DateTime;
 use DateTimeZone;
@@ -91,6 +92,8 @@ class WAQI
             switch ($_response_body->data) {
                 case 'Unknown station':
                     throw new UnknownStationException($station);
+                case 'Over quota':
+                    throw new QuotaExceededException();
             }
             exit();
         }

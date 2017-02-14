@@ -12,6 +12,7 @@
 
 namespace Azuyalabs\WAQI\Test;
 
+use Azuyalabs\WAQI\Exceptions\QuotaExceededException;
 use Azuyalabs\WAQI\Exceptions\UnknownStationException;
 use Azuyalabs\WAQI\WAQI;
 use Faker\Factory;
@@ -391,7 +392,7 @@ class WAQITest extends TestCase
      * @test
      * @expectedException \Azuyalabs\WAQI\Exceptions\UnknownStationException
      */
-    public function shouldAllowValidStationNamesOnly(): void
+    public function shouldRaiseExceptionWhenUnknownStationName(): void
     {
         $station = 'xxxx';
 
@@ -399,6 +400,24 @@ class WAQITest extends TestCase
             ->once()
             ->with($station)
             ->andThrow(UnknownStationException::class);
+
+        $this->waqi->getObservationByStation($station);
+    }
+
+    /**
+     * Tests that a QuotaExceededException is thrown when the API quota has been exceeded.
+     * The default quota is maximum 1000 (thousand) requests per minute.
+     *
+     * @test
+     * @expectedException \Azuyalabs\WAQI\Exceptions\QuotaExceededException
+     */
+    public function shouldRaiseExceptionWhenQuotaExceeded(): void
+    {
+        $station = 'new york';
+
+        $this->waqi->shouldReceive('getObservationByStation')
+            ->once()
+            ->andThrow(QuotaExceededException::class);
 
         $this->waqi->getObservationByStation($station);
     }
