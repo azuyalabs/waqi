@@ -11,7 +11,7 @@ Note: To make use of this package (and the underlying AQI API) an access token i
 token here: https://aqicn.org/data-platform/token.
 
 ## System Requirements
-You need PHP >= 7.0.0 to use 'azuyalabs/waqi'.
+You need PHP >= 7.1.0 to use 'azuyalabs/waqi'.
 
 ## Installation
 

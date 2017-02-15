@@ -1,10 +1,7 @@
 language: php
 
 php:
-  - 7.0
   - 7.1
-  - hhvm
-  - nightly
 
 cache:
   directories:
@@ -18,8 +15,3 @@ script:
   - ./vendor/bin/phpunit
   - phpenv config-rm xdebug.ini || return 0
   - ./vendor/bin/php-cs-fixer --diff --dry-run -v fix
-
-matrix:
-  allow_failures:
-    - php: hhvm
-    - php: nightly
