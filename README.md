@@ -1,3 +1,8 @@
+[![GitHub Release](https://img.shields.io/github/release/azuyalabs/waqi.svg?style=flat-square)](https://github.com/azuyalabs/waqi/releases)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Build Status](https://img.shields.io/travis/azuyalabs/waqi.svg?style=flat-square)](https://travis-ci.org/azuyalabs/waqi)
+[![StyleCI](https://styleci.io/repos/81889057/shield?branch=master)](https://styleci.io/repos/81889057)
+
 # A simple PHP Wrapper for the World Air Quality Index API
 
 The [World Air Quality Index](http://waqi.info) project is an initiative to map the current and real-time air quality 
@@ -11,7 +16,7 @@ Note: To make use of this package (and the underlying AQI API) an access token i
 token here: https://aqicn.org/data-platform/token.
 
 ## System Requirements
-You need PHP >= 7.1.0 to use 'azuyalabs/waqi'.
+You need *PHP >= 7.1.0* to use 'azuyalabs/waqi'.
 
 ## Installation
 
