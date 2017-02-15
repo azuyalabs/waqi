@@ -10,6 +10,9 @@ data feed (API) of the WAQI project.
 Note: To make use of this package (and the underlying AQI API) an access token is required. You can acquire your 
 token here: https://aqicn.org/data-platform/token.
 
+## System Requirements
+You need PHP >= 7.0.0 to use 'azuyalabs/waqi'.
+
 ## Installation
 
 You can pull in this package via composer:
