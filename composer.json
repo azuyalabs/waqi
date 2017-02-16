@@ -22,7 +22,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0.0",
+    "php": ">=7.1.0",
     "guzzlehttp/guzzle": "^6.2",
     "mockery/mockery": "^0.9",
     "friendsofphp/php-cs-fixer": "^2.1"
