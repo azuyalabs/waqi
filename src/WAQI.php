@@ -200,7 +200,7 @@ class WAQI
     {
         return [
             'id'          => (int)$this->raw_data->idx,
-            'name'        => (string)$this->raw_data->city->name,
+            'name'        => (string)html_entity_decode($this->raw_data->city->name),
             'coordinates' => [
                 'latitude'  => (float)$this->raw_data->city->geo[0],
                 'longitude' => (float)$this->raw_data->city->geo[1],
