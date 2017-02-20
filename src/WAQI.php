@@ -169,9 +169,9 @@ class WAQI
 
         return [
             'aqi'                  => (float)$aqi,
-            'pollution_level'      => (string)$narrative_level,
-            'health_implications'  => (string)$narrative_health,
-            'cautionary_statement' => (string)$narrative_cautionary
+            'pollution_level'      => $narrative_level,
+            'health_implications'  => $narrative_health,
+            'cautionary_statement' => $narrative_cautionary
         ];
     }
 
