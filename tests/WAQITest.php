@@ -26,12 +26,12 @@ use PHPUnit\Framework\TestCase;
 class WAQITest extends TestCase
 {
     /**
-     * @var object mock object representing the WAQI class
+     * @var Mockery mock object representing the WAQI class
      */
     private $waqi;
 
     /**
-     * @var object Faker object instance for randomizing test values
+     * @var Factory Faker object instance for randomizing test values
      */
     private $faker;
 
@@ -59,8 +59,7 @@ class WAQITest extends TestCase
 
         Mockery::close();
 
-        unset($this->faker);
-        unset($this->waqi);
+        unset($this->faker, $this->waqi);
     }
 
     /**
@@ -284,7 +283,7 @@ class WAQITest extends TestCase
         $result = $this->waqi->getMeasurementTime();
 
         $this->assertEquals($expectedValue, $result);
-        $this->assertInstanceOf('DateTime', $result);
+        $this->assertInstanceOf(\DateTime::class, $result);
         $this->assertNotEmpty($result);
         $this->assertNotNull($result);
     }
