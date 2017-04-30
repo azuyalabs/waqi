@@ -17,5 +17,5 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Removed type casting as variables are already of proper data type.
 
 
-## [1.0.0] 2017-02-15)
+## [1.0.0] 2017-02-15
 - Initial release
