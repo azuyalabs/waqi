@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 ### Changed
-- Update minimum requirement for PHP to 7.1.0
+- Minimum requirement for PHP to 7.1.0
 
 ### Fixed
 - Adjustment to the name of the monitoring station in case html entities are used.
