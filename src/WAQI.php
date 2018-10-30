@@ -261,7 +261,7 @@ class WAQI
      * @return float|null the carbon monoxide (CO) level measured at this monitoring station at the time of measurement.
      *                    If the monitoring station does not measure PM10 levels, a 'null' value is returned
      */
-    public function getCO()
+    public function getCO(): ?float
     {
         return $this->raw_data->iaqi->co->v ?? null;
     }
@@ -276,7 +276,7 @@ class WAQI
      *                    measurement. If the monitoring station does not measure PM10 levels, a 'null' value is
      *                    returned
      */
-    public function getNO2()
+    public function getNO2(): ?float
     {
         return $this->raw_data->iaqi->no2->v ?? null;
     }
@@ -290,7 +290,7 @@ class WAQI
      * @return float|null the ozone (O3) level measured at this monitoring station at the time of measurement. If the
      *                    monitoring station does not measure PM10 levels, a 'null' value is returned
      */
-    public function getO3()
+    public function getO3(): ?float
     {
         return $this->raw_data->iaqi->o3->v ?? null;
     }
@@ -306,7 +306,7 @@ class WAQI
      *                    station at the time of measurement. If the monitoring station does not measure PM10 levels,
      *                    a 'null' value is returned
      */
-    public function getPM10()
+    public function getPM10(): ?float
     {
         return $this->raw_data->iaqi->pm10->v ?? null;
     }
@@ -322,7 +322,7 @@ class WAQI
      *                    station at the time of measurement. If the monitoring station does not measure PM10 levels,
      *                    a 'null' value is returned
      */
-    public function getPM25()
+    public function getPM25(): ?float
     {
         return $this->raw_data->iaqi->pm25->v ?? null;
     }
@@ -336,7 +336,7 @@ class WAQI
      * @return float|null the sulfur dioxide (SO2) level measured at this monitoring station at the time of measurement.
      *                    If the monitoring station does not measure PM10 levels, a 'null' value is returned
      */
-    public function getSO2()
+    public function getSO2(): ?float
     {
         return $this->raw_data->iaqi->so2->v ?? null;
     }
