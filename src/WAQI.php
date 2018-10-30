@@ -32,12 +32,14 @@ class WAQI
      * The endpoint URL of the World Quality Index API.
      */
     private const API_ENDPOINT = 'https://api.waqi.info/api';
+
     /**
      * @var string World Air Quality access token
      */
     private $token;
+
     /**
-     * @var
+     * @var \stdClass Raw response data received from the World Quality Index API.
      */
     private $raw_data;
 
