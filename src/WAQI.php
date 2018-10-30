@@ -19,6 +19,7 @@ use DateTime;
 use DateTimeZone;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
 
@@ -84,6 +85,9 @@ class WAQI
             if ($e->hasResponse()) {
                 echo Psr7\str($e->getResponse());
             }
+            exit();
+        } catch (GuzzleException $e) {
+            $e->getMessage();
             exit();
         }
 
