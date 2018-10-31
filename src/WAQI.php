@@ -89,7 +89,7 @@ class WAQI
             }
             exit();
         } catch (GuzzleException $e) {
-            $e->getMessage();
+            echo $e->getMessage();
             exit();
         }
 
