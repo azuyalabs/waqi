@@ -16,19 +16,19 @@
   "authors": [
     {
       "name": "Sacha Telgenhof",
-      "email": "stelgenhof@gmail.com",
+      "email": "me@sachatelgenhof.com",
       "homepage": "https://www.sachatelgenhof.nl",
       "role": "Developer"
     }
   ],
   "require": {
     "php": ">=7.1.0",
-    "guzzlehttp/guzzle": "^6.2",
-    "mockery/mockery": "^0.9",
-    "friendsofphp/php-cs-fixer": "^2.1"
+    "guzzlehttp/guzzle": "^6.2"
   },
   "require-dev": {
-    "phpunit/phpunit": "^6.0",
+    "mockery/mockery": "^1.2",
+    "friendsofphp/php-cs-fixer": "^2.1",
+    "phpunit/phpunit": "^7.4",
     "fzaninotto/faker": "^1.6",
     "phpstan/phpstan": "^0.10"
   },
