@@ -19,6 +19,7 @@ use DateTime;
 use DateTimeZone;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
 
@@ -31,12 +32,14 @@ class WAQI
      * The endpoint URL of the World Quality Index API.
      */
     private const API_ENDPOINT = 'https://api.waqi.info/api';
+
     /**
      * @var string World Air Quality access token
      */
     private $token;
+
     /**
-     * @var
+     * @var \stdClass Raw response data received from the World Quality Index API.
      */
     private $raw_data;
 
@@ -84,6 +87,9 @@ class WAQI
             if ($e->hasResponse()) {
                 echo Psr7\str($e->getResponse());
             }
+            exit();
+        } catch (GuzzleException $e) {
+            echo $e->getMessage();
             exit();
         }
 
@@ -224,32 +230,36 @@ class WAQI
     /**
      * Returns the humidity (in %) measured at this monitoring station at the time of measurement.
      *
-     * @return float the humidity (in %) measured at this monitoring station at the time of measurement
+     * @return float|null the humidity (in %) measured at this monitoring station at the time of measurement.
+     *                    If the monitoring station does not measure humidity levels, a 'null' value is returned.
      */
-    public function getHumidity(): float
+    public function getHumidity(): ?float
     {
-        return (float)$this->raw_data->iaqi->h->v;
+        return $this->raw_data->iaqi->h->v ?? null;
     }
 
     /**
      * Returns the temperature (in degrees Celsius) measured at this monitoring station at the time of measurement.
      *
-     * @return float the temperature (in degrees Celsius) measured at this monitoring station at the time of measurement
+     * @return float|null the temperature (in degrees Celsius) measured at this monitoring station at the time of
+     *                    measurement. If the monitoring station does not measure temperature levels, a 'null' value is
+     *                    returned.
      */
-    public function getTemperature(): float
+    public function getTemperature(): ?float
     {
-        return (float)$this->raw_data->iaqi->t->v;
+        return $this->raw_data->iaqi->t->v ?? null;
     }
 
     /**
      * Returns the barometric pressure (in millibars) measured at this monitoring station at the time of measurement.
      *
-     * @return float the barometric pressure (in millibars) measured at this monitoring station at the time of
-     *               measurement
+     * @return float|null the barometric pressure (in millibars) measured at this monitoring station at the time of
+     *                    measurement. If the monitoring station does not barometric pressure levels, a 'null' value
+     *                    is returned.
      */
-    public function getPressure(): float
+    public function getPressure(): ?float
     {
-        return (float)$this->raw_data->iaqi->p->v;
+        return $this->raw_data->iaqi->p->v ?? null;
     }
 
     /**
@@ -259,9 +269,9 @@ class WAQI
      * Quality levels is using the US EPA 0-500 AQI scale.
      *
      * @return float|null the carbon monoxide (CO) level measured at this monitoring station at the time of measurement.
-     *                    If the monitoring station does not measure PM10 levels, a 'null' value is returned
+     *                    If the monitoring station does not measure PM10 levels, a 'null' value is returned.
      */
-    public function getCO()
+    public function getCO(): ?float
     {
         return $this->raw_data->iaqi->co->v ?? null;
     }
@@ -274,9 +284,9 @@ class WAQI
      *
      * @return float|null the nitrogen dioxide (NO2) level measured at this monitoring station at the time of
      *                    measurement. If the monitoring station does not measure PM10 levels, a 'null' value is
-     *                    returned
+     *                    returned.
      */
-    public function getNO2()
+    public function getNO2(): ?float
     {
         return $this->raw_data->iaqi->no2->v ?? null;
     }
@@ -290,7 +300,7 @@ class WAQI
      * @return float|null the ozone (O3) level measured at this monitoring station at the time of measurement. If the
      *                    monitoring station does not measure PM10 levels, a 'null' value is returned
      */
-    public function getO3()
+    public function getO3(): ?float
     {
         return $this->raw_data->iaqi->o3->v ?? null;
     }
@@ -306,7 +316,7 @@ class WAQI
      *                    station at the time of measurement. If the monitoring station does not measure PM10 levels,
      *                    a 'null' value is returned
      */
-    public function getPM10()
+    public function getPM10(): ?float
     {
         return $this->raw_data->iaqi->pm10->v ?? null;
     }
@@ -322,7 +332,7 @@ class WAQI
      *                    station at the time of measurement. If the monitoring station does not measure PM10 levels,
      *                    a 'null' value is returned
      */
-    public function getPM25()
+    public function getPM25(): ?float
     {
         return $this->raw_data->iaqi->pm25->v ?? null;
     }
@@ -336,7 +346,7 @@ class WAQI
      * @return float|null the sulfur dioxide (SO2) level measured at this monitoring station at the time of measurement.
      *                    If the monitoring station does not measure PM10 levels, a 'null' value is returned
      */
-    public function getSO2()
+    public function getSO2(): ?float
     {
         return $this->raw_data->iaqi->so2->v ?? null;
     }
