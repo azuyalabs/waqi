@@ -451,7 +451,7 @@ class WAQITest extends TestCase
     {
         $this->assertEquals($expectedValue, $result);
         $this->assertInternalType($type, $result);
-        if (is_object($result)) {
+        if (\is_object($result)) {
             $this->assertInstanceOf($type, $result);
         } else {
             $this->assertInternalType($type, $result);
