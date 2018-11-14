@@ -59,7 +59,7 @@ class WAQI
     /**
      * Retrieves the real-time Air Quality Index observation monitoring station name (or city name).
      *
-     * If the $station argument is left blank, the Air Quality Index observation is obtained of the nearest monitoring
+     * If the $station argument is left out, the Air Quality Index observation is obtained of the nearest monitoring
      * station close to the user location (based on the user's public IP address)
      *
      * @param string $station name of the monitoring station (or city name). This parameter can be left blank to get the
@@ -69,11 +69,17 @@ class WAQI
      * @throws \Azuyalabs\WAQI\Exceptions\UnknownStationException
      * @throws \Azuyalabs\WAQI\Exceptions\QuotaExceededException
      * @throws \Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException
+     * @throws \UnexpectedValueException
      *
      * @return void
      */
     public function getObservationByStation(string $station = 'here'): void
     {
+        // Throw an UnexpectedValueException in case the station argument is given but empty
+        if (empty($station)) {
+            throw new \UnexpectedValueException(sprintf('Monitoring station or city "%s" is an invalid value.', $station));
+        }
+
         $client = new Client(['base_uri' => self::API_ENDPOINT]);
 
         try {
