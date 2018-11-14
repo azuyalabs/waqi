@@ -104,15 +104,16 @@ class WAQI
         if ($_response_body->status === 'ok') {
             $this->raw_data = $_response_body->data;
         } elseif ($_response_body->status === 'error') {
-            switch ($_response_body->data) {
-                case 'Unknown station':
-                    throw new UnknownStationException($station);
-                case 'Over quota':
-                    throw new QuotaExceededException();
-                case 'Invalid key':
-                    throw new InvalidAccessTokenException();
+            if (isset($_response_body->data)) {
+                switch ($_response_body->data) {
+                    case 'Unknown station':
+                        throw new UnknownStationException($station);
+                    case 'Over quota':
+                        throw new QuotaExceededException();
+                    case 'Invalid key':
+                        throw new InvalidAccessTokenException();
+                }
             }
-            exit();
         }
     }
 
