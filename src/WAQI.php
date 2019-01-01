@@ -77,7 +77,7 @@ class WAQI
     {
         // Throw an UnexpectedValueException in case the station argument is given but empty
         if (empty($station)) {
-            throw new \UnexpectedValueException(sprintf('Monitoring station or city "%s" is an invalid value.', $station));
+            throw new \UnexpectedValueException(\sprintf('Monitoring station or city "%s" is an invalid value.', $station));
         }
 
         $client = new Client(['base_uri' => self::API_ENDPOINT]);
@@ -99,7 +99,7 @@ class WAQI
             exit();
         }
 
-        $_response_body = json_decode($response->getBody());
+        $_response_body = \json_decode($response->getBody());
 
         if ($_response_body->status === 'ok') {
             $this->raw_data = $_response_body->data;
@@ -213,7 +213,7 @@ class WAQI
     {
         return [
             'id'          => (int)$this->raw_data->idx,
-            'name'        => (string)html_entity_decode($this->raw_data->city->name),
+            'name'        => (string)\html_entity_decode($this->raw_data->city->name),
             'coordinates' => [
                 'latitude'  => (float)$this->raw_data->city->geo[0],
                 'longitude' => (float)$this->raw_data->city->geo[1],
@@ -231,7 +231,7 @@ class WAQI
      */
     public function getAttributions(): array
     {
-        return (array)json_decode(json_encode($this->raw_data->attributions), true);
+        return (array)\json_decode(\json_encode($this->raw_data->attributions), true);
     }
 
     /**
