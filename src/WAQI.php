@@ -117,6 +117,38 @@ class WAQI
         }
     }
 
+    public function getObservationByGeoLocation(float $latitude, float $longitude): void
+    {
+        $client = new Client(['base_uri' => self::API_ENDPOINT]);
+
+        try {
+            $response = $client->request('GET', 'feed/geo:' . $latitude . ';' . $longitude . '/', ['query' => 'token='.$this->token]);
+
+        } catch (ClientException $e) {
+            echo Psr7\str($e->getRequest());
+            echo Psr7\str($e->getResponse());
+            exit();
+        } catch (RequestException $e) {
+            echo Psr7\str($e->getRequest());
+            if ($e->hasResponse()) {
+                echo Psr7\str($e->getResponse());
+            }
+            exit();
+        } catch (GuzzleException $e) {
+            echo $e->getMessage();
+            exit();
+        }
+
+        $_response_body = json_decode($response->getBody());
+
+        if ($_response_body->status === 'ok') {
+            $this->raw_data = $_response_body->data;
+        } elseif ($_response_body->status === 'error') {
+            throw new \Exception("Error with your code");
+            exit();
+        }
+    }
+
     /**
      * Returns information about the Air Quality Index measured at this monitoring station at the time of measurement.
      *
