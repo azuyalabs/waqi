@@ -120,7 +120,7 @@ class WAQI
     public function getObservationByGeoLocation(float $latitude, float $longitude): void
     {
         $client = new Client(['base_uri' => self::API_ENDPOINT]);
-        
+
         try {
             $response = $client->request('GET', 'feed/geo:' . $latitude . ';' . $longitude . '/', ['query' => 'token='.$this->token]);
         } catch (ClientException $e) {
@@ -138,7 +138,7 @@ class WAQI
             exit();
         }
 
-        $_response_body = json_decode($response->getBody());
+        $_response_body = \json_decode($response->getBody());
 
         if ($_response_body->status === 'ok') {
             $this->raw_data = $_response_body->data;
