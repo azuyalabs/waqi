@@ -23,13 +23,14 @@
   ],
   "require": {
     "php": ">=7.1.0",
-    "guzzlehttp/guzzle": "^6.2"
+    "guzzlehttp/guzzle": "^6.3",
+    "ext-json": "*"
   },
   "require-dev": {
     "mockery/mockery": "^1.2",
-    "friendsofphp/php-cs-fixer": "^2.1",
+    "friendsofphp/php-cs-fixer": "^2.15",
     "phpunit/phpunit": "^7.4",
-    "fzaninotto/faker": "^1.6",
+    "fzaninotto/faker": "^1.8",
     "phpstan/phpstan": "^0.10"
   },
   "autoload": {
@@ -44,6 +45,6 @@
   },
   "scripts": {
     "test": "vendor/bin/phpunit",
-    "php-cs-fixer": "vendor/bin/php-cs-fixer fix ."
+    "format": "vendor/bin/php-cs-fixer fix ."
   }
 }
