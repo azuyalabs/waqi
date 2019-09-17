@@ -99,7 +99,7 @@ class WAQI
             exit();
         }
 
-        $_response_body = \json_decode($response->getBody());
+        $_response_body = \json_decode($response->getBody(), false);
 
         if ($_response_body->status === 'ok') {
             $this->raw_data = $_response_body->data;
@@ -192,6 +192,8 @@ class WAQI
      * Returns the date/time the last measurement was taken.
      *
      * @return DateTime the date/time the last measurement was taken
+     *
+     * @throws \Exception
      */
     public function getMeasurementTime(): DateTime
     {
