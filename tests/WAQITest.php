@@ -303,9 +303,9 @@ class WAQITest extends TestCase
             'name'        => $this->faker->text(50),
             'coordinates' => [
                 'latitude'  => $this->faker->latitude(),
-                'longitude' => $this->faker->longitude()
+                'longitude' => $this->faker->longitude(),
             ],
-            'url'         => $this->faker->url()
+            'url' => $this->faker->url(),
         ];
 
         $this->waqi->shouldReceive('getMonitoringStation')
@@ -342,7 +342,7 @@ class WAQITest extends TestCase
             'aqi'                  => $this->faker->randomFloat(2, 0, 500),
             'pollution_level'      => $this->faker->text(50),
             'health_implications'  => $this->faker->text(150),
-            'cautionary_statement' => $this->faker->text(150)
+            'cautionary_statement' => $this->faker->text(150),
         ];
 
         $this->waqi->shouldReceive('getAQI')

@@ -184,7 +184,7 @@ class WAQI
             'aqi'                  => (float)$aqi,
             'pollution_level'      => $narrative_level,
             'health_implications'  => $narrative_health,
-            'cautionary_statement' => $narrative_cautionary
+            'cautionary_statement' => $narrative_cautionary,
         ];
     }
 
@@ -218,7 +218,7 @@ class WAQI
                 'latitude'  => (float)$this->raw_data->city->geo[0],
                 'longitude' => (float)$this->raw_data->city->geo[1],
             ],
-            'url'         => (string)$this->raw_data->city->url
+            'url' => (string)$this->raw_data->city->url,
         ];
     }
 
