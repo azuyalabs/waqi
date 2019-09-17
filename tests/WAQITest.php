@@ -270,6 +270,7 @@ class WAQITest extends TestCase
      * @covers \Azuyalabs\WAQI\WAQI::getMeasurementTime()
      *
      * @return void
+     * @throws \Exception
      */
     public function shouldGetMeasurementTime(): void
     {
@@ -283,7 +284,6 @@ class WAQITest extends TestCase
         $result = $this->waqi->getMeasurementTime();
 
         $this->assertEquals($expectedValue, $result);
-        $this->assertInstanceOf(\DateTime::class, $result);
         $this->assertNotEmpty($result);
         $this->assertNotNull($result);
     }
@@ -388,7 +388,7 @@ class WAQITest extends TestCase
      * stations' real-time observation.
      *
      * @test
-     * @expectedException \Azuyalabs\WAQI\Exceptions\UnknownStationException
+     * @expectedException UnknownStationException
      */
     public function shouldRaiseExceptionWhenUnknownStationName(): void
     {
@@ -407,7 +407,7 @@ class WAQITest extends TestCase
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
      * @test
-     * @expectedException \Azuyalabs\WAQI\Exceptions\QuotaExceededException
+     * @expectedException QuotaExceededException
      */
     public function shouldRaiseExceptionWhenQuotaExceeded(): void
     {
@@ -426,7 +426,7 @@ class WAQITest extends TestCase
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
      * @test
-     * @expectedException \Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException
+     * @expectedException InvalidAccessTokenException
      */
     public function shouldRaiseExceptionWhenInvalidToken(): void
     {
@@ -443,8 +443,8 @@ class WAQITest extends TestCase
     /**
      * Performs basic assertions on a result value.
      *
-     * @param        $result        mixed the value to be asserted
-     * @param        $expectedValue mixed the expected value
+     * @param mixed $result the value to be asserted
+     * @param mixed $expectedValue the expected value
      * @param string $type          the internal type representing the given value (e.g. 'int', 'string', etc.)
      */
     private function assertValue($result, $expectedValue, string $type): void

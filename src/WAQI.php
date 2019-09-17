@@ -101,9 +101,9 @@ class WAQI
 
         $_response_body = \json_decode($response->getBody(), false);
 
-        if ($_response_body->status === 'ok') {
+        if ('ok' === $_response_body->status) {
             $this->raw_data = $_response_body->data;
-        } elseif ($_response_body->status === 'error') {
+        } elseif ('error' === $_response_body->status) {
             if (isset($_response_body->data)) {
                 switch ($_response_body->data) {
                     case 'Unknown station':
