@@ -66,12 +66,12 @@ class WAQI
      *                        observation of the nearest monitoring station close to the user location (based on the
      *                        user's public IP address)
      *
-     * @throws \Azuyalabs\WAQI\Exceptions\UnknownStationException
-     * @throws \Azuyalabs\WAQI\Exceptions\QuotaExceededException
-     * @throws \Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException
+     * @return void
+     * @throws QuotaExceededException
+     * @throws InvalidAccessTokenException
      * @throws \UnexpectedValueException
      *
-     * @return void
+     * @throws UnknownStationException
      */
     public function getObservationByStation(string $station = 'here'): void
     {
