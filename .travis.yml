@@ -5,7 +5,7 @@ php:
 
 cache:
   directories:
-    -$HOME/.composer/cache
+    - $HOME/.composer/cache
 
 before_script:
   - composer self-update
