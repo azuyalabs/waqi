@@ -384,12 +384,12 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that an UnknownStationException is thrown if an unknown monitoring station name is given upon get the
+     * Tests that an UnknownStationException for getObservationByStation is thrown if an unknown monitoring station name is given upon get the
      * stations' real-time observation.
      *
      * @test
      */
-    public function shouldRaiseExceptionWhenUnknownStationName(): void
+    public function shouldRaiseExceptionWhenUnknownStationNameByStation(): void
     {
         $this->expectException(UnknownStation::class);
         $station = 'xxxx';
@@ -403,12 +403,12 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a QuotaExceededException is thrown when the API quota has been exceeded.
+     * Tests that a QuotaExceededException for getObservationByStation is thrown when the API quota has been exceeded.
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
      * @test
      */
-    public function shouldRaiseExceptionWhenQuotaExceeded(): void
+    public function shouldRaiseExceptionWhenQuotaExceededByStation(): void
     {
         $this->expectException(QuotaExceeded::class);
         $station = $this->faker->city;
@@ -422,12 +422,12 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that an InvalidAccessTokenException is thrown when an invalid access token is provided
+     * Tests that an InvalidAccessTokenException for getObservationByStationis thrown when an invalid access token is provided
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
      * @test
      */
-    public function shouldRaiseExceptionWhenInvalidToken(): void
+    public function shouldRaiseExceptionWhenInvalidTokenByStation(): void
     {
         $this->expectException(InvalidAccessToken::class);
         $station = $this->faker->city;
@@ -438,6 +438,46 @@ class WAQITest extends TestCase
             ->andThrow(InvalidAccessToken::class);
 
         $this->waqi->getObservationByStation($station);
+    }
+    
+    /**
+     * Tests that a QuotaExceededException for getObservationByGeoLocation is thrown when the API quota has been exceeded.
+     * The default quota is maximum 1000 (thousand) requests per minute.
+     *
+     * @test
+     * @expectedException \Azuyalabs\WAQI\Exceptions\QuotaExceeded
+     */
+    public function shouldRaiseExceptionWhenQuotaExceededByGeoLocation(): void
+    {
+        $latitude = $this->faker->latitude;
+        $longitude = $this->faker->longitude;
+
+        $this->waqi->shouldReceive('getObservationByGeoLocation')
+            ->once()
+            ->with($latitude, $longitude)
+            ->andThrow(QuotaExceeded::class);
+
+        $this->waqi->getObservationByGeoLocation($latitude, $longitude);
+    }
+
+    /**
+     * Tests that an InvalidAccessTokenException for getObservationByGeoLocation is thrown when an invalid access token is provided
+     * The default quota is maximum 1000 (thousand) requests per minute.
+     *
+     * @test
+     * @expectedException \Azuyalabs\WAQI\Exceptions\InvalidAccessToken
+     */
+    public function shouldRaiseExceptionWhenInvalidTokenByGeoLocation(): void
+    {
+        $latitude = $this->faker->latitude;
+        $longitude = $this->faker->longitude;
+
+        $this->waqi->shouldReceive('getObservationByGeoLocation')
+            ->once()
+            ->with($latitude, $longitude)
+            ->andThrow(InvalidAccessToken::class);
+
+        $this->waqi->getObservationByGeoLocation($latitude, $longitude);
     }
 
     /**

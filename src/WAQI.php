@@ -133,13 +133,19 @@ class WAQI
             exit();
         }
 
-        $_response_body = \json_decode($response->getBody());
+        $_response_body = \json_decode(Psr7\copy_to_string($response->getBody()), false);
 
         if ($_response_body->status === 'ok') {
             $this->raw_data = $_response_body->data;
         } elseif ($_response_body->status === 'error') {
-            throw new \Exception("Error with your code");
-            exit();
+            if (isset($_response_body->data)) {
+                switch ($_response_body->data) {
+                    case 'Invalid key':
+                        throw new InvalidAccessToken();
+                    case 'Over quota':
+                        throw new QuotaExceeded();
+                }
+            }
         }
     }
 
