@@ -15,15 +15,19 @@ namespace Azuyalabs\WAQI\Exceptions;
 use Exception;
 
 /**
- * Class for representing the exception that an invalid access token has been given.
+ * Class for representing the exception that the use of the WAQI API usage quota has been exceeded.
+ *
+ * The default quota is maximum 1000 (thousand) requests per minute.
+ *
+ * @link http://aqicn.org/api
  */
-class InvalidAccessTokenException extends Exception
+class QuotaExceeded extends Exception
 {
     /**
-     * InvalidAccessTokenException constructor.
+     * QuotaExceeded constructor.
      */
     public function __construct()
     {
-        parent::__construct('Invalid access token');
+        parent::__construct('Request Quota has been exceeded');
     }
 }

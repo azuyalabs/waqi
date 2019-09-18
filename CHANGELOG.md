@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Replaced FQN by use of imports.
 - Dropped unnecessary arguments in some functions as they are the same as the default.
 - Included conversion from StreamInterface to string when receiving the response from the HTTP client.
+- Removed the 'Exception' part of the exception class names as it is superfluous.
 
 ### Fixed
 - Changed visibility of fixture methods in the test class to 'private'. [\#2](https://github.com/azuyalabs/waqi/pull/2) ([peter279k](https://github.com/peter279k))

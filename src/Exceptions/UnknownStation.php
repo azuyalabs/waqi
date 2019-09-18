@@ -17,10 +17,10 @@ use Exception;
 /**
  * Class for representing the exception that the WAQI API does not know the given monitoring station or city name.
  */
-class UnknownStationException extends Exception
+class UnknownStation extends Exception
 {
     /**
-     * UnknownStationException constructor.
+     * UnknownStation constructor.
      *
      * @param string $station the name of the unknown monitoring station or city name
      */

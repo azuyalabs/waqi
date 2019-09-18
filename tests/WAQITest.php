@@ -12,9 +12,9 @@
 
 namespace Azuyalabs\WAQI\Test;
 
-use Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException;
-use Azuyalabs\WAQI\Exceptions\QuotaExceededException;
-use Azuyalabs\WAQI\Exceptions\UnknownStationException;
+use Azuyalabs\WAQI\Exceptions\InvalidAccessToken;
+use Azuyalabs\WAQI\Exceptions\QuotaExceeded;
+use Azuyalabs\WAQI\Exceptions\UnknownStation;
 use Azuyalabs\WAQI\WAQI;
 use Faker\Factory;
 use Mockery;
@@ -391,13 +391,13 @@ class WAQITest extends TestCase
      */
     public function shouldRaiseExceptionWhenUnknownStationName(): void
     {
-        $this->expectException(UnknownStationException::class);
+        $this->expectException(UnknownStation::class);
         $station = 'xxxx';
 
         $this->waqi->shouldReceive('getObservationByStation')
             ->once()
             ->with($station)
-            ->andThrow(UnknownStationException::class);
+            ->andThrow(UnknownStation::class);
 
         $this->waqi->getObservationByStation($station);
     }
@@ -410,13 +410,13 @@ class WAQITest extends TestCase
      */
     public function shouldRaiseExceptionWhenQuotaExceeded(): void
     {
-        $this->expectException(QuotaExceededException::class);
+        $this->expectException(QuotaExceeded::class);
         $station = $this->faker->city;
 
         $this->waqi->shouldReceive('getObservationByStation')
             ->once()
             ->with($station)
-            ->andThrow(QuotaExceededException::class);
+            ->andThrow(QuotaExceeded::class);
 
         $this->waqi->getObservationByStation($station);
     }
@@ -429,13 +429,13 @@ class WAQITest extends TestCase
      */
     public function shouldRaiseExceptionWhenInvalidToken(): void
     {
-        $this->expectException(InvalidAccessTokenException::class);
+        $this->expectException(InvalidAccessToken::class);
         $station = $this->faker->city;
 
         $this->waqi->shouldReceive('getObservationByStation')
             ->once()
             ->with($station)
-            ->andThrow(InvalidAccessTokenException::class);
+            ->andThrow(InvalidAccessToken::class);
 
         $this->waqi->getObservationByStation($station);
     }

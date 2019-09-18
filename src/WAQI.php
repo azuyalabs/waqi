@@ -12,9 +12,9 @@
 
 namespace Azuyalabs\WAQI;
 
-use Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException;
-use Azuyalabs\WAQI\Exceptions\QuotaExceededException;
-use Azuyalabs\WAQI\Exceptions\UnknownStationException;
+use Azuyalabs\WAQI\Exceptions\InvalidAccessToken;
+use Azuyalabs\WAQI\Exceptions\QuotaExceeded;
+use Azuyalabs\WAQI\Exceptions\UnknownStation;
 use DateTime;
 use DateTimeZone;
 use GuzzleHttp\Client;
@@ -67,11 +67,11 @@ class WAQI
      *                        user's public IP address)
      *
      * @return void
-     * @throws QuotaExceededException
-     * @throws InvalidAccessTokenException
+     * @throws QuotaExceeded
+     * @throws InvalidAccessToken
      * @throws \UnexpectedValueException
      *
-     * @throws UnknownStationException
+     * @throws UnknownStation
      */
     public function getObservationByStation(?string $station = null): void
     {
@@ -102,11 +102,11 @@ class WAQI
             if (isset($_response_body->data)) {
                 switch ($_response_body->data) {
                     case 'Unknown station':
-                        throw new UnknownStationException($station);
+                        throw new UnknownStation($station);
                     case 'Over quota':
-                        throw new QuotaExceededException();
+                        throw new QuotaExceeded();
                     case 'Invalid key':
-                        throw new InvalidAccessTokenException();
+                        throw new InvalidAccessToken();
                 }
             }
         }
