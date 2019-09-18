@@ -99,7 +99,7 @@ class WAQI
             exit();
         }
 
-        $_response_body = \json_decode($response->getBody(), false);
+        $_response_body = \json_decode(Psr7\copy_to_string($response->getBody()), false);
 
         if ('ok' === $_response_body->status) {
             $this->raw_data = $_response_body->data;
