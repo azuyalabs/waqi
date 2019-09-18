@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of the WAQI (World Air Quality Index) package.
  *
@@ -7,14 +7,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 namespace Azuyalabs\WAQI\Test;
 
-use Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException;
-use Azuyalabs\WAQI\Exceptions\QuotaExceededException;
-use Azuyalabs\WAQI\Exceptions\UnknownStationException;
+use Azuyalabs\WAQI\Exceptions\InvalidAccessToken;
+use Azuyalabs\WAQI\Exceptions\QuotaExceeded;
+use Azuyalabs\WAQI\Exceptions\UnknownStation;
 use Azuyalabs\WAQI\WAQI;
 use Faker\Factory;
 use Mockery;
@@ -270,6 +270,7 @@ class WAQITest extends TestCase
      * @covers \Azuyalabs\WAQI\WAQI::getMeasurementTime()
      *
      * @return void
+     * @throws \Exception
      */
     public function shouldGetMeasurementTime(): void
     {
@@ -283,7 +284,6 @@ class WAQITest extends TestCase
         $result = $this->waqi->getMeasurementTime();
 
         $this->assertEquals($expectedValue, $result);
-        $this->assertInstanceOf(\DateTime::class, $result);
         $this->assertNotEmpty($result);
         $this->assertNotNull($result);
     }
@@ -299,13 +299,13 @@ class WAQITest extends TestCase
     public function shouldGetMonitoringStationInformation(): void
     {
         $expectedValue = [
-            'id'          => $this->faker->randomDigitNotNull(),
-            'name'        => $this->faker->text(50),
+            'id' => $this->faker->randomDigitNotNull(),
+            'name' => $this->faker->text(50),
             'coordinates' => [
-                'latitude'  => $this->faker->latitude(),
-                'longitude' => $this->faker->longitude()
+                'latitude' => $this->faker->latitude(),
+                'longitude' => $this->faker->longitude(),
             ],
-            'url'         => $this->faker->url()
+            'url' => $this->faker->url(),
         ];
 
         $this->waqi->shouldReceive('getMonitoringStation')
@@ -339,10 +339,10 @@ class WAQITest extends TestCase
     public function shouldGetAQIInformation(): void
     {
         $expectedValue = [
-            'aqi'                  => $this->faker->randomFloat(2, 0, 500),
-            'pollution_level'      => $this->faker->text(50),
-            'health_implications'  => $this->faker->text(150),
-            'cautionary_statement' => $this->faker->text(150)
+            'aqi' => $this->faker->randomFloat(2, 0, 500),
+            'pollution_level' => $this->faker->text(50),
+            'health_implications' => $this->faker->text(150),
+            'cautionary_statement' => $this->faker->text(150),
         ];
 
         $this->waqi->shouldReceive('getAQI')
@@ -388,16 +388,16 @@ class WAQITest extends TestCase
      * stations' real-time observation.
      *
      * @test
-     * @expectedException \Azuyalabs\WAQI\Exceptions\UnknownStationException
      */
     public function shouldRaiseExceptionWhenUnknownStationName(): void
     {
+        $this->expectException(UnknownStation::class);
         $station = 'xxxx';
 
         $this->waqi->shouldReceive('getObservationByStation')
             ->once()
             ->with($station)
-            ->andThrow(UnknownStationException::class);
+            ->andThrow(UnknownStation::class);
 
         $this->waqi->getObservationByStation($station);
     }
@@ -407,16 +407,16 @@ class WAQITest extends TestCase
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
      * @test
-     * @expectedException \Azuyalabs\WAQI\Exceptions\QuotaExceededException
      */
     public function shouldRaiseExceptionWhenQuotaExceeded(): void
     {
+        $this->expectException(QuotaExceeded::class);
         $station = $this->faker->city;
 
         $this->waqi->shouldReceive('getObservationByStation')
             ->once()
             ->with($station)
-            ->andThrow(QuotaExceededException::class);
+            ->andThrow(QuotaExceeded::class);
 
         $this->waqi->getObservationByStation($station);
     }
@@ -426,16 +426,16 @@ class WAQITest extends TestCase
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
      * @test
-     * @expectedException \Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException
      */
     public function shouldRaiseExceptionWhenInvalidToken(): void
     {
+        $this->expectException(InvalidAccessToken::class);
         $station = $this->faker->city;
 
         $this->waqi->shouldReceive('getObservationByStation')
             ->once()
             ->with($station)
-            ->andThrow(InvalidAccessTokenException::class);
+            ->andThrow(InvalidAccessToken::class);
 
         $this->waqi->getObservationByStation($station);
     }
@@ -443,20 +443,14 @@ class WAQITest extends TestCase
     /**
      * Performs basic assertions on a result value.
      *
-     * @param        $result        mixed the value to be asserted
-     * @param        $expectedValue mixed the expected value
-     * @param string $type          the internal type representing the given value (e.g. 'int', 'string', etc.)
+     * @param mixed $result the value to be asserted
+     * @param mixed $expectedValue the expected value
+     * @param string $type the internal type representing the given value (e.g. 'int', 'string', etc.)
      */
     private function assertValue($result, $expectedValue, string $type): void
     {
         $this->assertEquals($expectedValue, $result);
-        $this->assertInternalType($type, $result);
-        if (\is_object($result)) {
-            $this->assertInstanceOf($type, $result);
-        } else {
-            $this->assertInternalType($type, $result);
-        }
-
+        $this->{'assertIs' . \ucfirst($type)}($result);
         $this->assertNotEmpty($result);
         $this->assertNotNull($result);
     }
@@ -464,8 +458,8 @@ class WAQITest extends TestCase
     /**
      * Performs basic assertions on a pollutant level value.
      *
-     * @param string $method        the class method that obtains the pollutant level value
-     * @param float  $expectedValue the expected value the provided method should be
+     * @param string $method the class method that obtains the pollutant level value
+     * @param float $expectedValue the expected value the provided method should be
      */
     private function assertPollutantLevel(string $method, float $expectedValue): void
     {

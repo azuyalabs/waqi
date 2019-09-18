@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of the WAQI (World Air Quality Index) package.
  *
@@ -7,14 +7,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 namespace Azuyalabs\WAQI;
 
-use Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException;
-use Azuyalabs\WAQI\Exceptions\QuotaExceededException;
-use Azuyalabs\WAQI\Exceptions\UnknownStationException;
+use Azuyalabs\WAQI\Exceptions\InvalidAccessToken;
+use Azuyalabs\WAQI\Exceptions\QuotaExceeded;
+use Azuyalabs\WAQI\Exceptions\UnknownStation;
 use DateTime;
 use DateTimeZone;
 use GuzzleHttp\Client;
@@ -66,24 +66,19 @@ class WAQI
      *                        observation of the nearest monitoring station close to the user location (based on the
      *                        user's public IP address)
      *
-     * @throws \Azuyalabs\WAQI\Exceptions\UnknownStationException
-     * @throws \Azuyalabs\WAQI\Exceptions\QuotaExceededException
-     * @throws \Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException
+     * @return void
+     * @throws QuotaExceeded
+     * @throws InvalidAccessToken
      * @throws \UnexpectedValueException
      *
-     * @return void
+     * @throws UnknownStation
      */
-    public function getObservationByStation(string $station = 'here'): void
+    public function getObservationByStation(?string $station = null): void
     {
-        // Throw an UnexpectedValueException in case the station argument is given but empty
-        if (empty($station)) {
-            throw new \UnexpectedValueException(\sprintf('Monitoring station or city "%s" is an invalid value.', $station));
-        }
-
         $client = new Client(['base_uri' => self::API_ENDPOINT]);
 
         try {
-            $response = $client->request('GET', 'feed/'.$station.'/', ['query' => 'token='.$this->token]);
+            $response = $client->request('GET', 'feed/' . ($station ?? 'here') . '/', ['query' => 'token=' . $this->token]);
         } catch (ClientException $e) {
             echo Psr7\str($e->getRequest());
             echo Psr7\str($e->getResponse());
@@ -99,19 +94,19 @@ class WAQI
             exit();
         }
 
-        $_response_body = \json_decode($response->getBody());
+        $_response_body = \json_decode(Psr7\copy_to_string($response->getBody()), false);
 
-        if ($_response_body->status === 'ok') {
+        if ('ok' === $_response_body->status) {
             $this->raw_data = $_response_body->data;
-        } elseif ($_response_body->status === 'error') {
+        } elseif ('error' === $_response_body->status) {
             if (isset($_response_body->data)) {
                 switch ($_response_body->data) {
                     case 'Unknown station':
-                        throw new UnknownStationException($station);
+                        throw new UnknownStation($station);
                     case 'Over quota':
-                        throw new QuotaExceededException();
+                        throw new QuotaExceeded();
                     case 'Invalid key':
-                        throw new InvalidAccessTokenException();
+                        throw new InvalidAccessToken();
                 }
             }
         }
@@ -212,10 +207,10 @@ class WAQI
         }
 
         return [
-            'aqi'                  => (float)$aqi,
-            'pollution_level'      => $narrative_level,
-            'health_implications'  => $narrative_health,
-            'cautionary_statement' => $narrative_cautionary
+            'aqi' => (float)$aqi,
+            'pollution_level' => $narrative_level,
+            'health_implications' => $narrative_health,
+            'cautionary_statement' => $narrative_cautionary,
         ];
     }
 
@@ -223,6 +218,8 @@ class WAQI
      * Returns the date/time the last measurement was taken.
      *
      * @return DateTime the date/time the last measurement was taken
+     *
+     * @throws \Exception
      */
     public function getMeasurementTime(): DateTime
     {
@@ -243,13 +240,13 @@ class WAQI
     public function getMonitoringStation(): array
     {
         return [
-            'id'          => (int)$this->raw_data->idx,
-            'name'        => (string)\html_entity_decode($this->raw_data->city->name),
+            'id' => (int)$this->raw_data->idx,
+            'name' => (string)\html_entity_decode($this->raw_data->city->name),
             'coordinates' => [
-                'latitude'  => (float)$this->raw_data->city->geo[0],
+                'latitude' => (float)$this->raw_data->city->geo[0],
                 'longitude' => (float)$this->raw_data->city->geo[1],
             ],
-            'url'         => (string)$this->raw_data->city->url
+            'url' => (string)$this->raw_data->city->url,
         ];
     }
 

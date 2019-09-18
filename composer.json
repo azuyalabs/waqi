@@ -23,13 +23,14 @@
   ],
   "require": {
     "php": ">=7.1.0",
-    "guzzlehttp/guzzle": "^6.2"
+    "guzzlehttp/guzzle": "^6.3",
+    "ext-json": "*"
   },
   "require-dev": {
     "mockery/mockery": "^1.2",
-    "friendsofphp/php-cs-fixer": "^2.1",
-    "phpunit/phpunit": "^7.4",
-    "fzaninotto/faker": "^1.6",
+    "friendsofphp/php-cs-fixer": "^2.15",
+    "phpunit/phpunit": "^8.3",
+    "fzaninotto/faker": "^1.8",
     "phpstan/phpstan": "^0.11"
   },
   "autoload": {
