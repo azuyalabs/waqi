@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 
 ### Added
+- Added a new function to get the reading observation by geolocation (latitude and longitude)
 - Added check that the response body contains a 'data' element. In certain situations this element is not always returned by the AQI API.
 - Added Exception handling for the situation the station name is given but empty. An empty station name would result in an invalid call to the AQI API.
 - Configured PHP CS Fixer to use PHP native functions invocation.
