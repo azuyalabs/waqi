@@ -6,14 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 
 ### Added
-- Added a new function to get the reading observation by geolocation (latitude and longitude)
+- Added a new function to get the reading observation by geolocation (latitude and longitude). [\#4](https://github.com/azuyalabs/waqi/pull/4) ([mohdizzudin](https://github.com/mohdizzudin))
 - Added check that the response body contains a 'data' element. In certain situations this element is not always returned by the AQI API.
 - Added Exception handling for the situation the station name is given but empty. An empty station name would result in an invalid call to the AQI API.
 - Configured PHP CS Fixer to use PHP native functions invocation.
 - Added other versions of PHP and the use of PHPStan for TravisCI.
 
 ### Changed
-- Upgrade to PHPUnit 8
+- Upgrade to PHPUnit 8.
 - Updated third party dependencies.
 - Introduced new PHP CS Fixer settings and synchronizing these with the StyleCI settings.
 - Updated copyright year and e-mail address.
