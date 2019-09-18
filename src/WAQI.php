@@ -73,17 +73,12 @@ class WAQI
      *
      * @throws UnknownStationException
      */
-    public function getObservationByStation(string $station = 'here'): void
+    public function getObservationByStation(?string $station = null): void
     {
-        // Throw an UnexpectedValueException in case the station argument is given but empty
-        if (empty($station)) {
-            throw new \UnexpectedValueException(\sprintf('Monitoring station or city "%s" is an invalid value.', $station));
-        }
-
         $client = new Client(['base_uri' => self::API_ENDPOINT]);
 
         try {
-            $response = $client->request('GET', 'feed/'.$station.'/', ['query' => 'token='.$this->token]);
+            $response = $client->request('GET', 'feed/' . ($station ?? 'here') . '/', ['query' => 'token=' . $this->token]);
         } catch (ClientException $e) {
             echo Psr7\str($e->getRequest());
             echo Psr7\str($e->getResponse());
@@ -181,9 +176,9 @@ class WAQI
         }
 
         return [
-            'aqi'                  => (float)$aqi,
-            'pollution_level'      => $narrative_level,
-            'health_implications'  => $narrative_health,
+            'aqi' => (float)$aqi,
+            'pollution_level' => $narrative_level,
+            'health_implications' => $narrative_health,
             'cautionary_statement' => $narrative_cautionary,
         ];
     }
@@ -214,10 +209,10 @@ class WAQI
     public function getMonitoringStation(): array
     {
         return [
-            'id'          => (int)$this->raw_data->idx,
-            'name'        => (string)\html_entity_decode($this->raw_data->city->name),
+            'id' => (int)$this->raw_data->idx,
+            'name' => (string)\html_entity_decode($this->raw_data->city->name),
             'coordinates' => [
-                'latitude'  => (float)$this->raw_data->city->geo[0],
+                'latitude' => (float)$this->raw_data->city->geo[0],
                 'longitude' => (float)$this->raw_data->city->geo[1],
             ],
             'url' => (string)$this->raw_data->city->url,
