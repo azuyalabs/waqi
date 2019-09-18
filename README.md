@@ -35,6 +35,8 @@ require 'vendor/autoload.php';
 Using your AQI access token, create an instance of the WAQI object:
  
 ```php
+use Azuyalabs\WAQI\WAQI;
+
 $waqi = new WAQI(<your access token>);
 ``` 
 
