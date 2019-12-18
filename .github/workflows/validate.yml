@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        php: [7.3, 7,4]
+        php: ['7.2', '7.3', '7.4']
 
     steps:
     - uses: actions/checkout@v1
@@ -21,6 +21,12 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Check code style
+      run: vendor/bin/php-cs-fixer --diff --dry-run -v fix
+
+    - name: Code Analysis
+      run: composer run-script check
 
     - name: Run test suite
       run: composer run-script test
