@@ -1,0 +1,26 @@
+name: Validate
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: [7.3, 7,4]
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        php: ${{ matrix.php }}
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Run test suite
+      run: composer run-script test
