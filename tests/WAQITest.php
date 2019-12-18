@@ -45,6 +45,8 @@ class WAQITest extends TestCase
         parent::setUp();
 
         $this->faker = Factory::create();
+
+        /** @var WAQI waqi */
         $this->waqi = Mockery::mock(WAQI::class, [$this->faker->md5]);
     }
 

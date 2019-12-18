@@ -19,7 +19,6 @@ use DateTime;
 use DateTimeZone;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
 
@@ -66,12 +65,12 @@ class WAQI
      *                        observation of the nearest monitoring station close to the user location (based on the
      *                        user's public IP address)
      *
-     * @return void
      * @throws QuotaExceeded
      * @throws InvalidAccessToken
      * @throws \UnexpectedValueException
-     *
      * @throws UnknownStation
+     *
+     * @return void
      */
     public function getObservationByStation(?string $station = null): void
     {
@@ -88,9 +87,6 @@ class WAQI
             if ($e->hasResponse()) {
                 echo Psr7\str($e->getResponse());
             }
-            exit();
-        } catch (GuzzleException $e) {
-            echo $e->getMessage();
             exit();
         }
 
@@ -112,6 +108,18 @@ class WAQI
         }
     }
 
+    /**
+     * Retrieves the real-time Air Quality Index observation monitoring station name (or city name)
+     * by the given geographical coordinates.
+     *
+     * @param float $latitude
+     * @param float $longitude
+     *
+     * @throws InvalidAccessToken
+     * @throws QuotaExceeded
+     *
+     * @return void
+     */
     public function getObservationByGeoLocation(float $latitude, float $longitude): void
     {
         $client = new Client(['base_uri' => self::API_ENDPOINT]);
@@ -128,16 +136,13 @@ class WAQI
                 echo Psr7\str($e->getResponse());
             }
             exit();
-        } catch (GuzzleException $e) {
-            echo $e->getMessage();
-            exit();
         }
 
         $_response_body = \json_decode(Psr7\copy_to_string($response->getBody()), false);
 
-        if ($_response_body->status === 'ok') {
+        if ('ok' === $_response_body->status) {
             $this->raw_data = $_response_body->data;
-        } elseif ($_response_body->status === 'error') {
+        } elseif ('error' === $_response_body->status) {
             if (isset($_response_body->data)) {
                 switch ($_response_body->data) {
                     case 'Invalid key':
@@ -223,9 +228,9 @@ class WAQI
     /**
      * Returns the date/time the last measurement was taken.
      *
-     * @return DateTime the date/time the last measurement was taken
-     *
      * @throws \Exception
+     *
+     * @return DateTime the date/time the last measurement was taken
      */
     public function getMeasurementTime(): DateTime
     {
