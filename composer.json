@@ -22,7 +22,7 @@
     }
   ],
   "require": {
-    "php": ">=7.2.0",
+    "php": "^7.2",
     "guzzlehttp/guzzle": "^6.5",
     "ext-json": "*"
   },
