@@ -21,6 +21,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
+use GuzzleHttp\Psr7\Message;
 
 /**
  * Class WAQI.
@@ -79,13 +80,13 @@ class WAQI
         try {
             $response = $client->request('GET', 'feed/' . ($station ?? 'here') . '/', ['query' => 'token=' . $this->token]);
         } catch (ClientException $e) {
-            echo Psr7\str($e->getRequest());
-            echo Psr7\str($e->getResponse());
+            echo Message::toString($e->getRequest());
+            echo Message::toString($e->getResponse());
             exit();
         } catch (RequestException $e) {
-            echo Psr7\str($e->getRequest());
+            echo Message::toString($e->getRequest());
             if ($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
+                echo Message::toString($e->getResponse());
             }
             exit();
         }
@@ -127,13 +128,13 @@ class WAQI
         try {
             $response = $client->request('GET', 'feed/geo:' . $latitude . ';' . $longitude . '/', ['query' => 'token='.$this->token]);
         } catch (ClientException $e) {
-            echo Psr7\str($e->getRequest());
-            echo Psr7\str($e->getResponse());
+            echo Message::toString($e->getRequest());
+            echo Message::toString($e->getResponse());
             exit();
         } catch (RequestException $e) {
-            echo Psr7\str($e->getRequest());
+            echo Message::toString($e->getRequest());
             if ($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
+                echo Message::toString($e->getResponse());
             }
             exit();
         }
@@ -352,13 +353,13 @@ class WAQI
     }
 
     /**
-     * Returns the level of respirable particulate matter, 10 micrometers or less (PM10), measured at this monitoring
+     * Returns the level of respirable particulate matter, 10 micrometers or fewer (PM10), measured at this monitoring
      * station at the time of measurement.
      *
      * PM10 levels are typically expressed in Parts per million (PPM) or density, however the World Air
      * Quality levels is using the US EPA 0-500 AQI scale.
      *
-     * @return float|null the level of particulate matter 10 micrometers or less (PM10), measured at this monitoring
+     * @return float|null the level of particulate matter 10 micrometers or fewer (PM10), measured at this monitoring
      *                    station at the time of measurement. If the monitoring station does not measure PM10 levels,
      *                    a 'null' value is returned
      */
@@ -368,13 +369,13 @@ class WAQI
     }
 
     /**
-     * Returns the level of fine particulate matter, 2.5 micrometers or less (PM2.5), measured at this monitoring
+     * Returns the level of fine particulate matter, 2.5 micrometers or fewer (PM2.5), measured at this monitoring
      * station at the time of measurement.
      *
      * PM2.5 levels are typically expressed in Parts per million (PPM) or density, however the World Air
      * Quality levels is using the US EPA 0-500 AQI scale.
      *
-     * @return float|null the level of particulate matter 2.5 micrometers or less (PM2.5), measured at this monitoring
+     * @return float|null the level of particulate matter 2.5 micrometers or fewer (PM2.5), measured at this monitoring
      *                    station at the time of measurement. If the monitoring station does not measure PM10 levels,
      *                    a 'null' value is returned
      */

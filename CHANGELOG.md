@@ -29,6 +29,7 @@ to [Semantic Versioning](http://semver.org).
 - Dropped unnecessary arguments in some functions as they are the same as the default.
 - Included conversion from StreamInterface to string when receiving the response from the HTTP client.
 - Removed the 'Exception' part of the exception class names as it is superfluous.
+- Replaced deprecated `Psr7\str` function calls.
 
 ### Fixed
 
