@@ -265,7 +265,7 @@ class WAQI
     /**
      * Returns a list of EPA attributions for this monitoring station.
      *
-     * A list of one or more attributions is returned of which each contains a name and an URL attribute.
+     * A list of one or more attributions is returned, of which each contains a name and a URL attribute.
      *
      * @return array list of EPA attributions for this monitoring station
      */
