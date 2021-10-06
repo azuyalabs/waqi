@@ -37,8 +37,6 @@ class WAQITest extends TestCase
 
     /**
      * Prepare and initialize tests.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
@@ -46,14 +44,11 @@ class WAQITest extends TestCase
 
         $this->faker = Factory::create();
 
-        /** @var WAQI waqi */
         $this->waqi = Mockery::mock(WAQI::class, [$this->faker->md5]);
     }
 
     /**
      * Clean up after tests have been performed.
-     *
-     * @return void
      */
     protected function tearDown(): void
     {
@@ -69,8 +64,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getTemperature()
-     *
-     * @return void
      */
     public function shouldGetTemperature(): void
     {
@@ -82,8 +75,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPressure()
-     *
-     * @return void
      */
     public function shouldGetPressure(): void
     {
@@ -95,8 +86,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getHumidity()
-     *
-     * @return void
      */
     public function shouldGetHumidity(): void
     {
@@ -108,8 +97,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPM25()
-     *
-     * @return void
      */
     public function shouldGetPM25(): void
     {
@@ -122,8 +109,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPM25()
-     *
-     * @return void
      */
     public function shouldGetNullIfNoPM25(): void
     {
@@ -135,8 +120,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPM10()
-     *
-     * @return void
      */
     public function shouldGetPM10(): void
     {
@@ -149,8 +132,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPM10()
-     *
-     * @return void
      */
     public function shouldGetNullIfNoPM10(): void
     {
@@ -162,8 +143,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getCO()
-     *
-     * @return void
      */
     public function shouldGetCO(): void
     {
@@ -176,8 +155,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getCO()
-     *
-     * @return void
      */
     public function shouldGetNullIfNoCO(): void
     {
@@ -189,8 +166,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getNO2()
-     *
-     * @return void
      */
     public function shouldGetNO2(): void
     {
@@ -203,8 +178,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getNO2()
-     *
-     * @return void
      */
     public function shouldGetNullIfNoNO2(): void
     {
@@ -216,8 +189,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getO3()
-     *
-     * @return void
      */
     public function shouldGetO3(): void
     {
@@ -230,8 +201,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getO3()
-     *
-     * @return void
      */
     public function shouldGetNullIfNoO3(): void
     {
@@ -243,8 +212,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getSO2()
-     *
-     * @return void
      */
     public function shouldGetSO2(): void
     {
@@ -257,8 +224,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getSO2()
-     *
-     * @return void
      */
     public function shouldGetNullIfNoSO2(): void
     {
@@ -271,7 +236,6 @@ class WAQITest extends TestCase
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getMeasurementTime()
      *
-     * @return void
      * @throws \Exception
      */
     public function shouldGetMeasurementTime(): void
@@ -295,8 +259,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getMonitoringStation()
-     *
-     * @return void
      */
     public function shouldGetMonitoringStationInformation(): void
     {
@@ -335,8 +297,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getAQI()
-     *
-     * @return void
      */
     public function shouldGetAQIInformation(): void
     {
@@ -368,8 +328,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPrimaryPollutant()
-     *
-     * @return void
      */
     public function shouldGetPrimaryPollutant(): void
     {
