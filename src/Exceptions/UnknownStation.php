@@ -19,11 +19,6 @@ use Exception;
  */
 class UnknownStation extends Exception
 {
-    /**
-     * UnknownStation constructor.
-     *
-     * @param string $station the name of the unknown monitoring station or city name
-     */
     public function __construct(string $station)
     {
         parent::__construct(\sprintf('Unknown monitoring station or city: "%s"', $station));

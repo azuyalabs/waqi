@@ -19,9 +19,6 @@ use Exception;
  */
 class InvalidAccessToken extends Exception
 {
-    /**
-     * InvalidAccessToken constructor.
-     */
     public function __construct()
     {
         parent::__construct('Invalid access token');

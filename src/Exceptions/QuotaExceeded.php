@@ -23,9 +23,6 @@ use Exception;
  */
 class QuotaExceeded extends Exception
 {
-    /**
-     * QuotaExceeded constructor.
-     */
     public function __construct()
     {
         parent::__construct('Request Quota has been exceeded');

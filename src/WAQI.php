@@ -62,7 +62,7 @@ class WAQI
      * If the $station argument is left out, the Air Quality Index observation is obtained of the nearest monitoring
      * station close to the user location (based on the user's public IP address)
      *
-     * @param string $station name of the monitoring station (or city name). This parameter can be left blank to get the
+     * @param ?string $station name of the monitoring station (or city name). This parameter can be left blank to get the
      *                        observation of the nearest monitoring station close to the user location (based on the
      *                        user's public IP address)
      *
