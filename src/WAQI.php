@@ -70,8 +70,6 @@ class WAQI
      * @throws InvalidAccessToken
      * @throws \UnexpectedValueException
      * @throws UnknownStation
-     *
-     * @return void
      */
     public function getObservationByStation(?string $station = null): void
     {
@@ -91,12 +89,12 @@ class WAQI
             exit();
         }
 
-        $_response_body = \json_decode(Psr7\copy_to_string($response->getBody()), false);
+        $_response_body = \json_decode(Psr7\copy_to_string($response->getBody()), false, 512, JSON_THROW_ON_ERROR);
 
         if ('ok' === $_response_body->status) {
             $this->raw_data = $_response_body->data;
         } elseif ('error' === $_response_body->status) {
-            if (isset($_response_body->data)) {
+            if (\property_exists($_response_body, 'data') && $_response_body->data !== null) {
                 switch ($_response_body->data) {
                     case 'Unknown station':
                         throw new UnknownStation($station);
@@ -113,13 +111,8 @@ class WAQI
      * Retrieves the real-time Air Quality Index observation monitoring station name (or city name)
      * by the given geographical coordinates.
      *
-     * @param float $latitude
-     * @param float $longitude
-     *
      * @throws InvalidAccessToken
      * @throws QuotaExceeded
-     *
-     * @return void
      */
     public function getObservationByGeoLocation(float $latitude, float $longitude): void
     {
@@ -139,12 +132,12 @@ class WAQI
             exit();
         }
 
-        $_response_body = \json_decode(Psr7\copy_to_string($response->getBody()), false);
+        $_response_body = \json_decode(Psr7\copy_to_string($response->getBody()), false, 512, JSON_THROW_ON_ERROR);
 
         if ('ok' === $_response_body->status) {
             $this->raw_data = $_response_body->data;
         } elseif ('error' === $_response_body->status) {
-            if (isset($_response_body->data)) {
+            if (\property_exists($_response_body, 'data') && $_response_body->data !== null) {
                 switch ($_response_body->data) {
                     case 'Invalid key':
                         throw new InvalidAccessToken();
@@ -253,7 +246,7 @@ class WAQI
     {
         return [
             'id' => (int)$this->raw_data->idx,
-            'name' => (string)\html_entity_decode($this->raw_data->city->name),
+            'name' => \html_entity_decode($this->raw_data->city->name),
             'coordinates' => [
                 'latitude' => (float)$this->raw_data->city->geo[0],
                 'longitude' => (float)$this->raw_data->city->geo[1],
@@ -271,7 +264,7 @@ class WAQI
      */
     public function getAttributions(): array
     {
-        return (array)\json_decode(\json_encode($this->raw_data->attributions), true);
+        return (array)\json_decode(\json_encode($this->raw_data->attributions, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
