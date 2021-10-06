@@ -93,7 +93,7 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid value for the fine particulate matter, 2.5 micrometers or less (PM2.5), is returned.
+     * Tests that a valid value for the fine particulate matter, 2.5 micrometers or lower (PM2.5), is returned.
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPM25()
@@ -104,7 +104,7 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a null value for for the respirable particulate matter, 2.5 micrometers or less (PM2.5), is returned
+     * Tests that a null value for the respirable particulate matter, 2.5 micrometers or lower (PM2.5), is returned,
      * in the situation that a monitoring station does not provide a PM2.5 reading.
      *
      * @test
@@ -116,7 +116,7 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid value for the respirable particulate matter, 10 micrometers or less (PM10), is returned.
+     * Tests that a valid value for the respirable particulate matter, 10 micrometers or lower (PM10), is returned.
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPM10()
@@ -127,7 +127,7 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a null value for for the respirable particulate matter, 10 micrometers or less (PM10), is returned
+     * Tests that a null value for the respirable particulate matter, 10 micrometers or lower (PM10), is returned,
      * in the situation that a monitoring station does not provide a PM10 reading.
      *
      * @test
@@ -150,7 +150,7 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid CO (carbon monoxide) value is returned in the situation that a monitoring station does not
+     * Tests that a valid CO (carbon monoxide) value is returned, in the situation that a monitoring station does not
      * provide a CO reading.
      *
      * @test
@@ -173,7 +173,7 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid NO2 (nitrogen dioxide) value is returned in the situation that a monitoring station does not
+     * Tests that a valid NO2 (nitrogen dioxide) value is returned, in the situation that a monitoring station does not
      * provide a NO2 reading.
      *
      * @test
@@ -196,7 +196,7 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid O3 (ozone) value is returned in the situation that a monitoring station does not
+     * Tests that a valid O3 (ozone) value is returned, in the situation that a monitoring station does not
      * provide an O3 reading.
      *
      * @test
@@ -219,7 +219,7 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid SO2 (sulfur dioxide) value is returned in the situation that a monitoring station does not
+     * Tests that a valid SO2 (sulfur dioxide) value is returned, in the situation that a monitoring station does not
      * provide a SO2 reading.
      *
      * @test
@@ -382,7 +382,7 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that an InvalidAccessToken Exception for getObservationByStationis thrown when an invalid access token is provided
+     * Tests that an InvalidAccessToken Exception for getObservationByStation is thrown when an invalid access token is provided
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
      * @test
