@@ -40,6 +40,7 @@ to [Semantic Versioning](http://semver.org).
 
 - Removed throwing an exception as methods allows for a null value parameter.
 - Travis CI and StyleCI in favour of GitHub Actions.
+- Support for PHP 7.3.
 
 ## [1.0.1] 2018-10-31
 
