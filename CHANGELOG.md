@@ -22,7 +22,7 @@ to [Semantic Versioning](http://semver.org).
 
 - Upgrade to PHPUnit 8.
 - Updated third party dependencies.
-- Introduced new PHP CS Fixer settings and synchronizing these with the StyleCI settings.
+- Introduced new PHP CS Fixer settings with upgraded PHP CS Fixer v3.
 - Updated copyright year and e-mail address.
 - Renamed the script for formatting code to a more concise name.
 - Replaced FQN by use of imports.
