@@ -161,8 +161,8 @@ class WAQI
      *                           level
      *  - 'cautionary_statement': a cautionary statement associated with the measured pollution level (only for PM2.5)
      *
-     * @return array structure containing the Air Quality Index measured at this monitoring station at the time of
-     *               measurement
+     * @return array<string, mixed> structure containing the Air Quality Index measured at this monitoring station at the time of
+     *                              measurement
      */
     public function getAQI(): array
     {
@@ -243,7 +243,7 @@ class WAQI
      *  - 'coordinates': the geographical coordinates of this monitoring station ('longitude' and 'latitude')
      *  - 'url': the URL of this monitoring station
      *
-     * @return array structure containing information about this monitoring station
+     * @return array<string, mixed> structure containing information about this monitoring station
      */
     public function getMonitoringStation(): array
     {
@@ -263,7 +263,8 @@ class WAQI
      *
      * A list of one or more attributions is returned, of which each contains a name and a URL attribute.
      *
-     * @return array list of EPA attributions for this monitoring station
+     * @return array<string, mixed> list of EPA attributions for this monitoring station
+     * @throws \JsonException
      */
     public function getAttributions(): array
     {
