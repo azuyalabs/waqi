@@ -9,21 +9,19 @@ to [Semantic Versioning](http://semver.org).
 
 ### Added
 
-- Added a new function to get the reading observation by geolocation (latitude and longitude)
+- New function to get the reading observation by geolocation (latitude and longitude)
   . [\#4](https://github.com/azuyalabs/waqi/pull/4) ([mohdizzudin](https://github.com/mohdizzudin))
-- Added check that the response body contains a 'data' element. In certain situations this element is not always
-  returned by the AQI API.
-- Added Exception handling for the situation the station name is given but empty. An empty station name would result in
-  an invalid call to the AQI API.
-- Configured PHP CS Fixer to use PHP native functions invocation.
-- Added other versions of PHP and the use of PHPStan for TravisCI.
+- Check that the response body contains a 'data' element. In certain situations this element is not always returned by
+  the AQI API.
+- Exception handling for the situation the station name is given but empty. An empty station name would result in an
+  invalid call to the AQI API.
 
 ### Changed
 
 - Upgrade to PHPUnit 8.
 - Updated third party dependencies.
 - Introduced new PHP CS Fixer settings with upgraded PHP CS Fixer v3.
-- Updated copyright year and e-mail address.
+- Copyright year and e-mail address.
 - Renamed the script for formatting code to a more concise name.
 - Replaced FQN by use of imports.
 - Dropped unnecessary arguments in some functions as they are the same as the default.
@@ -33,12 +31,12 @@ to [Semantic Versioning](http://semver.org).
 
 ### Fixed
 
-- Changed visibility of fixture methods in the test class to '
+- Visibility of fixture methods in the test class to '
   private'. [\#2](https://github.com/azuyalabs/waqi/pull/2) ([peter279k](https://github.com/peter279k))
 
 ### Removed
 
-- Removed throwing an exception as methods allows for a null value parameter.
+- Throwing an exception as methods allows for a null value parameter.
 - Travis CI and StyleCI in favour of GitHub Actions.
 - Support for PHP 7.3.
 
