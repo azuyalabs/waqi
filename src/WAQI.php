@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the WAQI (World Air Quality Index) package.
  *
@@ -39,7 +42,7 @@ class WAQI
     private $token;
 
     /**
-     * @var \stdClass Raw response data received from the World Quality Index API.
+     * @var \stdClass raw response data received from the World Quality Index API
      */
     private $raw_data;
 
@@ -63,8 +66,8 @@ class WAQI
      * station close to the user location (based on the user's public IP address)
      *
      * @param ?string $station name of the monitoring station (or city name). This parameter can be left blank to get the
-     *                        observation of the nearest monitoring station close to the user location (based on the
-     *                        user's public IP address)
+     *                         observation of the nearest monitoring station close to the user location (based on the
+     *                         user's public IP address)
      *
      * @throws QuotaExceeded
      * @throws InvalidAccessToken
@@ -76,7 +79,7 @@ class WAQI
         $client = new Client(['base_uri' => self::API_ENDPOINT]);
 
         try {
-            $response = $client->request('GET', 'feed/' . ($station ?? 'here') . '/', ['query' => 'token=' . $this->token]);
+            $response = $client->request('GET', 'feed/'.($station ?? 'here').'/', ['query' => 'token='.$this->token]);
         } catch (ClientException $e) {
             echo Message::toString($e->getRequest());
             echo Message::toString($e->getResponse());
@@ -94,7 +97,7 @@ class WAQI
         if ('ok' === $_response_body->status) {
             $this->raw_data = $_response_body->data;
         } elseif ('error' === $_response_body->status) {
-            if (\property_exists($_response_body, 'data') && $_response_body->data !== null) {
+            if (\property_exists($_response_body, 'data') && null !== $_response_body->data) {
                 switch ($_response_body->data) {
                     case 'Unknown station':
                         throw new UnknownStation($station);
@@ -119,7 +122,7 @@ class WAQI
         $client = new Client(['base_uri' => self::API_ENDPOINT]);
 
         try {
-            $response = $client->request('GET', 'feed/geo:' . $latitude . ';' . $longitude . '/', ['query' => 'token='.$this->token]);
+            $response = $client->request('GET', 'feed/geo:'.$latitude.';'.$longitude.'/', ['query' => 'token='.$this->token]);
         } catch (ClientException $e) {
             echo Message::toString($e->getRequest());
             echo Message::toString($e->getResponse());
@@ -137,7 +140,7 @@ class WAQI
         if ('ok' === $_response_body->status) {
             $this->raw_data = $_response_body->data;
         } elseif ('error' === $_response_body->status) {
-            if (\property_exists($_response_body, 'data') && $_response_body->data !== null) {
+            if (\property_exists($_response_body, 'data') && null !== $_response_body->data) {
                 switch ($_response_body->data) {
                     case 'Invalid key':
                         throw new InvalidAccessToken();
@@ -163,7 +166,7 @@ class WAQI
      */
     public function getAQI(): array
     {
-        $aqi = (int)$this->raw_data->aqi;
+        $aqi = (int) $this->raw_data->aqi;
 
         $narrative_level = '';
         $narrative_health = '';
@@ -212,7 +215,7 @@ class WAQI
         }
 
         return [
-            'aqi' => (float)$aqi,
+            'aqi' => (float) $aqi,
             'pollution_level' => $narrative_level,
             'health_implications' => $narrative_health,
             'cautionary_statement' => $narrative_cautionary,
@@ -245,13 +248,13 @@ class WAQI
     public function getMonitoringStation(): array
     {
         return [
-            'id' => (int)$this->raw_data->idx,
+            'id' => (int) $this->raw_data->idx,
             'name' => \html_entity_decode($this->raw_data->city->name),
             'coordinates' => [
-                'latitude' => (float)$this->raw_data->city->geo[0],
-                'longitude' => (float)$this->raw_data->city->geo[1],
+                'latitude' => (float) $this->raw_data->city->geo[0],
+                'longitude' => (float) $this->raw_data->city->geo[1],
             ],
-            'url' => (string)$this->raw_data->city->url,
+            'url' => (string) $this->raw_data->city->url,
         ];
     }
 
@@ -264,7 +267,7 @@ class WAQI
      */
     public function getAttributions(): array
     {
-        return (array)\json_decode(\json_encode($this->raw_data->attributions, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
+        return (array) \json_decode(\json_encode($this->raw_data->attributions, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -400,6 +403,6 @@ class WAQI
      */
     public function getPrimaryPollutant(): string
     {
-        return (string)$this->raw_data->dominentpol;
+        return (string) $this->raw_data->dominentpol;
     }
 }

@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the WAQI (World Air Quality Index) package.
  *
@@ -19,7 +22,7 @@ use Exception;
  *
  * The default quota is maximum 1000 (thousand) requests per minute.
  *
- * @link http://aqicn.org/api
+ * @see http://aqicn.org/api
  */
 class QuotaExceeded extends Exception
 {

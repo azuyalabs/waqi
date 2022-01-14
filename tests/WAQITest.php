@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the WAQI (World Air Quality Index) package.
  *
@@ -21,7 +24,7 @@ use Mockery;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Unit test class containing tests for the WAQI class
+ * Unit test class containing tests for the WAQI class.
  */
 class WAQITest extends TestCase
 {
@@ -399,7 +402,7 @@ class WAQITest extends TestCase
 
         $this->waqi->getObservationByStation($station);
     }
-    
+
     /**
      * Tests that a QuotaExceeded Exception for getObservationByGeoLocation is thrown when the API quota has been exceeded.
      * The default quota is maximum 1000 (thousand) requests per minute.
@@ -445,14 +448,14 @@ class WAQITest extends TestCase
     /**
      * Performs basic assertions on a result value.
      *
-     * @param mixed $result the value to be asserted
-     * @param mixed $expectedValue the expected value
-     * @param string $type the internal type representing the given value (e.g. 'int', 'string', etc.)
+     * @param mixed  $result        the value to be asserted
+     * @param mixed  $expectedValue the expected value
+     * @param string $type          the internal type representing the given value (e.g. 'int', 'string', etc.)
      */
     private function assertValue($result, $expectedValue, string $type): void
     {
         $this->assertEquals($expectedValue, $result);
-        $this->{'assertIs' . \ucfirst($type)}($result);
+        $this->{'assertIs'.\ucfirst($type)}($result);
         $this->assertNotEmpty($result);
         $this->assertNotNull($result);
     }
@@ -460,8 +463,8 @@ class WAQITest extends TestCase
     /**
      * Performs basic assertions on a pollutant level value.
      *
-     * @param string $method the class method that obtains the pollutant level value
-     * @param float $expectedValue the expected value the provided method should be
+     * @param string $method        the class method that obtains the pollutant level value
+     * @param float  $expectedValue the expected value the provided method should be
      */
     private function assertPollutantLevel(string $method, float $expectedValue): void
     {
