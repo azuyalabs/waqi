@@ -264,6 +264,7 @@ class WAQI
      * A list of one or more attributions is returned, of which each contains a name and a URL attribute.
      *
      * @return array<string, mixed> list of EPA attributions for this monitoring station
+     *
      * @throws \JsonException
      */
     public function getAttributions(): array
