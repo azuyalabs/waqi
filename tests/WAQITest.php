@@ -20,39 +20,25 @@ use Azuyalabs\WAQI\Exceptions\QuotaExceeded;
 use Azuyalabs\WAQI\Exceptions\UnknownStation;
 use Azuyalabs\WAQI\WAQI;
 use Faker\Factory;
+use Faker\Generator;
 use Mockery;
+use Mockery\LegacyMockInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Unit test class containing tests for the WAQI class.
- */
 class WAQITest extends TestCase
 {
-    /**
-     * @var Mockery mock object representing the WAQI class
-     */
-    private $waqi;
+    private LegacyMockInterface $waqi;
 
-    /**
-     * @var Factory Faker object instance for randomizing test values
-     */
-    private $faker;
+    private Generator $faker;
 
-    /**
-     * Prepare and initialize tests.
-     */
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->faker = Factory::create();
-
         $this->waqi = Mockery::mock(WAQI::class, [$this->faker->md5]);
     }
 
-    /**
-     * Clean up after tests have been performed.
-     */
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -282,15 +268,12 @@ class WAQITest extends TestCase
 
         $result = $this->waqi->getMonitoringStation();
 
-        // Assertion of overall structure
         $this->assertValue($result, $expectedValue, 'array');
 
-        // Assertion of each individual element
         foreach (['id' => 'int', 'name' => 'string', 'url' => 'string', 'coordinates' => 'array'] as $name => $type) {
             $this->assertValue($result[$name], $expectedValue[$name], $type);
         }
 
-        // Assertion of the coordinates element
         $this->assertValue($result['coordinates']['longitude'], $expectedValue['coordinates']['longitude'], 'float');
         $this->assertValue($result['coordinates']['latitude'], $expectedValue['coordinates']['latitude'], 'float');
     }
@@ -317,10 +300,8 @@ class WAQITest extends TestCase
 
         $result = $this->waqi->getAQI();
 
-        // Assertion of overall structure
         $this->assertValue($result, $expectedValue, 'array');
 
-        // Assertion of each individual element
         foreach (['aqi' => 'float', 'pollution_level' => 'string', 'health_implications' => 'string', 'cautionary_statement' => 'string'] as $name => $type) {
             $this->assertValue($result[$name], $expectedValue[$name], $type);
         }
@@ -362,7 +343,10 @@ class WAQITest extends TestCase
             ->with($station)
             ->andThrow(UnknownStation::class);
 
-        $this->waqi->getObservationByStation($station);
+        try {
+            $this->waqi->getObservationByStation($station);
+        } catch (InvalidAccessToken|QuotaExceeded $e) {
+        }
     }
 
     /**
@@ -381,7 +365,10 @@ class WAQITest extends TestCase
             ->with($station)
             ->andThrow(QuotaExceeded::class);
 
-        $this->waqi->getObservationByStation($station);
+        try {
+            $this->waqi->getObservationByStation($station);
+        } catch (InvalidAccessToken|UnknownStation $e) {
+        }
     }
 
     /**
@@ -400,7 +387,10 @@ class WAQITest extends TestCase
             ->with($station)
             ->andThrow(InvalidAccessToken::class);
 
-        $this->waqi->getObservationByStation($station);
+        try {
+            $this->waqi->getObservationByStation($station);
+        } catch (QuotaExceeded|UnknownStation $e) {
+        }
     }
 
     /**
@@ -408,6 +398,8 @@ class WAQITest extends TestCase
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
      * @test
+     *
+     * @throws InvalidAccessToken
      */
     public function shouldRaiseExceptionWhenQuotaExceededByGeoLocation(): void
     {
@@ -429,6 +421,8 @@ class WAQITest extends TestCase
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
      * @test
+     *
+     * @throws QuotaExceeded
      */
     public function shouldRaiseExceptionWhenInvalidTokenByGeoLocation(): void
     {
