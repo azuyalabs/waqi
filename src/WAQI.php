@@ -207,8 +207,14 @@ class WAQI
      */
     public function getAttributions(): array
     {
+        $data = \json_encode($this->raw_data->attributions, JSON_THROW_ON_ERROR);
+
+        if (!$data) {
+            throw new \RuntimeException('unable to process attributions data');
+        }
+
         return (array) \json_decode(
-            \json_encode($this->raw_data->attributions, JSON_THROW_ON_ERROR),
+            $data,
             true,
             512,
             JSON_THROW_ON_ERROR

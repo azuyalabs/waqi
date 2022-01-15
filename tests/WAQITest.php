@@ -399,7 +399,7 @@ class WAQITest extends TestCase
      *
      * @test
      *
-     * @throws InvalidAccessToken
+     * @throws InvalidAccessToken|UnknownStation
      */
     public function shouldRaiseExceptionWhenQuotaExceededByGeoLocation(): void
     {
@@ -422,7 +422,7 @@ class WAQITest extends TestCase
      *
      * @test
      *
-     * @throws QuotaExceeded
+     * @throws QuotaExceeded|UnknownStation
      */
     public function shouldRaiseExceptionWhenInvalidTokenByGeoLocation(): void
     {
