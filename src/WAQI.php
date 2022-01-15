@@ -22,35 +22,25 @@ use DateTime;
 use DateTimeZone;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\Message;
+use GuzzleHttp\Psr7\Utils;
 
-/**
- * Class WAQI.
- */
 class WAQI
 {
-    /**
-     * The endpoint URL of the World Quality Index API.
-     */
+    /** The endpoint URL of the World Quality Index API. */
     private const API_ENDPOINT = 'https://api.waqi.info/api';
 
-    /**
-     * World Air Quality access token.
-     */
+    /** World Air Quality access token. */
     private string $token;
 
-    /**
-     * raw response data received from the World Quality Index API.
-     */
-    private \stdClass $raw_data;
+    /** raw response data received from the World Quality Index API. */
+    private ?\stdClass $raw_data = null;
 
     /**
-     * WAQI class constructor.
-     *
      * A World Air Quality access token is required to use this API. A token can be obtained by submitting a request at
-     * http://aqicn.org/data-platform/token
+     * http://aqicn.org/data-platform/token.
      *
      * @param string $token World Air Quality access token
      */
@@ -65,48 +55,20 @@ class WAQI
      * If the $station argument is left out, the Air Quality Index observation is obtained of the nearest monitoring
      * station close to the user location (based on the user's public IP address)
      *
-     * @param ?string $station name of the monitoring station (or city name). This parameter can be left blank to get the
-     *                         observation of the nearest monitoring station close to the user location (based on the
-     *                         user's public IP address)
+     * @param ?string $station name of the monitoring station (or city name). This parameter can be left blank to get
+     *                         the observation of the nearest monitoring station close to the user location (based on
+     *                         the  user's public IP address)
      *
      * @throws QuotaExceeded
      * @throws InvalidAccessToken
-     * @throws \UnexpectedValueException
      * @throws UnknownStation
      */
     public function getObservationByStation(?string $station = null): void
     {
-        $client = new Client(['base_uri' => self::API_ENDPOINT]);
-
         try {
-            $response = $client->request('GET', 'feed/'.($station ?? 'here').'/', ['query' => 'token='.$this->token]);
-        } catch (ClientException $e) {
-            echo Message::toString($e->getRequest());
-            echo Message::toString($e->getResponse());
-            exit();
-        } catch (RequestException $e) {
-            echo Message::toString($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Message::toString($e->getResponse());
-            }
-            exit();
-        }
-
-        $_response_body = \json_decode(Psr7\copy_to_string($response->getBody()), false, 512, JSON_THROW_ON_ERROR);
-
-        if ('ok' === $_response_body->status) {
-            $this->raw_data = $_response_body->data;
-        } elseif ('error' === $_response_body->status) {
-            if (\property_exists($_response_body, 'data') && null !== $_response_body->data) {
-                switch ($_response_body->data) {
-                    case 'Unknown station':
-                        throw new UnknownStation($station);
-                    case 'Over quota':
-                        throw new QuotaExceeded();
-                    case 'Invalid key':
-                        throw new InvalidAccessToken();
-                }
-            }
+            $this->request('feed/'.($station ?? 'here').'/');
+        } catch (GuzzleException|\JsonException $e) {
+            throw new \RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 
@@ -114,40 +76,16 @@ class WAQI
      * Retrieves the real-time Air Quality Index observation monitoring station name (or city name)
      * by the given geographical coordinates.
      *
-     * @throws InvalidAccessToken
      * @throws QuotaExceeded
+     * @throws InvalidAccessToken
+     * @throws UnknownStation
      */
     public function getObservationByGeoLocation(float $latitude, float $longitude): void
     {
-        $client = new Client(['base_uri' => self::API_ENDPOINT]);
-
         try {
-            $response = $client->request('GET', 'feed/geo:'.$latitude.';'.$longitude.'/', ['query' => 'token='.$this->token]);
-        } catch (ClientException $e) {
-            echo Message::toString($e->getRequest());
-            echo Message::toString($e->getResponse());
-            exit();
-        } catch (RequestException $e) {
-            echo Message::toString($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Message::toString($e->getResponse());
-            }
-            exit();
-        }
-
-        $_response_body = \json_decode(Psr7\copy_to_string($response->getBody()), false, 512, JSON_THROW_ON_ERROR);
-
-        if ('ok' === $_response_body->status) {
-            $this->raw_data = $_response_body->data;
-        } elseif ('error' === $_response_body->status) {
-            if (\property_exists($_response_body, 'data') && null !== $_response_body->data) {
-                switch ($_response_body->data) {
-                    case 'Invalid key':
-                        throw new InvalidAccessToken();
-                    case 'Over quota':
-                        throw new QuotaExceeded();
-                }
-            }
+            $this->request('feed/geo:'.$latitude.';'.$longitude.'/');
+        } catch (GuzzleException|\JsonException $e) {
+            throw new \RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 
@@ -161,8 +99,8 @@ class WAQI
      *                           level
      *  - 'cautionary_statement': a cautionary statement associated with the measured pollution level (only for PM2.5)
      *
-     * @return array<string, mixed> structure containing the Air Quality Index measured at this monitoring station at the time of
-     *                              measurement
+     * @return array<string, mixed> structure containing the Air Quality Index measured at this monitoring station at
+     *                              the time of measurement
      */
     public function getAQI(): array
     {
@@ -225,9 +163,9 @@ class WAQI
     /**
      * Returns the date/time the last measurement was taken.
      *
-     * @throws \Exception
-     *
      * @return DateTime the date/time the last measurement was taken
+     *
+     * @throws \Exception
      */
     public function getMeasurementTime(): DateTime
     {
@@ -269,7 +207,12 @@ class WAQI
      */
     public function getAttributions(): array
     {
-        return (array) \json_decode(\json_encode($this->raw_data->attributions, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
+        return (array) \json_decode(
+            \json_encode($this->raw_data->attributions, JSON_THROW_ON_ERROR),
+            true,
+            512,
+            JSON_THROW_ON_ERROR
+        );
     }
 
     /**
@@ -406,5 +349,50 @@ class WAQI
     public function getPrimaryPollutant(): string
     {
         return (string) $this->raw_data->dominentpol;
+    }
+
+    /**
+     * @throws InvalidAccessToken
+     * @throws UnknownStation
+     * @throws QuotaExceeded
+     * @throws GuzzleException
+     * @throws \JsonException
+     */
+    private function request(string $uri): void
+    {
+        $client = new Client(['base_uri' => self::API_ENDPOINT]);
+
+        try {
+            $response = $client->request('GET', $uri, ['query' => 'token='.$this->token]);
+        } catch (ClientException|RequestException $e) {
+            echo Message::toString($e->getRequest());
+
+            if ($e->hasResponse()) {
+                echo Message::toString($e->getResponse());
+            }
+            exit();
+        }
+
+        $response_body = \json_decode(
+            Utils::copyToString($response->getBody()),
+            false,
+            512,
+            JSON_THROW_ON_ERROR
+        );
+
+        if ('ok' === $response_body->status) {
+            $this->raw_data = $response_body->data;
+        } elseif ('error' === $response_body->status) {
+            if (\property_exists($response_body, 'data') && null !== $response_body->data) {
+                switch ($response_body->data) {
+                    case 'Unknown station':
+                        throw new UnknownStation();
+                    case 'Over quota':
+                        throw new QuotaExceeded();
+                    case 'Invalid key':
+                        throw new InvalidAccessToken();
+                }
+            }
+        }
     }
 }
