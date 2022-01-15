@@ -1,7 +1,5 @@
 [![GitHub Release](https://img.shields.io/github/release/azuyalabs/waqi.svg?style=flat-square)](https://github.com/azuyalabs/waqi/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build Status](https://img.shields.io/travis/azuyalabs/waqi.svg?style=flat-square)](https://travis-ci.org/azuyalabs/waqi)
-[![StyleCI](https://styleci.io/repos/81889057/shield?branch=master)](https://styleci.io/repos/81889057)
 [![CodeCheck](https://github.com/azuyalabs/waqi/workflows/Validate/badge.svg)](https://github.com/azuyalabs/waqi/actions)
 
 # A simple PHP Wrapper for the World Air Quality Index API
