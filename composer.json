@@ -17,20 +17,21 @@
     {
       "name": "Sacha Telgenhof",
       "email": "me@sachatelgenhof.com",
-      "homepage": "https://www.sachatelgenhof.nl",
-      "role": "Developer"
+      "homepage": "https://www.sachatelgenhof.com",
+      "role": "Maintainer"
     }
   ],
   "require": {
-    "php": ">=7.1.0",
-    "guzzlehttp/guzzle": "^6.2"
+    "php": "^7.4 || ^8.0",
+    "guzzlehttp/guzzle": "^6.5",
+    "ext-json": "*"
   },
   "require-dev": {
-    "mockery/mockery": "^1.2",
-    "friendsofphp/php-cs-fixer": "^2.1",
-    "phpunit/phpunit": "^7.4",
-    "fzaninotto/faker": "^1.6",
-    "phpstan/phpstan": "^0.10"
+    "mockery/mockery": "^1.3",
+    "friendsofphp/php-cs-fixer": "^v3.5",
+    "phpunit/phpunit": "^8.5",
+    "phpstan/phpstan": "^0.12",
+    "fakerphp/faker": "^1.15"
   },
   "autoload": {
     "psr-4": {
@@ -44,6 +45,7 @@
   },
   "scripts": {
     "test": "vendor/bin/phpunit",
-    "php-cs-fixer": "vendor/bin/php-cs-fixer fix ."
+    "format": "vendor/bin/php-cs-fixer fix",
+    "check": "vendor/bin/phpstan analyse -l 5 src"
   }
 }

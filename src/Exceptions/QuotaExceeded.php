@@ -1,13 +1,16 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the WAQI (World Air Quality Index) package.
  *
- * Copyright (c) 2017 - 2018 AzuyaLabs
+ * Copyright (c) 2017 - 2022 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 namespace Azuyalabs\WAQI\Exceptions;
@@ -19,15 +22,12 @@ use Exception;
  *
  * The default quota is maximum 1000 (thousand) requests per minute.
  *
- * @link http://aqicn.org/api
+ * @see http://aqicn.org/api
  */
-class QuotaExceededException extends Exception
+class QuotaExceeded extends Exception
 {
-    /**
-     * QuotaExceededException constructor.
-     */
     public function __construct()
     {
-        parent::__construct('Request Quota has been exceeded', 0, null);
+        parent::__construct('Request Quota has been exceeded');
     }
 }

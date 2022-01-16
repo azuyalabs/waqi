@@ -1,46 +1,37 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the WAQI (World Air Quality Index) package.
  *
- * Copyright (c) 2017 - 2018 AzuyaLabs
+ * Copyright (c) 2017 - 2022 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 namespace Azuyalabs\WAQI\Test;
 
-use Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException;
-use Azuyalabs\WAQI\Exceptions\QuotaExceededException;
-use Azuyalabs\WAQI\Exceptions\UnknownStationException;
+use Azuyalabs\WAQI\Exceptions\InvalidAccessToken;
+use Azuyalabs\WAQI\Exceptions\QuotaExceeded;
+use Azuyalabs\WAQI\Exceptions\UnknownStation;
 use Azuyalabs\WAQI\WAQI;
 use Faker\Factory;
+use Faker\Generator;
 use Mockery;
+use Mockery\LegacyMockInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Unit test class containing tests for the WAQI class
- */
 class WAQITest extends TestCase
 {
-    /**
-     * @var Mockery mock object representing the WAQI class
-     */
-    private $waqi;
+    private LegacyMockInterface $waqi;
 
-    /**
-     * @var Factory Faker object instance for randomizing test values
-     */
-    private $faker;
+    private Generator $faker;
 
-    /**
-     * Prepare and initialize tests.
-     *
-     * @return void
-     */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -48,12 +39,7 @@ class WAQITest extends TestCase
         $this->waqi = Mockery::mock(WAQI::class, [$this->faker->md5]);
     }
 
-    /**
-     * Clean up after tests have been performed.
-     *
-     * @return void
-     */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         parent::tearDown();
 
@@ -67,8 +53,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getTemperature()
-     *
-     * @return void
      */
     public function shouldGetTemperature(): void
     {
@@ -80,8 +64,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPressure()
-     *
-     * @return void
      */
     public function shouldGetPressure(): void
     {
@@ -93,8 +75,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getHumidity()
-     *
-     * @return void
      */
     public function shouldGetHumidity(): void
     {
@@ -102,12 +82,10 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid value for the fine particulate matter, 2.5 micrometers or less (PM2.5), is returned.
+     * Tests that a valid value for the fine particulate matter, 2.5 micrometers or lower (PM2.5), is returned.
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPM25()
-     *
-     * @return void
      */
     public function shouldGetPM25(): void
     {
@@ -115,13 +93,11 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a null value for for the respirable particulate matter, 2.5 micrometers or less (PM2.5), is returned
+     * Tests that a null value for the respirable particulate matter, 2.5 micrometers or lower (PM2.5), is returned,
      * in the situation that a monitoring station does not provide a PM2.5 reading.
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPM25()
-     *
-     * @return void
      */
     public function shouldGetNullIfNoPM25(): void
     {
@@ -129,12 +105,10 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid value for the respirable particulate matter, 10 micrometers or less (PM10), is returned.
+     * Tests that a valid value for the respirable particulate matter, 10 micrometers or lower (PM10), is returned.
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPM10()
-     *
-     * @return void
      */
     public function shouldGetPM10(): void
     {
@@ -142,13 +116,11 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a null value for for the respirable particulate matter, 10 micrometers or less (PM10), is returned
+     * Tests that a null value for the respirable particulate matter, 10 micrometers or lower (PM10), is returned,
      * in the situation that a monitoring station does not provide a PM10 reading.
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPM10()
-     *
-     * @return void
      */
     public function shouldGetNullIfNoPM10(): void
     {
@@ -160,8 +132,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getCO()
-     *
-     * @return void
      */
     public function shouldGetCO(): void
     {
@@ -169,13 +139,11 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid CO (carbon monoxide) value is returned in the situation that a monitoring station does not
+     * Tests that a valid CO (carbon monoxide) value is returned, in the situation that a monitoring station does not
      * provide a CO reading.
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getCO()
-     *
-     * @return void
      */
     public function shouldGetNullIfNoCO(): void
     {
@@ -187,8 +155,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getNO2()
-     *
-     * @return void
      */
     public function shouldGetNO2(): void
     {
@@ -196,13 +162,11 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid NO2 (nitrogen dioxide) value is returned in the situation that a monitoring station does not
+     * Tests that a valid NO2 (nitrogen dioxide) value is returned, in the situation that a monitoring station does not
      * provide a NO2 reading.
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getNO2()
-     *
-     * @return void
      */
     public function shouldGetNullIfNoNO2(): void
     {
@@ -214,8 +178,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getO3()
-     *
-     * @return void
      */
     public function shouldGetO3(): void
     {
@@ -223,13 +185,11 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid O3 (ozone) value is returned in the situation that a monitoring station does not
+     * Tests that a valid O3 (ozone) value is returned, in the situation that a monitoring station does not
      * provide an O3 reading.
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getO3()
-     *
-     * @return void
      */
     public function shouldGetNullIfNoO3(): void
     {
@@ -241,8 +201,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getSO2()
-     *
-     * @return void
      */
     public function shouldGetSO2(): void
     {
@@ -250,13 +208,11 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that a valid SO2 (sulfur dioxide) value is returned in the situation that a monitoring station does not
+     * Tests that a valid SO2 (sulfur dioxide) value is returned, in the situation that a monitoring station does not
      * provide a SO2 reading.
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getSO2()
-     *
-     * @return void
      */
     public function shouldGetNullIfNoSO2(): void
     {
@@ -269,7 +225,7 @@ class WAQITest extends TestCase
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getMeasurementTime()
      *
-     * @return void
+     * @throws \Exception
      */
     public function shouldGetMeasurementTime(): void
     {
@@ -283,7 +239,6 @@ class WAQITest extends TestCase
         $result = $this->waqi->getMeasurementTime();
 
         $this->assertEquals($expectedValue, $result);
-        $this->assertInstanceOf(\DateTime::class, $result);
         $this->assertNotEmpty($result);
         $this->assertNotNull($result);
     }
@@ -293,19 +248,17 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getMonitoringStation()
-     *
-     * @return void
      */
     public function shouldGetMonitoringStationInformation(): void
     {
         $expectedValue = [
-            'id'          => $this->faker->randomDigitNotNull(),
-            'name'        => $this->faker->text(50),
+            'id' => $this->faker->randomDigitNotNull(),
+            'name' => $this->faker->text(50),
             'coordinates' => [
-                'latitude'  => $this->faker->latitude(),
-                'longitude' => $this->faker->longitude()
+                'latitude' => $this->faker->latitude(),
+                'longitude' => $this->faker->longitude(),
             ],
-            'url'         => $this->faker->url()
+            'url' => $this->faker->url(),
         ];
 
         $this->waqi->shouldReceive('getMonitoringStation')
@@ -315,15 +268,12 @@ class WAQITest extends TestCase
 
         $result = $this->waqi->getMonitoringStation();
 
-        // Assertion of overall structure
         $this->assertValue($result, $expectedValue, 'array');
 
-        // Assertion of each individual element
         foreach (['id' => 'int', 'name' => 'string', 'url' => 'string', 'coordinates' => 'array'] as $name => $type) {
             $this->assertValue($result[$name], $expectedValue[$name], $type);
         }
 
-        // Assertion of the coordinates element
         $this->assertValue($result['coordinates']['longitude'], $expectedValue['coordinates']['longitude'], 'float');
         $this->assertValue($result['coordinates']['latitude'], $expectedValue['coordinates']['latitude'], 'float');
     }
@@ -333,16 +283,14 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getAQI()
-     *
-     * @return void
      */
     public function shouldGetAQIInformation(): void
     {
         $expectedValue = [
-            'aqi'                  => $this->faker->randomFloat(2, 0, 500),
-            'pollution_level'      => $this->faker->text(50),
-            'health_implications'  => $this->faker->text(150),
-            'cautionary_statement' => $this->faker->text(150)
+            'aqi' => $this->faker->randomFloat(2, 0, 500),
+            'pollution_level' => $this->faker->text(50),
+            'health_implications' => $this->faker->text(150),
+            'cautionary_statement' => $this->faker->text(150),
         ];
 
         $this->waqi->shouldReceive('getAQI')
@@ -352,10 +300,8 @@ class WAQITest extends TestCase
 
         $result = $this->waqi->getAQI();
 
-        // Assertion of overall structure
         $this->assertValue($result, $expectedValue, 'array');
 
-        // Assertion of each individual element
         foreach (['aqi' => 'float', 'pollution_level' => 'string', 'health_implications' => 'string', 'cautionary_statement' => 'string'] as $name => $type) {
             $this->assertValue($result[$name], $expectedValue[$name], $type);
         }
@@ -366,8 +312,6 @@ class WAQITest extends TestCase
      *
      * @test
      * @covers \Azuyalabs\WAQI\WAQI::getPrimaryPollutant()
-     *
-     * @return void
      */
     public function shouldGetPrimaryPollutant(): void
     {
@@ -384,79 +328,128 @@ class WAQITest extends TestCase
     }
 
     /**
-     * Tests that an UnknownStationException is thrown if an unknown monitoring station name is given upon get the
+     * Tests that an UnknownStation Exception for getObservationByStation is thrown if an unknown monitoring station name is given upon get the
      * stations' real-time observation.
      *
      * @test
-     * @expectedException \Azuyalabs\WAQI\Exceptions\UnknownStationException
      */
-    public function shouldRaiseExceptionWhenUnknownStationName(): void
+    public function shouldRaiseExceptionWhenUnknownStationNameByStation(): void
     {
+        $this->expectException(UnknownStation::class);
         $station = 'xxxx';
 
         $this->waqi->shouldReceive('getObservationByStation')
             ->once()
             ->with($station)
-            ->andThrow(UnknownStationException::class);
+            ->andThrow(UnknownStation::class);
 
-        $this->waqi->getObservationByStation($station);
+        try {
+            $this->waqi->getObservationByStation($station);
+        } catch (InvalidAccessToken|QuotaExceeded $e) {
+        }
     }
 
     /**
-     * Tests that a QuotaExceededException is thrown when the API quota has been exceeded.
+     * Tests that a QuotaExceeded Exception for getObservationByStation is thrown when the API quota has been exceeded.
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
      * @test
-     * @expectedException \Azuyalabs\WAQI\Exceptions\QuotaExceededException
      */
-    public function shouldRaiseExceptionWhenQuotaExceeded(): void
+    public function shouldRaiseExceptionWhenQuotaExceededByStation(): void
     {
+        $this->expectException(QuotaExceeded::class);
         $station = $this->faker->city;
 
         $this->waqi->shouldReceive('getObservationByStation')
             ->once()
             ->with($station)
-            ->andThrow(QuotaExceededException::class);
+            ->andThrow(QuotaExceeded::class);
 
-        $this->waqi->getObservationByStation($station);
+        try {
+            $this->waqi->getObservationByStation($station);
+        } catch (InvalidAccessToken|UnknownStation $e) {
+        }
     }
 
     /**
-     * Tests that an InvalidAccessTokenException is thrown when an invalid access token is provided
+     * Tests that an InvalidAccessToken Exception for getObservationByStation is thrown when an invalid access token is provided
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
      * @test
-     * @expectedException \Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException
      */
-    public function shouldRaiseExceptionWhenInvalidToken(): void
+    public function shouldRaiseExceptionWhenInvalidTokenByStation(): void
     {
+        $this->expectException(InvalidAccessToken::class);
         $station = $this->faker->city;
 
         $this->waqi->shouldReceive('getObservationByStation')
             ->once()
             ->with($station)
-            ->andThrow(InvalidAccessTokenException::class);
+            ->andThrow(InvalidAccessToken::class);
 
-        $this->waqi->getObservationByStation($station);
+        try {
+            $this->waqi->getObservationByStation($station);
+        } catch (QuotaExceeded|UnknownStation $e) {
+        }
+    }
+
+    /**
+     * Tests that a QuotaExceeded Exception for getObservationByGeoLocation is thrown when the API quota has been exceeded.
+     * The default quota is maximum 1000 (thousand) requests per minute.
+     *
+     * @test
+     *
+     * @throws InvalidAccessToken|UnknownStation
+     */
+    public function shouldRaiseExceptionWhenQuotaExceededByGeoLocation(): void
+    {
+        $this->expectException(QuotaExceeded::class);
+
+        $latitude = $this->faker->latitude;
+        $longitude = $this->faker->longitude;
+
+        $this->waqi->shouldReceive('getObservationByGeoLocation')
+            ->once()
+            ->with($latitude, $longitude)
+            ->andThrow(QuotaExceeded::class);
+
+        $this->waqi->getObservationByGeoLocation($latitude, $longitude);
+    }
+
+    /**
+     * Tests that an InvalidAccessToken Exception for getObservationByGeoLocation is thrown when an invalid access token is provided
+     * The default quota is maximum 1000 (thousand) requests per minute.
+     *
+     * @test
+     *
+     * @throws QuotaExceeded|UnknownStation
+     */
+    public function shouldRaiseExceptionWhenInvalidTokenByGeoLocation(): void
+    {
+        $this->expectException(InvalidAccessToken::class);
+
+        $latitude = $this->faker->latitude;
+        $longitude = $this->faker->longitude;
+
+        $this->waqi->shouldReceive('getObservationByGeoLocation')
+            ->once()
+            ->with($latitude, $longitude)
+            ->andThrow(InvalidAccessToken::class);
+
+        $this->waqi->getObservationByGeoLocation($latitude, $longitude);
     }
 
     /**
      * Performs basic assertions on a result value.
      *
-     * @param        $result        mixed the value to be asserted
-     * @param        $expectedValue mixed the expected value
+     * @param mixed  $result        the value to be asserted
+     * @param mixed  $expectedValue the expected value
      * @param string $type          the internal type representing the given value (e.g. 'int', 'string', etc.)
      */
     private function assertValue($result, $expectedValue, string $type): void
     {
         $this->assertEquals($expectedValue, $result);
-        $this->assertInternalType($type, $result);
-        if (\is_object($result)) {
-            $this->assertInstanceOf($type, $result);
-        } else {
-            $this->assertInternalType($type, $result);
-        }
-
+        $this->{'assertIs'.\ucfirst($type)}($result);
         $this->assertNotEmpty($result);
         $this->assertNotNull($result);
     }

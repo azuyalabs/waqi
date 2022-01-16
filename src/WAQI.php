@@ -1,53 +1,46 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the WAQI (World Air Quality Index) package.
  *
- * Copyright (c) 2017 - 2018 AzuyaLabs
+ * Copyright (c) 2017 - 2022 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 namespace Azuyalabs\WAQI;
 
-use Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException;
-use Azuyalabs\WAQI\Exceptions\QuotaExceededException;
-use Azuyalabs\WAQI\Exceptions\UnknownStationException;
+use Azuyalabs\WAQI\Exceptions\InvalidAccessToken;
+use Azuyalabs\WAQI\Exceptions\QuotaExceeded;
+use Azuyalabs\WAQI\Exceptions\UnknownStation;
 use DateTime;
 use DateTimeZone;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7;
+use GuzzleHttp\Psr7\Message;
+use GuzzleHttp\Psr7\Utils;
 
-/**
- * Class WAQI.
- */
 class WAQI
 {
-    /**
-     * The endpoint URL of the World Quality Index API.
-     */
+    /** The endpoint URL of the World Quality Index API. */
     private const API_ENDPOINT = 'https://api.waqi.info/api';
 
-    /**
-     * @var string World Air Quality access token
-     */
-    private $token;
+    /** World Air Quality access token. */
+    private string $token;
+
+    /** raw response data received from the World Quality Index API. */
+    private ?\stdClass $raw_data = null;
 
     /**
-     * @var \stdClass Raw response data received from the World Quality Index API.
-     */
-    private $raw_data;
-
-    /**
-     * WAQI class constructor.
-     *
      * A World Air Quality access token is required to use this API. A token can be obtained by submitting a request at
-     * http://aqicn.org/data-platform/token
+     * http://aqicn.org/data-platform/token.
      *
      * @param string $token World Air Quality access token
      */
@@ -59,54 +52,40 @@ class WAQI
     /**
      * Retrieves the real-time Air Quality Index observation monitoring station name (or city name).
      *
-     * If the $station argument is left blank, the Air Quality Index observation is obtained of the nearest monitoring
+     * If the $station argument is left out, the Air Quality Index observation is obtained of the nearest monitoring
      * station close to the user location (based on the user's public IP address)
      *
-     * @param string $station name of the monitoring station (or city name). This parameter can be left blank to get the
-     *                        observation of the nearest monitoring station close to the user location (based on the
-     *                        user's public IP address)
+     * @param ?string $station name of the monitoring station (or city name). This parameter can be left blank to get
+     *                         the observation of the nearest monitoring station close to the user location (based on
+     *                         the  user's public IP address)
      *
-     * @throws \Azuyalabs\WAQI\Exceptions\UnknownStationException
-     * @throws \Azuyalabs\WAQI\Exceptions\QuotaExceededException
-     * @throws \Azuyalabs\WAQI\Exceptions\InvalidAccessTokenException
-     *
-     * @return void
+     * @throws QuotaExceeded
+     * @throws InvalidAccessToken
+     * @throws UnknownStation
      */
-    public function getObservationByStation(string $station = 'here'): void
+    public function getObservationByStation(?string $station = null): void
     {
-        $client = new Client(['base_uri' => self::API_ENDPOINT]);
-
         try {
-            $response = $client->request('GET', 'feed/'.$station.'/', ['query' => 'token='.$this->token]);
-        } catch (ClientException $e) {
-            echo Psr7\str($e->getRequest());
-            echo Psr7\str($e->getResponse());
-            exit();
-        } catch (RequestException $e) {
-            echo Psr7\str($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
-            }
-            exit();
-        } catch (GuzzleException $e) {
-            echo $e->getMessage();
-            exit();
+            $this->request('feed/'.($station ?? 'here').'/');
+        } catch (GuzzleException|\JsonException $e) {
+            throw new \RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
         }
+    }
 
-        $_response_body = json_decode($response->getBody());
-
-        if ($_response_body->status === 'ok') {
-            $this->raw_data = $_response_body->data;
-        } elseif ($_response_body->status === 'error') {
-            switch ($_response_body->data) {
-                case 'Unknown station':
-                    throw new UnknownStationException($station);
-                case 'Over quota':
-                    throw new QuotaExceededException();
-                case 'Invalid key':
-                    throw new InvalidAccessTokenException();
-            }
-            exit();
+    /**
+     * Retrieves the real-time Air Quality Index observation monitoring station name (or city name)
+     * by the given geographical coordinates.
+     *
+     * @throws QuotaExceeded
+     * @throws InvalidAccessToken
+     * @throws UnknownStation
+     */
+    public function getObservationByGeoLocation(float $latitude, float $longitude): void
+    {
+        try {
+            $this->request('feed/geo:'.$latitude.';'.$longitude.'/');
+        } catch (GuzzleException|\JsonException $e) {
+            throw new \RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 
@@ -120,12 +99,12 @@ class WAQI
      *                           level
      *  - 'cautionary_statement': a cautionary statement associated with the measured pollution level (only for PM2.5)
      *
-     * @return array structure containing the Air Quality Index measured at this monitoring station at the time of
-     *               measurement
+     * @return array<string, mixed> structure containing the Air Quality Index measured at this monitoring station at
+     *                              the time of measurement
      */
     public function getAQI(): array
     {
-        $aqi = (int)$this->raw_data->aqi;
+        $aqi = (int) $this->raw_data->aqi;
 
         $narrative_level = '';
         $narrative_health = '';
@@ -174,10 +153,10 @@ class WAQI
         }
 
         return [
-            'aqi'                  => (float)$aqi,
-            'pollution_level'      => $narrative_level,
-            'health_implications'  => $narrative_health,
-            'cautionary_statement' => $narrative_cautionary
+            'aqi' => (float) $aqi,
+            'pollution_level' => $narrative_level,
+            'health_implications' => $narrative_health,
+            'cautionary_statement' => $narrative_cautionary,
         ];
     }
 
@@ -185,6 +164,8 @@ class WAQI
      * Returns the date/time the last measurement was taken.
      *
      * @return DateTime the date/time the last measurement was taken
+     *
+     * @throws \Exception
      */
     public function getMeasurementTime(): DateTime
     {
@@ -200,31 +181,44 @@ class WAQI
      *  - 'coordinates': the geographical coordinates of this monitoring station ('longitude' and 'latitude')
      *  - 'url': the URL of this monitoring station
      *
-     * @return array structure containing information about this monitoring station
+     * @return array<string, mixed> structure containing information about this monitoring station
      */
     public function getMonitoringStation(): array
     {
         return [
-            'id'          => (int)$this->raw_data->idx,
-            'name'        => (string)html_entity_decode($this->raw_data->city->name),
+            'id' => (int) $this->raw_data->idx,
+            'name' => \html_entity_decode($this->raw_data->city->name),
             'coordinates' => [
-                'latitude'  => (float)$this->raw_data->city->geo[0],
-                'longitude' => (float)$this->raw_data->city->geo[1],
+                'latitude' => (float) $this->raw_data->city->geo[0],
+                'longitude' => (float) $this->raw_data->city->geo[1],
             ],
-            'url'         => (string)$this->raw_data->city->url
+            'url' => (string) $this->raw_data->city->url,
         ];
     }
 
     /**
      * Returns a list of EPA attributions for this monitoring station.
      *
-     * A list of one or more attributions is returned of which each contains a name and an URL attribute.
+     * A list of one or more attributions is returned, of which each contains a name and a URL attribute.
      *
-     * @return array list of EPA attributions for this monitoring station
+     * @return array<string, mixed> list of EPA attributions for this monitoring station
+     *
+     * @throws \JsonException
      */
     public function getAttributions(): array
     {
-        return (array)json_decode(json_encode($this->raw_data->attributions), true);
+        $data = \json_encode($this->raw_data->attributions, JSON_THROW_ON_ERROR);
+
+        if (!$data) {
+            throw new \RuntimeException('unable to process attributions data');
+        }
+
+        return (array) \json_decode(
+            $data,
+            true,
+            512,
+            JSON_THROW_ON_ERROR
+        );
     }
 
     /**
@@ -306,13 +300,13 @@ class WAQI
     }
 
     /**
-     * Returns the level of respirable particulate matter, 10 micrometers or less (PM10), measured at this monitoring
+     * Returns the level of respirable particulate matter, 10 micrometers or fewer (PM10), measured at this monitoring
      * station at the time of measurement.
      *
      * PM10 levels are typically expressed in Parts per million (PPM) or density, however the World Air
      * Quality levels is using the US EPA 0-500 AQI scale.
      *
-     * @return float|null the level of particulate matter 10 micrometers or less (PM10), measured at this monitoring
+     * @return float|null the level of particulate matter 10 micrometers or fewer (PM10), measured at this monitoring
      *                    station at the time of measurement. If the monitoring station does not measure PM10 levels,
      *                    a 'null' value is returned
      */
@@ -322,13 +316,13 @@ class WAQI
     }
 
     /**
-     * Returns the level of fine particulate matter, 2.5 micrometers or less (PM2.5), measured at this monitoring
+     * Returns the level of fine particulate matter, 2.5 micrometers or fewer (PM2.5), measured at this monitoring
      * station at the time of measurement.
      *
      * PM2.5 levels are typically expressed in Parts per million (PPM) or density, however the World Air
      * Quality levels is using the US EPA 0-500 AQI scale.
      *
-     * @return float|null the level of particulate matter 2.5 micrometers or less (PM2.5), measured at this monitoring
+     * @return float|null the level of particulate matter 2.5 micrometers or fewer (PM2.5), measured at this monitoring
      *                    station at the time of measurement. If the monitoring station does not measure PM10 levels,
      *                    a 'null' value is returned
      */
@@ -360,6 +354,51 @@ class WAQI
      */
     public function getPrimaryPollutant(): string
     {
-        return (string)$this->raw_data->dominentpol;
+        return (string) $this->raw_data->dominentpol;
+    }
+
+    /**
+     * @throws InvalidAccessToken
+     * @throws UnknownStation
+     * @throws QuotaExceeded
+     * @throws GuzzleException
+     * @throws \JsonException
+     */
+    private function request(string $uri): void
+    {
+        $client = new Client(['base_uri' => self::API_ENDPOINT]);
+
+        try {
+            $response = $client->request('GET', $uri, ['query' => 'token='.$this->token]);
+        } catch (ClientException|RequestException $e) {
+            echo Message::toString($e->getRequest());
+
+            if ($e->hasResponse()) {
+                echo Message::toString($e->getResponse());
+            }
+            exit();
+        }
+
+        $response_body = \json_decode(
+            Utils::copyToString($response->getBody()),
+            false,
+            512,
+            JSON_THROW_ON_ERROR
+        );
+
+        if ('ok' === $response_body->status) {
+            $this->raw_data = $response_body->data;
+        } elseif ('error' === $response_body->status) {
+            if (\property_exists($response_body, 'data') && null !== $response_body->data) {
+                switch ($response_body->data) {
+                    case 'Unknown station':
+                        throw new UnknownStation();
+                    case 'Over quota':
+                        throw new QuotaExceeded();
+                    case 'Invalid key':
+                        throw new InvalidAccessToken();
+                }
+            }
+        }
     }
 }
