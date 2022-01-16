@@ -9,6 +9,16 @@ to [Semantic Versioning](http://semver.org).
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Removed
+
+## [1.1.0] 2022-01-16
+
+### Added
+
 - New function to get the reading observation by geolocation (latitude and longitude)
   . [\#4](https://github.com/azuyalabs/waqi/pull/4) ([mohdizzudin](https://github.com/mohdizzudin))
 - Check that the response body contains a 'data' element. In certain situations this element is not always returned by
@@ -19,7 +29,7 @@ to [Semantic Versioning](http://semver.org).
 ### Changed
 
 - Upgrade to PHPUnit 8.
-- Updated third party dependencies.
+- Updated external dependencies.
 - Introduced new PHP CS Fixer settings with upgraded PHP CS Fixer v3.
 - Copyright year and e-mail address.
 - Renamed the script for formatting code to a more concise name.
@@ -27,7 +37,7 @@ to [Semantic Versioning](http://semver.org).
 - Dropped unnecessary arguments in some functions as they are the same as the default.
 - Included conversion from StreamInterface to string when receiving the response from the HTTP client.
 - Removed the 'Exception' part of the exception class names as it is superfluous.
-- Replaced deprecated `Psr7\str` function calls.
+- Replaced deprecated `Psr7\str` and `Psr7\copy_to_string` function calls.
 
 ### Fixed
 
@@ -36,9 +46,9 @@ to [Semantic Versioning](http://semver.org).
 
 ### Removed
 
-- Throwing an exception as methods allows for a null value parameter.
 - Travis CI and StyleCI in favour of GitHub Actions.
 - Support for PHP 7.3.
+- Throwing an exception as methods allows for a null value parameter.
 
 ## [1.0.1] 2018-10-31
 
@@ -66,3 +76,11 @@ to [Semantic Versioning](http://semver.org).
 ## [1.0.0] 2017-02-15
 
 - Initial release
+
+[Unreleased]: https://github.com/azuyalabs/waqi/compare/1.1.0...HEAD
+
+[1.1.0]: https://github.com/azuyalabs/waqi/compare/1.0.1...1.1.0
+
+[1.0.1]: https://github.com/azuyalabs/waqi/compare/1.0.0...1.0.1
+
+[1.0.0]: https://github.com/azuyalabs/waqi/releases/tag/1.0.0
