@@ -9,7 +9,12 @@ to [Semantic Versioning](http://semver.org).
 
 ### Added
 
+- Security document explaining policy around security vulnerabilities and supported PHP versions.
+
 ### Changed
+
+- Upgraded Guzzle to version 7.4.
+- Upgraded PHPStan to version 1.4.
 
 ### Fixed
 
