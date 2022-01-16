@@ -31,7 +31,9 @@
     "friendsofphp/php-cs-fixer": "^v3.5",
     "phpunit/phpunit": "^9.5",
     "phpstan/phpstan": "^1.4",
-    "fakerphp/faker": "^1.15"
+    "fakerphp/faker": "^1.15",
+    "infection/infection": "^0.26.1",
+    "vimeo/psalm": "^4.18"
   },
   "autoload": {
     "psr-4": {
@@ -44,8 +46,22 @@
     }
   },
   "scripts": {
-    "test": "vendor/bin/phpunit",
     "format": "vendor/bin/php-cs-fixer fix",
-    "check": "vendor/bin/phpstan analyse -l 5 src"
+    "phpstan": "vendor/bin/phpstan analyse",
+    "psalm": "vendor/bin/psalm --threads=2",
+    "test": "vendor/bin/phpunit",
+    "infection": "vendor/bin/infection run -j 2",
+    "analyse": [
+      "@phpstan",
+      "@psalm",
+      "@infection"
+    ]
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "infection/extension-installer": true,
+      "composer/package-versions-deprecated": true
+    }
   }
 }

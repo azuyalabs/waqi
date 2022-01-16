@@ -1,4 +1,4 @@
-name: "Coding Standard"
+name: "Mutations testing"
 
 on:
   - push
@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        operating-system: [ ubuntu-latest, windows-latest, macOS-latest ]
+        operating-system: [ ubuntu-latest ]
         php-versions: [ '7.4', '8.0', '8.1' ]
 
     steps:
@@ -48,5 +48,5 @@ jobs:
       - name: Install dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: Check Code Style
-        run: vendor/bin/php-cs-fixer --diff --dry-run -v fix
+      - name: Run Mutation tests
+        run: vendor/bin/infection run -j 2
