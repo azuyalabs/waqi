@@ -21,6 +21,20 @@
       "role": "Maintainer"
     }
   ],
+  "readme": "README.md",
+  "support": {
+    "issues": "https://gitlab.com/azuyalabs/waqi/-/issues",
+    "source": "https://gitlab.com/azuyalabs/waqi",
+    "docs": "https://gitlab.com/azuyalabs/waqi"
+  },
+  "funding": [
+    {
+      "type": "other",
+      "url": "https://www.buymeacoffee.com/sachatelgenhof"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "require": {
     "php": "^7.4 || ^8.0",
     "guzzlehttp/guzzle": "^7.4",
