@@ -1,9 +1,9 @@
 # Contributing
 
-Contributions are encouraged and welcome; we are always happy to get feedback or pull requests
-on [GitHub](https://github.com/azuyalabs/waqi).
+Contributions are encouraged and welcome; I am always happy to get feedback or pull requests
+on [GitLab](https://gitlab.com/stelgenhof/opensubtitles).
 
-When contributing there are a few guidelines we'd like you to keep in mind:
+When contributing there are a few guidelines I would like you to keep in mind:
 
 ## Pull Requests
 
