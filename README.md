@@ -16,7 +16,7 @@ here: https://aqicn.org/data-platform/token.
 
 ## System Requirements
 
-You need *PHP >= 7.4* to use 'azuyalabs/waqi'.
+You need *PHP >= 8.0* to use 'azuyalabs/waqi'.
 
 ## Installation
 
@@ -41,14 +41,14 @@ Using your AQI access token, create an instance of the WAQI object:
 use Azuyalabs\WAQI\WAQI;
 
 $waqi = new WAQI(<your access token>);
-``` 
+```
 
 Next, use the `getObservationByStation` method with the desired city or monitoring station name (e.g.
 'new york'). This will obtain the latest air quality observations:
 
 ```php
 $waqi->getObservationByStation('new york');
-``` 
+```
 
 ### Air Quality
 
@@ -59,7 +59,7 @@ To get the AQI (Air Quality Index), use the method `getAQI`:
 
 ```php
 $waqi->getAQI();
-``` 
+```
 
 This returns an array structure containing the Air Quality Index measured at this monitoring station at the time of
 measurement. It contains 4 elements:
