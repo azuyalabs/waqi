@@ -66,7 +66,7 @@ class WAQI
         try {
             $this->request('feed/'.($station ?? 'here').'/');
         } catch (GuzzleException|\JsonException $e) {
-            throw new \RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -83,7 +83,7 @@ class WAQI
         try {
             $this->request('feed/geo:'.$latitude.';'.$longitude.'/');
         } catch (GuzzleException|\JsonException $e) {
-            throw new \RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
