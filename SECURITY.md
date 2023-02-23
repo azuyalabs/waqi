@@ -6,7 +6,8 @@ Please refer to the below table for the supported versions of this project.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.1.0   | :white_check_mark: |
+| 1.2.0   | :white_check_mark: |
+| 1.1.0   | :x:                |
 | < 1.0   | :x:                |
 
 As for supported PHP versions, this project only supports the actively supported versions of PHP. Currently, that is PHP
