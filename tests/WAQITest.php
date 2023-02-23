@@ -21,7 +21,6 @@ use Azuyalabs\WAQI\Exceptions\UnknownStation;
 use Azuyalabs\WAQI\WAQI;
 use Faker\Factory;
 use Faker\Generator;
-use Mockery;
 use Mockery\LegacyMockInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -36,14 +35,14 @@ class WAQITest extends TestCase
         parent::setUp();
 
         $this->faker = Factory::create();
-        $this->waqi = Mockery::mock(WAQI::class, [$this->faker->md5()]);
+        $this->waqi = \Mockery::mock(WAQI::class, [$this->faker->md5()]);
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
 
-        Mockery::close();
+        \Mockery::close();
 
         unset($this->faker, $this->waqi);
     }
@@ -52,6 +51,7 @@ class WAQITest extends TestCase
      * Tests that a valid temperature value is returned.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getTemperature()
      */
     public function shouldGetTemperature(): void
@@ -63,6 +63,7 @@ class WAQITest extends TestCase
      * Tests that a valid barometric pressure value is returned.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getPressure()
      */
     public function shouldGetPressure(): void
@@ -74,6 +75,7 @@ class WAQITest extends TestCase
      * Tests that a valid humidity value is returned.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getHumidity()
      */
     public function shouldGetHumidity(): void
@@ -85,6 +87,7 @@ class WAQITest extends TestCase
      * Tests that a valid value for the fine particulate matter, 2.5 micrometers or lower (PM2.5), is returned.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getPM25()
      */
     public function shouldGetPM25(): void
@@ -97,6 +100,7 @@ class WAQITest extends TestCase
      * in the situation that a monitoring station does not provide a PM2.5 reading.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getPM25()
      */
     public function shouldGetNullIfNoPM25(): void
@@ -108,6 +112,7 @@ class WAQITest extends TestCase
      * Tests that a valid value for the respirable particulate matter, 10 micrometers or lower (PM10), is returned.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getPM10()
      */
     public function shouldGetPM10(): void
@@ -120,6 +125,7 @@ class WAQITest extends TestCase
      * in the situation that a monitoring station does not provide a PM10 reading.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getPM10()
      */
     public function shouldGetNullIfNoPM10(): void
@@ -131,6 +137,7 @@ class WAQITest extends TestCase
      * Tests that a valid CO (carbon monoxide) value is returned.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getCO()
      */
     public function shouldGetCO(): void
@@ -143,6 +150,7 @@ class WAQITest extends TestCase
      * provide a CO reading.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getCO()
      */
     public function shouldGetNullIfNoCO(): void
@@ -154,6 +162,7 @@ class WAQITest extends TestCase
      * Tests that a valid NO2 (nitrogen dioxide) value is returned.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getNO2()
      */
     public function shouldGetNO2(): void
@@ -166,6 +175,7 @@ class WAQITest extends TestCase
      * provide a NO2 reading.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getNO2()
      */
     public function shouldGetNullIfNoNO2(): void
@@ -177,6 +187,7 @@ class WAQITest extends TestCase
      * Tests that a valid O3 (ozone) value is returned.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getO3()
      */
     public function shouldGetO3(): void
@@ -189,6 +200,7 @@ class WAQITest extends TestCase
      * provide an O3 reading.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getO3()
      */
     public function shouldGetNullIfNoO3(): void
@@ -200,6 +212,7 @@ class WAQITest extends TestCase
      * Tests that a valid SO2 (sulfur dioxide) value is returned.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getSO2()
      */
     public function shouldGetSO2(): void
@@ -212,6 +225,7 @@ class WAQITest extends TestCase
      * provide a SO2 reading.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getSO2()
      */
     public function shouldGetNullIfNoSO2(): void
@@ -223,6 +237,7 @@ class WAQITest extends TestCase
      * Tests that a valid measurement time value is returned.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getMeasurementTime()
      *
      * @throws \Exception
@@ -247,6 +262,7 @@ class WAQITest extends TestCase
      * Tests that a valid array is returned that represents the monitoring station information.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getMonitoringStation()
      */
     public function shouldGetMonitoringStationInformation(): void
@@ -282,6 +298,7 @@ class WAQITest extends TestCase
      * Tests that a valid array is returned that represents the Air Quality Index information.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getAQI()
      */
     public function shouldGetAQIInformation(): void
@@ -311,6 +328,7 @@ class WAQITest extends TestCase
      * Tests that a valid value for the primary pollutant is returned.
      *
      * @test
+     *
      * @covers \Azuyalabs\WAQI\WAQI::getPrimaryPollutant()
      */
     public function shouldGetPrimaryPollutant(): void

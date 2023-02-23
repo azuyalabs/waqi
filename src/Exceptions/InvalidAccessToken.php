@@ -20,7 +20,7 @@ use Exception;
 /**
  * Class for representing the exception that an invalid access token has been given.
  */
-class InvalidAccessToken extends Exception
+class InvalidAccessToken extends \Exception
 {
     public function __construct()
     {

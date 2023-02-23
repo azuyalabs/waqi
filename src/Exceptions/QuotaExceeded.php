@@ -24,7 +24,7 @@ use Exception;
  *
  * @see http://aqicn.org/api
  */
-class QuotaExceeded extends Exception
+class QuotaExceeded extends \Exception
 {
     public function __construct()
     {

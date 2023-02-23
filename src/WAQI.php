@@ -18,8 +18,6 @@ namespace Azuyalabs\WAQI;
 use Azuyalabs\WAQI\Exceptions\InvalidAccessToken;
 use Azuyalabs\WAQI\Exceptions\QuotaExceeded;
 use Azuyalabs\WAQI\Exceptions\UnknownStation;
-use DateTime;
-use DateTimeZone;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -163,13 +161,13 @@ class WAQI
     /**
      * Returns the date/time the last measurement was taken.
      *
-     * @return DateTime the date/time the last measurement was taken
+     * @return \DateTime the date/time the last measurement was taken
      *
      * @throws \Exception
      */
-    public function getMeasurementTime(): DateTime
+    public function getMeasurementTime(): \DateTime
     {
-        return new DateTime($this->raw_data->time->s, new DateTimeZone($this->raw_data->time->tz));
+        return new \DateTime($this->raw_data->time->s, new \DateTimeZone($this->raw_data->time->tz));
     }
 
     /**
@@ -376,7 +374,7 @@ class WAQI
             if ($e->hasResponse()) {
                 echo Message::toString($e->getResponse());
             }
-            exit();
+            exit;
         }
 
         $response_body = \json_decode(
