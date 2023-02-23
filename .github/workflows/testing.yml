@@ -1,4 +1,4 @@
-name: "Coding Standard"
+name: "Testing"
 
 on:
   - push
@@ -48,7 +48,5 @@ jobs:
       - name: Install dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: Check Code Style
-        run: vendor/bin/php-cs-fixer --diff --dry-run -v fix
-        env:
-          PHP_CS_FIXER_IGNORE_ENV: 1
+      - name: Run unit tests
+        run: vendor/bin/phpunit --coverage-clover=build/logs/clover.xml

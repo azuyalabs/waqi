@@ -15,6 +15,32 @@ to [Semantic Versioning](http://semver.org).
 
 ### Removed
 
+## [1.2.0] 2023-02-23
+
+### Added
+
+- Support for PHP version 8.1 and 8.2.
+- Rector configuration for easy refactoring.
+- Added PHP Mutation Testing.
+- Contribution Guidelines and Code of Conduct.
+- Security document explaining policy around security vulnerabilities and supported PHP versions.
+
+### Changed
+
+- Split GitHub Actions in separate workflow steps (mutation testing, code checks, testing, etc.).
+- Updated copyright year.
+- Upgraded Psalm to version 5.7.
+- Upgraded Guzzle to version 7.4.
+- Upgraded PHPStan to version 1.4.
+
+### Fixed
+
+- Various code style improvements and fixes.
+
+### Removed
+
+- PHP 7.4 Support.
+
 ## [1.1.0] 2022-01-16
 
 ### Added
@@ -35,7 +61,7 @@ to [Semantic Versioning](http://semver.org).
 - Renamed the script for formatting code to a more concise name.
 - Replaced FQN by use of imports.
 - Dropped unnecessary arguments in some functions as they are the same as the default.
-- Included conversion from StreamInterface to string when receiving the response from the HTTP client.
+- Included conversion from `StreamInterface` to string when receiving the response from the HTTP client.
 - Removed the 'Exception' part of the exception class names as it is superfluous.
 - Replaced deprecated `Psr7\str` and `Psr7\copy_to_string` function calls.
 
@@ -46,7 +72,7 @@ to [Semantic Versioning](http://semver.org).
 
 ### Removed
 
-- Travis CI and StyleCI in favour of GitHub Actions.
+- Travis CI and Style CI in favour of GitHub Actions.
 - Support for PHP 7.3.
 - Throwing an exception as methods allows for a null value parameter.
 
@@ -54,7 +80,7 @@ to [Semantic Versioning](http://semver.org).
 
 ### Added
 
-- Added missing catch clause for GuzzleException.
+- Added missing catch clause for `GuzzleException`.
 
 ### Changed
 
@@ -77,7 +103,9 @@ to [Semantic Versioning](http://semver.org).
 
 - Initial release
 
-[Unreleased]: https://github.com/azuyalabs/waqi/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/azuyalabs/waqi/compare/1.2.0...HEAD
+
+[1.2.0]: https://github.com/azuyalabs/waqi/compare/1.1.0...1.2.0
 
 [1.1.0]: https://github.com/azuyalabs/waqi/compare/1.0.1...1.1.0
 

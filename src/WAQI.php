@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * This file is part of the WAQI (World Air Quality Index) package.
  *
- * Copyright (c) 2017 - 2022 AzuyaLabs
+ * Copyright (c) 2017 - 2023 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -18,8 +18,6 @@ namespace Azuyalabs\WAQI;
 use Azuyalabs\WAQI\Exceptions\InvalidAccessToken;
 use Azuyalabs\WAQI\Exceptions\QuotaExceeded;
 use Azuyalabs\WAQI\Exceptions\UnknownStation;
-use DateTime;
-use DateTimeZone;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -32,9 +30,6 @@ class WAQI
     /** The endpoint URL of the World Quality Index API. */
     private const API_ENDPOINT = 'https://api.waqi.info/api';
 
-    /** World Air Quality access token. */
-    private string $token;
-
     /** raw response data received from the World Quality Index API. */
     private ?\stdClass $raw_data = null;
 
@@ -44,9 +39,10 @@ class WAQI
      *
      * @param string $token World Air Quality access token
      */
-    public function __construct(string $token)
-    {
-        $this->token = $token;
+    public function __construct(
+        /** World Air Quality access token. */
+        private string $token
+    ) {
     }
 
     /**
@@ -68,7 +64,7 @@ class WAQI
         try {
             $this->request('feed/'.($station ?? 'here').'/');
         } catch (GuzzleException|\JsonException $e) {
-            throw new \RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -85,7 +81,7 @@ class WAQI
         try {
             $this->request('feed/geo:'.$latitude.';'.$longitude.'/');
         } catch (GuzzleException|\JsonException $e) {
-            throw new \RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -99,8 +95,8 @@ class WAQI
      *                           level
      *  - 'cautionary_statement': a cautionary statement associated with the measured pollution level (only for PM2.5)
      *
-     * @return array<string, mixed> structure containing the Air Quality Index measured at this monitoring station at
-     *                              the time of measurement
+     * @return array{aqi: float, pollution_level: string, health_implications: string, cautionary_statement: string} structure containing the Air Quality Index measured at this monitoring station at
+                            the time of measurement
      */
     public function getAQI(): array
     {
@@ -163,13 +159,13 @@ class WAQI
     /**
      * Returns the date/time the last measurement was taken.
      *
-     * @return DateTime the date/time the last measurement was taken
+     * @return \DateTime the date/time the last measurement was taken
      *
      * @throws \Exception
      */
-    public function getMeasurementTime(): DateTime
+    public function getMeasurementTime(): \DateTime
     {
-        return new DateTime($this->raw_data->time->s, new DateTimeZone($this->raw_data->time->tz));
+        return new \DateTime($this->raw_data->time->s, new \DateTimeZone($this->raw_data->time->tz));
     }
 
     /**
@@ -181,7 +177,7 @@ class WAQI
      *  - 'coordinates': the geographical coordinates of this monitoring station ('longitude' and 'latitude')
      *  - 'url': the URL of this monitoring station
      *
-     * @return array<string, mixed> structure containing information about this monitoring station
+     * @return array{id: int, name: string, coordinates: array{latitude: float, longitude: float}, url: string} structure containing information about this monitoring station
      */
     public function getMonitoringStation(): array
     {
@@ -376,7 +372,7 @@ class WAQI
             if ($e->hasResponse()) {
                 echo Message::toString($e->getResponse());
             }
-            exit();
+            exit;
         }
 
         $response_body = \json_decode(

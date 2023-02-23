@@ -1,4 +1,4 @@
-name: "Coding Standard"
+name: "Static analysis"
 
 on:
   - push
@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ ubuntu-latest, windows-latest, macOS-latest ]
-        php-versions: [ '8.0', '8.1', '8.2' ]
+        php-versions: ['8.0', '8.1', '8.2' ]
 
     steps:
       - name: Set git to use LF
@@ -48,7 +48,8 @@ jobs:
       - name: Install dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: Check Code Style
-        run: vendor/bin/php-cs-fixer --diff --dry-run -v fix
-        env:
-          PHP_CS_FIXER_IGNORE_ENV: 1
+      - name: Run static analysis - PHPStan
+        run: composer phpstan
+
+      - name: Run static analysis - Psalm
+        run: vendor/bin/psalm
