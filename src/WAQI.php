@@ -30,9 +30,6 @@ class WAQI
     /** The endpoint URL of the World Quality Index API. */
     private const API_ENDPOINT = 'https://api.waqi.info/api';
 
-    /** World Air Quality access token. */
-    private string $token;
-
     /** raw response data received from the World Quality Index API. */
     private ?\stdClass $raw_data = null;
 
@@ -42,9 +39,10 @@ class WAQI
      *
      * @param string $token World Air Quality access token
      */
-    public function __construct(string $token)
-    {
-        $this->token = $token;
+    public function __construct(
+        /** World Air Quality access token. */
+        private string $token
+    ) {
     }
 
     /**
@@ -97,8 +95,8 @@ class WAQI
      *                           level
      *  - 'cautionary_statement': a cautionary statement associated with the measured pollution level (only for PM2.5)
      *
-     * @return array<string, mixed> structure containing the Air Quality Index measured at this monitoring station at
-     *                              the time of measurement
+     * @return array{aqi: float, pollution_level: string, health_implications: string, cautionary_statement: string} structure containing the Air Quality Index measured at this monitoring station at
+                            the time of measurement
      */
     public function getAQI(): array
     {
@@ -179,7 +177,7 @@ class WAQI
      *  - 'coordinates': the geographical coordinates of this monitoring station ('longitude' and 'latitude')
      *  - 'url': the URL of this monitoring station
      *
-     * @return array<string, mixed> structure containing information about this monitoring station
+     * @return array{id: int, name: string, coordinates: array{latitude: float, longitude: float}, url: string} structure containing information about this monitoring station
      */
     public function getMonitoringStation(): array
     {

@@ -363,7 +363,7 @@ class WAQITest extends TestCase
 
         try {
             $this->waqi->getObservationByStation($station);
-        } catch (InvalidAccessToken|QuotaExceeded $e) {
+        } catch (InvalidAccessToken|QuotaExceeded) {
         }
     }
 
@@ -385,7 +385,7 @@ class WAQITest extends TestCase
 
         try {
             $this->waqi->getObservationByStation($station);
-        } catch (InvalidAccessToken|UnknownStation $e) {
+        } catch (InvalidAccessToken|UnknownStation) {
         }
     }
 
@@ -407,7 +407,7 @@ class WAQITest extends TestCase
 
         try {
             $this->waqi->getObservationByStation($station);
-        } catch (QuotaExceeded|UnknownStation $e) {
+        } catch (QuotaExceeded|UnknownStation) {
         }
     }
 
@@ -464,7 +464,7 @@ class WAQITest extends TestCase
      * @param mixed  $expectedValue the expected value
      * @param string $type          the internal type representing the given value (e.g. 'int', 'string', etc.)
      */
-    private function assertValue($result, $expectedValue, string $type): void
+    private function assertValue(mixed $result, mixed $expectedValue, string $type): void
     {
         $this->assertEquals($expectedValue, $result);
         $this->{'assertIs'.\ucfirst($type)}($result);
