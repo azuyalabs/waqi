@@ -46,6 +46,8 @@ jobs:
         run: composer validate --strict
 
       - name: Install dependencies
+        env:
+          PHP_CS_FIXER_IGNORE_ENV: 1
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Check Code Style
