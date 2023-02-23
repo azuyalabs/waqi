@@ -36,7 +36,7 @@ class WAQITest extends TestCase
         parent::setUp();
 
         $this->faker = Factory::create();
-        $this->waqi = Mockery::mock(WAQI::class, [$this->faker->md5]);
+        $this->waqi = Mockery::mock(WAQI::class, [$this->faker->md5()]);
     }
 
     protected function tearDown(): void
@@ -358,7 +358,7 @@ class WAQITest extends TestCase
     public function shouldRaiseExceptionWhenQuotaExceededByStation(): void
     {
         $this->expectException(QuotaExceeded::class);
-        $station = $this->faker->city;
+        $station = $this->faker->city();
 
         $this->waqi->shouldReceive('getObservationByStation')
             ->once()
@@ -380,7 +380,7 @@ class WAQITest extends TestCase
     public function shouldRaiseExceptionWhenInvalidTokenByStation(): void
     {
         $this->expectException(InvalidAccessToken::class);
-        $station = $this->faker->city;
+        $station = $this->faker->city();
 
         $this->waqi->shouldReceive('getObservationByStation')
             ->once()
@@ -405,8 +405,8 @@ class WAQITest extends TestCase
     {
         $this->expectException(QuotaExceeded::class);
 
-        $latitude = $this->faker->latitude;
-        $longitude = $this->faker->longitude;
+        $latitude = $this->faker->latitude();
+        $longitude = $this->faker->longitude();
 
         $this->waqi->shouldReceive('getObservationByGeoLocation')
             ->once()
@@ -428,8 +428,8 @@ class WAQITest extends TestCase
     {
         $this->expectException(InvalidAccessToken::class);
 
-        $latitude = $this->faker->latitude;
-        $longitude = $this->faker->longitude;
+        $latitude = $this->faker->latitude();
+        $longitude = $this->faker->longitude();
 
         $this->waqi->shouldReceive('getObservationByGeoLocation')
             ->once()
