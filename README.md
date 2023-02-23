@@ -12,23 +12,23 @@ This packages makes it easy to retrieve the Air Quality Index for your area and 
 data feed (API) of the WAQI project.
 
 Note: To make use of this package (and the underlying AQI API) an access token is required. You can acquire your token
-here: https://aqicn.org/data-platform/token.
+here: [https://aqicn.org/data-platform/token.](https://aqicn.org/data-platform/tokeni).
 
 ## System Requirements
 
-You need *PHP >= 8.0* to use 'azuyalabs/waqi'.
+You need *PHP >= 8.0* to use `azuyalabs/waqi`.
 
 ## Installation
 
 You can pull in this package via composer:
 
-``` bash
-$ composer require azuyalabs/waqi
+``` shell
+composer require azuyalabs/waqi
 ```
 
 ## Usage
 
-Start with including the Composer autoload file in your project:
+Start with including the Composer `autoload` file in your project:
 
 ```php
 <?php
@@ -46,7 +46,7 @@ $waqi = new WAQI(<your access token>);
 Next, use the `getObservationByStation` method with the desired city or monitoring station name (e.g.
 'new york'). This will obtain the latest air quality observations:
 
-```php
+``` php
 $waqi->getObservationByStation('new york');
 ```
 
@@ -57,7 +57,7 @@ monitoring station.
 
 To get the AQI (Air Quality Index), use the method `getAQI`:
 
-```php
+``` php
 $waqi->getAQI();
 ```
 
@@ -109,7 +109,7 @@ Secondly, the API method `getAttributions()` will return a list of EPA attributi
 
 Other API methods that provide additional information, are:
 
-- `getMeasurementTime()`: returns the date/time the last measurement was taken. (as a DateTime object).
+- `getMeasurementTime()`: returns the date/time the last measurement was taken. (as a `DateTime` object).
 - `getHumidity()`: returns the humidity (in %) measured at this monitoring station at the time of measurement.
 - `getTemperature()`: returns the temperature (in degrees Celsius) measured at this monitoring station at the time of
   measurement.
@@ -127,20 +127,20 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed.
 This package comes with a [PHPUnit](https://phpunit.de) test suite. To run the tests, run the following command from the
 project directory:
 
-``` bash
-$ composer test
+``` shell
+composer test
 ```
 
-or alternatively run with:
+,or alternatively run with:
 
-``` bash
-$ vendor/bin/phpunit
+``` shell
+vendor/bin/phpunit
 ```
 
 ## Contributing
 
 Contributions are encouraged and welcome; I am always happy to get feedback or pull requests on GitHub :)
-Create [Github Issues](https://github.com/azuyalabs/waqi/issues) for bugs and new features and comment on the ones you
+Create [GitHub Issues](https://github.com/azuyalabs/waqi/issues) for bugs and new features and comment on the ones you
 are interested in.
 
 If you enjoy what I am making, an extra cup of coffee is very much appreciated :). Your support helps me to put more
