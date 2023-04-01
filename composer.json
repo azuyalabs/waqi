@@ -42,12 +42,12 @@
   },
   "require-dev": {
     "mockery/mockery": "^1.5",
-    "friendsofphp/php-cs-fixer": "^v3.14",
+    "friendsofphp/php-cs-fixer": "^v3.15",
     "phpunit/phpunit": "^9.6",
     "phpstan/phpstan": "^1.10",
     "fakerphp/faker": "^1.21",
     "infection/infection": "^0.26",
-    "vimeo/psalm": "^5.8"
+    "vimeo/psalm": "^5.9"
   },
   "autoload": {
     "psr-4": {
