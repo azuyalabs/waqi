@@ -16,7 +16,7 @@ here: [https://aqicn.org/data-platform/token.](https://aqicn.org/data-platform/t
 
 ## System Requirements
 
-You need *PHP >= 8.0* to use `azuyalabs/waqi`.
+You need *PHP >= 8.1* to use `azuyalabs/waqi`.
 
 ## Installation
 
