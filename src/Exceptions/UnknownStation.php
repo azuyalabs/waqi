@@ -15,8 +15,6 @@ declare(strict_types=1);
 
 namespace Azuyalabs\WAQI\Exceptions;
 
-use Exception;
-
 /**
  * Class for representing the exception that the WAQI API does not know the given monitoring station or city name.
  */

@@ -203,9 +203,9 @@ class WAQI
      */
     public function getAttributions(): array
     {
-        $data = \json_encode($this->raw_data->attributions, JSON_THROW_ON_ERROR);
+        $data = \json_encode($this->raw_data->attributions, \JSON_THROW_ON_ERROR);
 
-        if (!$data) {
+        if (! $data) {
             throw new \RuntimeException('unable to process attributions data');
         }
 
@@ -213,7 +213,7 @@ class WAQI
             $data,
             true,
             512,
-            JSON_THROW_ON_ERROR
+            \JSON_THROW_ON_ERROR
         );
     }
 
@@ -379,7 +379,7 @@ class WAQI
             Utils::copyToString($response->getBody()),
             false,
             512,
-            JSON_THROW_ON_ERROR
+            \JSON_THROW_ON_ERROR
         );
 
         if ('ok' === $response_body->status) {
