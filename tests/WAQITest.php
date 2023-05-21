@@ -35,7 +35,7 @@ class WAQITest extends TestCase
         parent::setUp();
 
         $this->faker = Factory::create();
-        $this->waqi = \Mockery::mock(WAQI::class, [$this->faker->md5()]);
+        $this->waqi = \Mockery::mock(AirQuality::class);
     }
 
     protected function tearDown(): void
