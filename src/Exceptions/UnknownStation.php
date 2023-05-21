@@ -18,7 +18,7 @@ namespace Azuyalabs\WAQI\Exceptions;
 /**
  * Class for representing the exception that the WAQI API does not know the given monitoring station or city name.
  */
-class UnknownStation extends \Exception
+final class UnknownStation extends \Exception
 {
     public function __construct()
     {

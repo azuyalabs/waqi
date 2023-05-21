@@ -25,7 +25,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Message;
 use GuzzleHttp\Psr7\Utils;
 
-class WAQI
+final class WAQI
 {
     /** The endpoint URL of the World Quality Index API. */
     private const API_ENDPOINT = 'https://api.waqi.info/api';
@@ -96,7 +96,7 @@ class WAQI
      *  - 'cautionary_statement': a cautionary statement associated with the measured pollution level (only for PM2.5)
      *
      * @return array{aqi: float, pollution_level: string, health_implications: string, cautionary_statement: string} structure containing the Air Quality Index measured at this monitoring station at
-                            the time of measurement
+     *                                                                                                               the time of measurement
      */
     public function getAQI(): array
     {

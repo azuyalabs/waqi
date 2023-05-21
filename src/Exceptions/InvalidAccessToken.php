@@ -18,7 +18,7 @@ namespace Azuyalabs\WAQI\Exceptions;
 /**
  * Class for representing the exception that an invalid access token has been given.
  */
-class InvalidAccessToken extends \Exception
+final class InvalidAccessToken extends \Exception
 {
     public function __construct()
     {
