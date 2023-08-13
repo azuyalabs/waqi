@@ -59,7 +59,7 @@ final class WAQI implements AirQuality
      * @throws InvalidAccessToken
      * @throws UnknownStation
      */
-    public function getObservationByStation(?string $station = null): void
+    public function getObservationByStation(string $station = null): void
     {
         try {
             $this->request('feed/'.($station ?? 'here').'/');

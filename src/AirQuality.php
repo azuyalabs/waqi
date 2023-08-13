@@ -35,7 +35,7 @@ interface AirQuality
      * @throws InvalidAccessToken
      * @throws UnknownStation
      */
-    public function getObservationByStation(?string $station = null): void;
+    public function getObservationByStation(string $station = null): void;
 
     /**
      * Retrieves the real-time Air Quality Index observation monitoring station name (or city name)
