@@ -467,7 +467,7 @@ class WAQITest extends TestCase
     private function assertValue(mixed $result, mixed $expectedValue, string $type): void
     {
         $this->assertEquals($expectedValue, $result);
-        $this->{'assertIs'.\ucfirst($type)}($result);
+        $this->{'assertIs' . \ucfirst($type)}($result);
         $this->assertNotEmpty($result);
         $this->assertNotNull($result);
     }

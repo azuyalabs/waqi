@@ -42,8 +42,7 @@ final class WAQI implements AirQuality
     public function __construct(
         /** World Air Quality access token. */
         private string $token
-    ) {
-    }
+    ) {}
 
     /**
      * Retrieves the real-time Air Quality Index observation monitoring station name (or city name).
@@ -62,7 +61,7 @@ final class WAQI implements AirQuality
     public function getObservationByStation(string $station = null): void
     {
         try {
-            $this->request('feed/'.($station ?? 'here').'/');
+            $this->request('feed/' . ($station ?? 'here') . '/');
         } catch (GuzzleException|\JsonException $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
@@ -79,7 +78,7 @@ final class WAQI implements AirQuality
     public function getObservationByGeoLocation(float $latitude, float $longitude): void
     {
         try {
-            $this->request('feed/geo:'.$latitude.';'.$longitude.'/');
+            $this->request('feed/geo:' . $latitude . ';' . $longitude . '/');
         } catch (GuzzleException|\JsonException $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
@@ -365,7 +364,7 @@ final class WAQI implements AirQuality
         $client = new Client(['base_uri' => self::API_ENDPOINT]);
 
         try {
-            $response = $client->request('GET', $uri, ['query' => 'token='.$this->token]);
+            $response = $client->request('GET', $uri, ['query' => 'token=' . $this->token]);
         } catch (ClientException|RequestException $e) {
             echo Message::toString($e->getRequest());
 
