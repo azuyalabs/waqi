@@ -9,26 +9,27 @@
   ~
   ~ @author Sacha Telgenhof <me@sachatelgenhof.com>
   -->
-
-<phpunit bootstrap="vendor/autoload.php"
-         backupGlobals="false"
-         backupStaticAttributes="false"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnError="false"
-         stopOnFailure="false"
-         verbose="true">
-    <testsuites>
-        <testsuite name="WAQI Test Suite">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src/</directory>
-        </whitelist>
-    </filter>
+  <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    bootstrap="vendor/autoload.php"
+    backupGlobals="false"
+    backupStaticAttributes="false"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    processIsolation="false"
+    stopOnError="false"
+    stopOnFailure="false"
+    verbose="true"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage>
+    <include>
+      <directory suffix=".php">src/</directory>
+    </include>
+  </coverage>
+  <testsuites>
+    <testsuite name="WAQI Test Suite">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
 </phpunit>
