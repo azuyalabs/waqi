@@ -10,8 +10,8 @@ When contributing there are a few guidelines I would like you to keep in mind:
 - **[PSR-12 Coding Standard](https://www.php-fig.org/psr/psr-12/)**
   Please use the following command after you have completed your work:
 
-  ``` bash
-  $ composer format
+  ```shell
+  composer format
   ```
 
   This will check/correct all the code for the PSR-12 Coding Standard using the
@@ -31,12 +31,12 @@ When contributing there are a few guidelines I would like you to keep in mind:
 
 ## Running Tests
 
-``` bash
-$ composer test
+```shell
+composer test
 ```
 
-or alternatively run with:
+,or alternatively run with:
 
-``` bash
-$ vendor/bin/phpunit
+```shell
+vendor/bin/phpunit
 ```
