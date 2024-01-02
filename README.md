@@ -16,13 +16,13 @@ here: [https://aqicn.org/data-platform/token.](https://aqicn.org/data-platform/t
 
 ## System Requirements
 
-You need *PHP >= 8.1* to use `azuyalabs/waqi`.
+You need _PHP >= 8.2_ to use `azuyalabs/waqi`.
 
 ## Installation
 
 You can pull in this package via composer:
 
-``` shell
+```shell
 composer require azuyalabs/waqi
 ```
 
@@ -46,7 +46,7 @@ $waqi = new WAQI(<your access token>);
 Next, use the `getObservationByStation` method with the desired city or monitoring station name (e.g.
 'new york'). This will obtain the latest air quality observations:
 
-``` php
+```php
 $waqi->getObservationByStation('new york');
 ```
 
@@ -57,7 +57,7 @@ monitoring station.
 
 To get the AQI (Air Quality Index), use the method `getAQI`:
 
-``` php
+```php
 $waqi->getAQI();
 ```
 
@@ -71,7 +71,7 @@ measurement. It contains 4 elements:
 
 Example output (for 'New York'):
 
-```
+```shell
  - 'aqi': 15
  - 'pollution_level': Good
  - 'health_implications': Air quality is considered satisfactory, and air pollution poses little or no risk.
@@ -127,13 +127,13 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed.
 This package comes with a [PHPUnit](https://phpunit.de) test suite. To run the tests, run the following command from the
 project directory:
 
-``` shell
+```shell
 composer test
 ```
 
 ,or alternatively run with:
 
-``` shell
+```shell
 vendor/bin/phpunit
 ```
 
