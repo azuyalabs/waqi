@@ -1,5 +1,6 @@
 .idea/
 .php-cs-fixer.cache
+.phpactor.json
 .phpunit.cache
 .phpunit.result.cache
 composer.lock
