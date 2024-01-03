@@ -1,6 +1,8 @@
 {
   "name": "azuyalabs/waqi",
   "description": "Simple PHP Wrapper for the World Air Quality Index API",
+  "license": "MIT",
+  "type": "library",
   "keywords": [
     "air quality",
     "AQI",
@@ -10,9 +12,7 @@
     "WAQI",
     "air"
   ],
-  "type": "library",
-  "homepage": "https://github.com/azuyalabs/waqi",
-  "license": "MIT",
+  "readme": "README.md",
   "authors": [
     {
       "name": "Sacha Telgenhof",
@@ -21,7 +21,7 @@
       "role": "Maintainer"
     }
   ],
-  "readme": "README.md",
+  "homepage": "https://github.com/azuyalabs/waqi",
   "support": {
     "issues": "https://gitlab.com/azuyalabs/waqi/-/issues",
     "source": "https://gitlab.com/azuyalabs/waqi",
@@ -33,22 +33,22 @@
       "url": "https://www.buymeacoffee.com/sachatelgenhof"
     }
   ],
-  "minimum-stability": "dev",
-  "prefer-stable": true,
   "require": {
-    "php": "^8.0",
-    "guzzlehttp/guzzle": "^7.4",
-    "ext-json": "*"
+    "php": "^8.2",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^7.8"
   },
   "require-dev": {
-    "mockery/mockery": "^1.3",
-    "friendsofphp/php-cs-fixer": "^v3.14",
-    "phpunit/phpunit": "^9.5",
-    "phpstan/phpstan": "^1.4",
-    "fakerphp/faker": "^1.15",
-    "infection/infection": "^0.26.1",
-    "vimeo/psalm": "^5.7"
+    "fakerphp/faker": "^1.23",
+    "friendsofphp/php-cs-fixer": "^v3.15",
+    "infection/infection": "^0.26",
+    "mockery/mockery": "^1.6",
+    "phpstan/phpstan": "^1.10",
+    "phpunit/phpunit": "^9.6",
+    "vimeo/psalm": "^5.18"
   },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "Azuyalabs\\WAQI\\": "src"
@@ -59,23 +59,23 @@
       "Azuyalabs\\WAQI\\Test\\": "tests"
     }
   },
+  "config": {
+    "allow-plugins": {
+      "infection/extension-installer": true,
+      "composer/package-versions-deprecated": true
+    },
+    "sort-packages": true
+  },
   "scripts": {
-    "format": "vendor/bin/php-cs-fixer fix",
-    "phpstan": "vendor/bin/phpstan analyse",
-    "psalm": "vendor/bin/psalm --threads=2",
-    "test": "vendor/bin/phpunit",
-    "infection": "vendor/bin/infection run -j 2",
     "analyse": [
       "@phpstan",
       "@psalm",
       "@infection"
-    ]
-  },
-  "config": {
-    "sort-packages": true,
-    "allow-plugins": {
-      "infection/extension-installer": true,
-      "composer/package-versions-deprecated": true
-    }
+    ],
+    "format": "vendor/bin/php-cs-fixer fix",
+    "infection": "vendor/bin/infection run -j 2",
+    "phpstan": "vendor/bin/phpstan analyse",
+    "psalm": "vendor/bin/psalm --threads=2",
+    "test": "vendor/bin/phpunit"
   }
 }

@@ -11,7 +11,7 @@ Please refer to the below table for the supported versions of this project.
 | < 1.0   | :x:                |
 
 As for supported PHP versions, this project only supports the actively supported versions of PHP. Currently, that is PHP
-8.0, 8.1 and 8.2. Please refer to the [supported versions](https://www.php.net/supported-versions.php) page, to find
+8.2 and 8.3. Please refer to the [supported versions](https://www.php.net/supported-versions.php) page, to find
 more details. When a version of PHP becomes EOL, generally a new release of this project will be issued that sunsets the
 support of that retired PHP version.
 

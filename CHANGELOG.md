@@ -1,9 +1,9 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres
-to [Semantic Versioning](http://semver.org).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
@@ -14,6 +14,22 @@ to [Semantic Versioning](http://semver.org).
 ### Fixed
 
 ### Removed
+
+## [1.2.1] - 2024-01-03
+
+### Added
+
+- PHP 8.3 Support.
+
+### Changed
+
+- Updated copyright year.
+- Simplify the code making it more concise and readable.
+- Refactor code for improved readability and consistency.
+
+### Removed
+
+- PHP 8.1 Support.
 
 ## [1.2.0] 2023-02-23
 
@@ -88,7 +104,7 @@ to [Semantic Versioning](http://semver.org).
   monitoring station doesn't measure these.
 - Minimum requirement for PHP to 7.1.0
 - Updated package versions for PHPStan, Mockery and PHPUnit.
-- Updated inline documentation (various).
+- Updated in-line documentation (various).
 
 ### Fixed
 
@@ -97,18 +113,15 @@ to [Semantic Versioning](http://semver.org).
 ### Removed
 
 - Removed type casting as variables are already of proper data type.
-- Removed invalid syntaxCheck parameter from the PHPUnit XML configuration.
+- Removed invalid `syntaxCheck` parameter from the PHPUnit XML configuration.
 
 ## [1.0.0] 2017-02-15
 
 - Initial release
 
-[Unreleased]: https://github.com/azuyalabs/waqi/compare/1.2.0...HEAD
-
+[Unreleased]: https://github.com/azuyalabs/waqi/compare/1.2.1...HEAD
+[1.2.1]: https://github.com/azuyalabs/waqi/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/azuyalabs/waqi/compare/1.1.0...1.2.0
-
 [1.1.0]: https://github.com/azuyalabs/waqi/compare/1.0.1...1.1.0
-
 [1.0.1]: https://github.com/azuyalabs/waqi/compare/1.0.0...1.0.1
-
 [1.0.0]: https://github.com/azuyalabs/waqi/releases/tag/1.0.0

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * This file is part of the WAQI (World Air Quality Index) package.
  *
- * Copyright (c) 2017 - 2023 AzuyaLabs
+ * Copyright (c) 2017 - 2024 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -35,7 +35,7 @@ class WAQITest extends TestCase
         parent::setUp();
 
         $this->faker = Factory::create();
-        $this->waqi = \Mockery::mock(WAQI::class, [$this->faker->md5()]);
+        $this->waqi = \Mockery::mock(AirQuality::class);
     }
 
     protected function tearDown(): void
@@ -467,7 +467,7 @@ class WAQITest extends TestCase
     private function assertValue(mixed $result, mixed $expectedValue, string $type): void
     {
         $this->assertEquals($expectedValue, $result);
-        $this->{'assertIs'.\ucfirst($type)}($result);
+        $this->{'assertIs' . \ucfirst($type)}($result);
         $this->assertNotEmpty($result);
         $this->assertNotNull($result);
     }
