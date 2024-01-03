@@ -15,6 +15,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [1.2.1] - 2024-01-03
+
+### Added
+
+- PHP 8.3 Support.
+
+### Changed
+
+- Updated copyright year.
+- Simplify the code making it more concise and readable.
+- Refactor code for improved readability and consistency.
+
+### Removed
+
+- PHP 8.1 Support.
+
 ## [1.2.0] 2023-02-23
 
 ### Added
@@ -103,7 +119,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[Unreleased]: https://github.com/azuyalabs/waqi/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/azuyalabs/waqi/compare/1.2.1...HEAD
+[1.2.1]: https://github.com/azuyalabs/waqi/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/azuyalabs/waqi/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/azuyalabs/waqi/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/azuyalabs/waqi/compare/1.0.0...1.0.1
