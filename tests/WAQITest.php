@@ -18,7 +18,7 @@ namespace Azuyalabs\WAQI\Test;
 use Azuyalabs\WAQI\Exceptions\InvalidAccessToken;
 use Azuyalabs\WAQI\Exceptions\QuotaExceeded;
 use Azuyalabs\WAQI\Exceptions\UnknownStation;
-use Azuyalabs\WAQI\WAQI;
+use Azuyalabs\WAQI\AirQuality;
 use Faker\Factory;
 use Faker\Generator;
 use Mockery\LegacyMockInterface;
@@ -506,6 +506,5 @@ class WAQITest extends TestCase
         $result = $this->waqi->$method();
 
         $this->assertNull($result);
-        $this->assertEmpty($result);
     }
 }
