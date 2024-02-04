@@ -4,7 +4,8 @@ declare(strict_types = 1);
 
 /**
  * This file is part of the 'azuyalabs/waqi' package.
- * A Simple PHP Wrapper for the World Air Quality Index API.
+ *
+ * Simple PHP Wrapper for the World Air Quality Index API.
  *
  * Copyright (c) 2017 - 2024 AzuyaLabs
  *
@@ -164,9 +165,9 @@ final class WAQI implements AirQuality
      *
      * @throws \Exception
      */
-    public function getMeasurementTime(): \DateTime
+    public function getMeasurementTime(): \DateTimeImmutable
     {
-        return new \DateTime($this->raw_data->time->s, new \DateTimeZone($this->raw_data->time->tz));
+        return new \DateTimeImmutable($this->raw_data->time->s, new \DateTimeZone($this->raw_data->time->tz));
     }
 
     /**

@@ -4,7 +4,8 @@ declare(strict_types = 1);
 
 /**
  * This file is part of the 'azuyalabs/waqi' package.
- * A Simple PHP Wrapper for the World Air Quality Index API.
+ *
+ * Simple PHP Wrapper for the World Air Quality Index API.
  *
  * Copyright (c) 2017 - 2024 AzuyaLabs
  *
@@ -245,7 +246,7 @@ class WAQITest extends TestCase
      */
     public function should_get_measurement_time(): void
     {
-        $expectedValue = $this->faker->dateTime();
+        $expectedValue = \DateTimeImmutable::createFromMutable($this->faker->dateTime());
 
         $this->waqi->shouldReceive('getMeasurementTime')
             ->once()
