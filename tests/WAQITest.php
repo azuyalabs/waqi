@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /**
  * This file is part of the 'azuyalabs/waqi' package.
- * A Simple PHP Wrapper for the World Air Quality Index API.
+ *
+ * Simple PHP Wrapper for the World Air Quality Index API.
  *
  * Copyright (c) 2017 - 2024 AzuyaLabs
  *
@@ -55,7 +56,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getTemperature()
      */
-    public function shouldGetTemperature(): void
+    public function should_get_temperature(): void
     {
         $this->assertPollutantLevel('getTemperature', $this->faker->randomFloat(2, -100, 100));
     }
@@ -67,7 +68,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getPressure()
      */
-    public function shouldGetPressure(): void
+    public function should_get_pressure(): void
     {
         $this->assertPollutantLevel('getPressure', $this->faker->randomFloat(2, -800, 1100));
     }
@@ -79,7 +80,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getHumidity()
      */
-    public function shouldGetHumidity(): void
+    public function should_get_humidity(): void
     {
         $this->assertPollutantLevel('getHumidity', $this->faker->randomFloat(2, -800, 1100));
     }
@@ -91,7 +92,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getPM25()
      */
-    public function shouldGetPM25(): void
+    public function should_get_p_m25(): void
     {
         $this->assertPollutantLevel('getPM25', $this->faker->randomFloat(2, 0, 500));
     }
@@ -104,7 +105,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getPM25()
      */
-    public function shouldGetNullIfNoPM25(): void
+    public function should_get_null_if_no_p_m25(): void
     {
         $this->assertNoPollutantReading('getPM25');
     }
@@ -116,7 +117,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getPM10()
      */
-    public function shouldGetPM10(): void
+    public function should_get_p_m10(): void
     {
         $this->assertPollutantLevel('getPM10', $this->faker->randomFloat(2, 0, 500));
     }
@@ -129,7 +130,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getPM10()
      */
-    public function shouldGetNullIfNoPM10(): void
+    public function should_get_null_if_no_p_m10(): void
     {
         $this->assertNoPollutantReading('getPM10');
     }
@@ -141,7 +142,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getCO()
      */
-    public function shouldGetCO(): void
+    public function should_get_co(): void
     {
         $this->assertPollutantLevel('getCO', $this->faker->randomFloat(2, 0, 500));
     }
@@ -154,7 +155,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getCO()
      */
-    public function shouldGetNullIfNoCO(): void
+    public function should_get_null_if_no_co(): void
     {
         $this->assertNoPollutantReading('getCO');
     }
@@ -166,7 +167,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getNO2()
      */
-    public function shouldGetNO2(): void
+    public function should_get_n_o2(): void
     {
         $this->assertPollutantLevel('getNO2', $this->faker->randomFloat(2, 0, 500));
     }
@@ -179,7 +180,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getNO2()
      */
-    public function shouldGetNullIfNoNO2(): void
+    public function should_get_null_if_no_n_o2(): void
     {
         $this->assertNoPollutantReading('getNO2');
     }
@@ -191,7 +192,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getO3()
      */
-    public function shouldGetO3(): void
+    public function should_get_o3(): void
     {
         $this->assertPollutantLevel('getO3', $this->faker->randomFloat(2, 0, 500));
     }
@@ -204,7 +205,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getO3()
      */
-    public function shouldGetNullIfNoO3(): void
+    public function should_get_null_if_no_o3(): void
     {
         $this->assertNoPollutantReading('getO3');
     }
@@ -216,7 +217,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getSO2()
      */
-    public function shouldGetSO2(): void
+    public function should_get_s_o2(): void
     {
         $this->assertPollutantLevel('getSO2', $this->faker->randomFloat(2, 0, 500));
     }
@@ -229,7 +230,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getSO2()
      */
-    public function shouldGetNullIfNoSO2(): void
+    public function should_get_null_if_no_s_o2(): void
     {
         $this->assertNoPollutantReading('getSO2');
     }
@@ -243,9 +244,9 @@ class WAQITest extends TestCase
      *
      * @throws \Exception
      */
-    public function shouldGetMeasurementTime(): void
+    public function should_get_measurement_time(): void
     {
-        $expectedValue = $this->faker->dateTime();
+        $expectedValue = \DateTimeImmutable::createFromMutable($this->faker->dateTime());
 
         $this->waqi->shouldReceive('getMeasurementTime')
             ->once()
@@ -266,7 +267,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getMonitoringStation()
      */
-    public function shouldGetMonitoringStationInformation(): void
+    public function should_get_monitoring_station_information(): void
     {
         $expectedValue = [
             'id' => $this->faker->randomDigitNotNull(),
@@ -302,7 +303,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getAQI()
      */
-    public function shouldGetAQIInformation(): void
+    public function should_get_aqi_information(): void
     {
         $expectedValue = [
             'aqi' => $this->faker->randomFloat(2, 0, 500),
@@ -332,7 +333,7 @@ class WAQITest extends TestCase
      *
      * @covers \Azuyalabs\WAQI\WAQI::getPrimaryPollutant()
      */
-    public function shouldGetPrimaryPollutant(): void
+    public function should_get_primary_pollutant(): void
     {
         $expectedValue = $this->faker->randomElement(['pm25', 'pm10', 'co', 'no2', 'o3', 'so2']);
 
@@ -352,7 +353,7 @@ class WAQITest extends TestCase
      *
      * @test
      */
-    public function shouldRaiseExceptionWhenUnknownStationNameByStation(): void
+    public function should_raise_exception_when_unknown_station_name_by_station(): void
     {
         $this->expectException(UnknownStation::class);
         $station = 'xxxx';
@@ -374,7 +375,7 @@ class WAQITest extends TestCase
      *
      * @test
      */
-    public function shouldRaiseExceptionWhenQuotaExceededByStation(): void
+    public function should_raise_exception_when_quota_exceeded_by_station(): void
     {
         $this->expectException(QuotaExceeded::class);
         $station = $this->faker->city();
@@ -396,7 +397,7 @@ class WAQITest extends TestCase
      *
      * @test
      */
-    public function shouldRaiseExceptionWhenInvalidTokenByStation(): void
+    public function should_raise_exception_when_invalid_token_by_station(): void
     {
         $this->expectException(InvalidAccessToken::class);
         $station = $this->faker->city();
@@ -420,7 +421,7 @@ class WAQITest extends TestCase
      *
      * @throws InvalidAccessToken|UnknownStation
      */
-    public function shouldRaiseExceptionWhenQuotaExceededByGeoLocation(): void
+    public function should_raise_exception_when_quota_exceeded_by_geo_location(): void
     {
         $this->expectException(QuotaExceeded::class);
 
@@ -443,7 +444,7 @@ class WAQITest extends TestCase
      *
      * @throws QuotaExceeded|UnknownStation
      */
-    public function shouldRaiseExceptionWhenInvalidTokenByGeoLocation(): void
+    public function should_raise_exception_when_invalid_token_by_geo_location(): void
     {
         $this->expectException(InvalidAccessToken::class);
 
