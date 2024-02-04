@@ -67,7 +67,7 @@ interface AirQuality
     /**
      * Returns the date/time the last measurement was taken.
      *
-     * @return \DateTime the date/time the last measurement was taken
+     * @return \DateTimeImmutable the date/time the last measurement was taken
      *
      * @throws \Exception
      */
