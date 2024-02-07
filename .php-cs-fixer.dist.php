@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * This file is part of the WAQI (World Air Quality Index) package.
  *
@@ -12,7 +13,7 @@ declare(strict_types=1);
  * @author Sacha Telgenhof <me at sachatelgenhof dot com>
  */
 
-$config = new AzuyaLabs\PhpCsFixerConfig\Config('2017');
+$config = new AzuyaLabs\PhpCsFixerConfig\Config('2017', null, 'WAQI (World Air Quality Index)');
 $config->getFinder()->in(__DIR__)->notPath('var');
 
 return $config;

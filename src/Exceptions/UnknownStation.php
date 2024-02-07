@@ -3,7 +3,7 @@
 declare(strict_types = 1);
 
 /**
- * This file is part of the 'azuyalabs/waqi' package.
+ * This file is part of the 'WAQI (World Air Quality Index)' package.
  *
  * Simple PHP Wrapper for the World Air Quality Index API.
  *
