@@ -78,7 +78,6 @@ return [
         SlevomatCodingStandard\Sniffs\ControlStructures\DisallowShortTernaryOperatorSniff::class,
         SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff::class,
         NunoMaduro\PhpInsights\Domain\Sniffs\ForbiddenSetterSniff::class,
-        //  ExampleInsight::class,
     ],
 
     'config' => [
@@ -87,9 +86,14 @@ return [
             'absoluteLineLimit' => 140,
             'ignoreComments' => false,
         ],
-        //  ExampleInsight::class => [
-        //      'key' => 'value',
-        //  ],
+
+        SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff::class => [
+            'spacesCountAroundEqualsSign' => 1,
+        ],
+
+        PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer::class => [
+            'space' => 'single',
+        ],
     ],
 
     /*
