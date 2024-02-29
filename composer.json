@@ -43,8 +43,8 @@
     "infection/infection": "^0.26",
     "mockery/mockery": "^1.6",
     "phpstan/phpstan": "^1.10",
-    "phpunit/phpunit": "^10.0",
-    "vimeo/psalm": "^5.18"
+    "phpunit/phpunit": "^10.5",
+    "vimeo/psalm": "^5.22"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -60,8 +60,8 @@
   },
   "config": {
     "allow-plugins": {
-      "infection/extension-installer": true,
-      "composer/package-versions-deprecated": true
+      "composer/package-versions-deprecated": true,
+      "infection/extension-installer": true
     },
     "sort-packages": true
   },
