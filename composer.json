@@ -38,7 +38,7 @@
     "guzzlehttp/guzzle": "^7.8"
   },
   "require-dev": {
-    "azuyalabs/php-cs-fixer-config": "^0.2",
+    "azuyalabs/php-cs-fixer-config": "^0.3",
     "fakerphp/faker": "^1.23",
     "infection/infection": "^0.26",
     "mockery/mockery": "^1.6",

@@ -65,7 +65,7 @@ final class WAQI implements AirQuality
     {
         try {
             $this->request('feed/' . ($station ?? 'here') . '/');
-        } catch (GuzzleException|\JsonException $e) {
+        } catch (GuzzleException | \JsonException $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -82,7 +82,7 @@ final class WAQI implements AirQuality
     {
         try {
             $this->request('feed/geo:' . $latitude . ';' . $longitude . '/');
-        } catch (GuzzleException|\JsonException $e) {
+        } catch (GuzzleException | \JsonException $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -368,7 +368,7 @@ final class WAQI implements AirQuality
 
         try {
             $response = $client->request('GET', $uri, ['query' => 'token=' . $this->token]);
-        } catch (ClientException|RequestException $e) {
+        } catch (ClientException | RequestException $e) {
             echo Message::toString($e->getRequest());
 
             if ($e->hasResponse()) {

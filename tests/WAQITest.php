@@ -365,7 +365,7 @@ class WAQITest extends TestCase
 
         try {
             $this->waqi->getObservationByStation($station);
-        } catch (InvalidAccessToken|QuotaExceeded) {
+        } catch (InvalidAccessToken | QuotaExceeded) {
         }
     }
 
@@ -387,7 +387,7 @@ class WAQITest extends TestCase
 
         try {
             $this->waqi->getObservationByStation($station);
-        } catch (InvalidAccessToken|UnknownStation) {
+        } catch (InvalidAccessToken | UnknownStation) {
         }
     }
 
@@ -409,7 +409,7 @@ class WAQITest extends TestCase
 
         try {
             $this->waqi->getObservationByStation($station);
-        } catch (QuotaExceeded|UnknownStation) {
+        } catch (QuotaExceeded | UnknownStation) {
         }
     }
 
