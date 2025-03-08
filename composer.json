@@ -35,15 +35,15 @@
   "require": {
     "php": "^8.2",
     "ext-json": "*",
-    "guzzlehttp/guzzle": "^7.8"
+    "guzzlehttp/guzzle": "^7.9"
   },
   "require-dev": {
     "azuyalabs/php-cs-fixer-config": "^0.3",
-    "fakerphp/faker": "^1.23",
+    "fakerphp/faker": "^1.24",
     "mockery/mockery": "^1.6",
-    "phpstan/phpstan": "^1.10",
+    "phpstan/phpstan": "^1.12",
     "phpunit/phpunit": "^10.5",
-    "vimeo/psalm": "^5.22"
+    "vimeo/psalm": "^5.26"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
