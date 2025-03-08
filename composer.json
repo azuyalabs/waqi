@@ -40,7 +40,6 @@
   "require-dev": {
     "azuyalabs/php-cs-fixer-config": "^0.3",
     "fakerphp/faker": "^1.23",
-    "infection/infection": "^0.26",
     "mockery/mockery": "^1.6",
     "phpstan/phpstan": "^1.10",
     "phpunit/phpunit": "^10.5",
@@ -73,7 +72,6 @@
     ],
     "cs": "vendor/bin/php-cs-fixer fix -v --diff --dry-run",
     "cs-fix": "vendor/bin/php-cs-fixer fix -v",
-    "infection": "vendor/bin/infection run -j 2",
     "phpstan": "vendor/bin/phpstan analyse",
     "psalm": "vendor/bin/psalm --threads=2",
     "test": "vendor/bin/phpunit"
