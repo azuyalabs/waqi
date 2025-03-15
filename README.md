@@ -8,11 +8,11 @@ The [World Air Quality Index](http://waqi.info) project is an initiative to map 
 around the globe. The Air Quality indexes are based on PM2.5, PM10, Ozone, NO2, SO2 and CO hourly measurements provided
 by various monitoring stations in the world.
 
-This packages makes it easy to retrieve the Air Quality Index for your area and is based on the real-time Air Quality
+This package makes it easy to retrieve the Air Quality Index for your area and is based on the real-time Air Quality
 data feed (API) of the WAQI project.
 
 Note: To make use of this package (and the underlying AQI API) an access token is required. You can acquire your token
-here: [https://aqicn.org/data-platform/token.](https://aqicn.org/data-platform/tokeni).
+here: [https://aqicn.org/data-platform/token](https://aqicn.org/data-platform/tokeni).
 
 ## System Requirements
 
@@ -28,7 +28,7 @@ composer require azuyalabs/waqi
 
 ## Usage
 
-Start with including the Composer `autoload` file in your project:
+Start by including the Composer `autoload` file in your project:
 
 ```php
 <?php
@@ -64,7 +64,7 @@ $waqi->getAQI();
 This returns an array structure containing the Air Quality Index measured at this monitoring station at the time of
 measurement. It contains 4 elements:
 
-- 'aqi': the AQI level (which is defined by the monitoring stations' dominant pollution type)
+- 'aqi': the AQI level (which is defined by the monitoring station's dominant pollution type)
 - 'pollution_level': a narrative describing the air pollution level
 - 'health_implications': a narrative describing the health implications associated with the measured pollution level
 - 'cautionary_statement': a cautionary statement associated with the measured pollution level (only for PM2.5)
@@ -120,7 +120,7 @@ Other API methods that provide additional information, are:
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed.
+Please see [CHANGELOG](CHANGELOG.md) for more information about what has changed.
 
 ## Testing
 
