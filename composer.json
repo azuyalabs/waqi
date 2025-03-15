@@ -58,17 +58,12 @@
     }
   },
   "config": {
-    "allow-plugins": {
-      "composer/package-versions-deprecated": true,
-      "infection/extension-installer": true
-    },
     "sort-packages": true
   },
   "scripts": {
     "analyse": [
       "@phpstan",
-      "@psalm",
-      "@infection"
+      "@psalm"
     ],
     "cs": "vendor/bin/php-cs-fixer fix -v --diff --dry-run",
     "cs-fix": "vendor/bin/php-cs-fixer fix -v",
