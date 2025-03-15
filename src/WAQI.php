@@ -43,7 +43,7 @@ final class WAQI implements AirQuality
      */
     public function __construct(
         /** World Air Quality access token. */
-        private string $token
+        private string $token,
     ) {
     }
 
@@ -81,7 +81,7 @@ final class WAQI implements AirQuality
     public function getObservationByGeoLocation(float $latitude, float $longitude): void
     {
         try {
-            $this->request('feed/geo:' . $latitude . ';' . $longitude . '/');
+            $this->request("feed/geo:{$latitude};{$longitude}/");
         } catch (GuzzleException | \JsonException $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
