@@ -27,6 +27,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Message;
 use GuzzleHttp\Psr7\Utils;
 
+/** @psalm-api */
 final class WAQI implements AirQuality
 {
     /** The endpoint URL of the World Quality Index API. */

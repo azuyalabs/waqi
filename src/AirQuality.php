@@ -21,6 +21,7 @@ use Azuyalabs\WAQI\Exceptions\InvalidAccessToken;
 use Azuyalabs\WAQI\Exceptions\QuotaExceeded;
 use Azuyalabs\WAQI\Exceptions\UnknownStation;
 
+/** @psalm-api */
 interface AirQuality
 {
     /**
