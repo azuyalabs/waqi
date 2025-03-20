@@ -2,17 +2,18 @@
 
 ## Supported Versions
 
-Please refer to the below table for the supported versions of this project.
+The following versions are supported with security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.2.0   | :white_check_mark: |
-| 1.1.0   | :x:                |
-| < 1.0   | :x:                |
+| 1.2.0  | :white_check_mark: |
+| 1.1.0  | :x: |
+| <1.0   | :x: |
 
-As for supported PHP versions, this project only supports the actively supported versions of PHP. Currently, that is PHP
-8.2 and 8.3. Please refer to the [supported versions](https://www.php.net/supported-versions.php) page, to find
-more details. When a version of PHP becomes EOL, generally a new release of this project will be issued that sunsets the
+As for supported PHP versions, this project only supports the actively supported versions of PHP and versions of PHP
+that only receive critical security updates. Currently, that is PHP 8.1, 8.2, 8.3 and 8.4.
+Please refer to the [supported versions](https://www.php.net/supported-versions.php) page, to find more details.
+When a version of PHP becomes EOL, generally a new release of this project will be issued that sunsets the
 support of that retired PHP version.
 
 ## Reporting a Vulnerability
