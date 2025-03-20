@@ -12,6 +12,7 @@
     "WAQI",
     "air"
   ],
+  "readme": "README.md",
   "authors": [
     {
       "name": "Sacha Telgenhof",
@@ -43,7 +44,7 @@
     "mockery/mockery": "^1.6",
     "phpstan/phpstan": "^1.12",
     "phpunit/phpunit": "^10.5",
-    "vimeo/psalm": "^6.8"
+    "vimeo/psalm": "^6.9"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
