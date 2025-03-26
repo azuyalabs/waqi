@@ -2,7 +2,11 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![CodeCheck](https://github.com/azuyalabs/waqi/workflows/Validate/badge.svg)](https://github.com/azuyalabs/waqi/actions)
 
-# A simple PHP Wrapper for the World Air Quality Index API
+# PHP WAQI
+
+Simple PHP Wrapper for the World Air Quality Index API
+
+## Introduction
 
 The [World Air Quality Index](http://waqi.info) project is an initiative to map the current and real-time air quality
 around the globe. The Air Quality indexes are based on PM2.5, PM10, Ozone, NO2, SO2 and CO hourly measurements provided
@@ -148,12 +152,6 @@ time into Open-Source Software projects like this.
 
 <a href="https://www.buymeacoffee.com/sachatelgenhof" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
-## Credits
-
-- [Sacha Telgenhof](https://github.com/stelgenhof)
-- [All contributors](../../contributors)
-
 ## License
 
-This package is open-sourced software licensed under the MIT License. Please see [LICENSE](LICENSE) for more
-information.
+This project is open-sourced software licensed under the MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
