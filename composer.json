@@ -44,7 +44,7 @@
     "mockery/mockery": "^1.6",
     "phpstan/phpstan": "^1.12",
     "phpunit/phpunit": "^10.5",
-    "vimeo/psalm": "^6.9"
+    "vimeo/psalm": "^6.12"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
