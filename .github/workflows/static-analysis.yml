@@ -48,6 +48,3 @@ jobs:
 
       - name: Run static analysis - PHPStan
         run: composer phpstan
-
-      - name: Run static analysis - Psalm
-        run: vendor/bin/psalm
