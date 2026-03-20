@@ -6,9 +6,9 @@ The following versions are supported with security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.2.0  | :white_check_mark: |
-| 1.1.0  | :x: |
-| <1.0   | :x: |
+| 1.2.0   | :white_check_mark: |
+| 1.1.0   | :x:                |
+| <1.0    | :x:                |
 
 As for supported PHP versions, this project only supports the actively supported versions of PHP and versions of PHP
 that only receive critical security updates. Currently, that is PHP 8.2, 8.3, 8.4 and 8.5.
@@ -19,7 +19,8 @@ support of that retired PHP version.
 ## Reporting a Vulnerability
 
 If you would like to report a vulnerability or have any security concerns with this project,
-please [open an issue](https://github.com/azuyalabs/waqi/issues/new?labels=security).
+please use [GitHub's private vulnerability reporting](https://github.com/azuyalabs/waqi/security/advisories/new)
+to disclose it privately before a fix is available.
 
 To investigate your request as good as possible, please include any of the following when reporting:
 
