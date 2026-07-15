@@ -52,10 +52,9 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid temperature value is returned.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getTemperature()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_temperature(): void
     {
         $this->assertPollutantLevel('getTemperature', $this->faker->randomFloat(2, -100, 100));
@@ -64,10 +63,9 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid barometric pressure value is returned.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getPressure()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_pressure(): void
     {
         $this->assertPollutantLevel('getPressure', $this->faker->randomFloat(2, -800, 1100));
@@ -76,10 +74,9 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid humidity value is returned.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getHumidity()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_humidity(): void
     {
         $this->assertPollutantLevel('getHumidity', $this->faker->randomFloat(2, -800, 1100));
@@ -88,10 +85,9 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid value for the fine particulate matter, 2.5 micrometers or lower (PM2.5), is returned.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getPM25()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_p_m25(): void
     {
         $this->assertPollutantLevel('getPM25', $this->faker->randomFloat(2, 0, 500));
@@ -101,10 +97,9 @@ class WAQITest extends TestCase
      * Tests that a null value for the respirable particulate matter, 2.5 micrometers or lower (PM2.5), is returned,
      * in the situation that a monitoring station does not provide a PM2.5 reading.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getPM25()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_null_if_no_p_m25(): void
     {
         $this->assertNoPollutantReading('getPM25');
@@ -113,10 +108,9 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid value for the respirable particulate matter, 10 micrometers or lower (PM10), is returned.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getPM10()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_p_m10(): void
     {
         $this->assertPollutantLevel('getPM10', $this->faker->randomFloat(2, 0, 500));
@@ -126,10 +120,9 @@ class WAQITest extends TestCase
      * Tests that a null value for the respirable particulate matter, 10 micrometers or lower (PM10), is returned,
      * in the situation that a monitoring station does not provide a PM10 reading.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getPM10()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_null_if_no_p_m10(): void
     {
         $this->assertNoPollutantReading('getPM10');
@@ -138,10 +131,9 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid CO (carbon monoxide) value is returned.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getCO()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_co(): void
     {
         $this->assertPollutantLevel('getCO', $this->faker->randomFloat(2, 0, 500));
@@ -151,10 +143,9 @@ class WAQITest extends TestCase
      * Tests that a valid CO (carbon monoxide) value is returned, in the situation that a monitoring station does not
      * provide a CO reading.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getCO()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_null_if_no_co(): void
     {
         $this->assertNoPollutantReading('getCO');
@@ -163,10 +154,9 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid NO2 (nitrogen dioxide) value is returned.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getNO2()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_n_o2(): void
     {
         $this->assertPollutantLevel('getNO2', $this->faker->randomFloat(2, 0, 500));
@@ -176,10 +166,9 @@ class WAQITest extends TestCase
      * Tests that a valid NO2 (nitrogen dioxide) value is returned, in the situation that a monitoring station does not
      * provide a NO2 reading.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getNO2()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_null_if_no_n_o2(): void
     {
         $this->assertNoPollutantReading('getNO2');
@@ -188,10 +177,9 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid O3 (ozone) value is returned.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getO3()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_o3(): void
     {
         $this->assertPollutantLevel('getO3', $this->faker->randomFloat(2, 0, 500));
@@ -201,10 +189,9 @@ class WAQITest extends TestCase
      * Tests that a valid O3 (ozone) value is returned, in the situation that a monitoring station does not
      * provide an O3 reading.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getO3()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_null_if_no_o3(): void
     {
         $this->assertNoPollutantReading('getO3');
@@ -213,10 +200,9 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid SO2 (sulfur dioxide) value is returned.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getSO2()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_s_o2(): void
     {
         $this->assertPollutantLevel('getSO2', $this->faker->randomFloat(2, 0, 500));
@@ -226,10 +212,9 @@ class WAQITest extends TestCase
      * Tests that a valid SO2 (sulfur dioxide) value is returned, in the situation that a monitoring station does not
      * provide a SO2 reading.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getSO2()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_null_if_no_s_o2(): void
     {
         $this->assertNoPollutantReading('getSO2');
@@ -238,12 +223,11 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid measurement time value is returned.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getMeasurementTime()
      *
      * @throws \Exception
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_measurement_time(): void
     {
         $expectedValue = \DateTimeImmutable::createFromMutable($this->faker->dateTime());
@@ -263,10 +247,9 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid array is returned that represents the monitoring station information.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getMonitoringStation()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_monitoring_station_information(): void
     {
         $expectedValue = [
@@ -299,10 +282,9 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid array is returned that represents the Air Quality Index information.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getAQI()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_aqi_information(): void
     {
         $expectedValue = [
@@ -329,10 +311,9 @@ class WAQITest extends TestCase
     /**
      * Tests that a valid value for the primary pollutant is returned.
      *
-     * @test
-     *
      * @covers \Azuyalabs\WAQI\WAQI::getPrimaryPollutant()
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_get_primary_pollutant(): void
     {
         $expectedValue = $this->faker->randomElement(['pm25', 'pm10', 'co', 'no2', 'o3', 'so2']);
@@ -350,9 +331,8 @@ class WAQITest extends TestCase
     /**
      * Tests that an UnknownStation Exception for getObservationByStation is thrown if an unknown monitoring station name is given upon get the
      * stations' real-time observation.
-     *
-     * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_raise_exception_when_unknown_station_name_by_station(): void
     {
         $this->expectException(UnknownStation::class);
@@ -372,9 +352,8 @@ class WAQITest extends TestCase
     /**
      * Tests that a QuotaExceeded Exception for getObservationByStation is thrown when the API quota has been exceeded.
      * The default quota is maximum 1000 (thousand) requests per minute.
-     *
-     * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_raise_exception_when_quota_exceeded_by_station(): void
     {
         $this->expectException(QuotaExceeded::class);
@@ -394,9 +373,8 @@ class WAQITest extends TestCase
     /**
      * Tests that an InvalidAccessToken Exception for getObservationByStation is thrown when an invalid access token is provided
      * The default quota is maximum 1000 (thousand) requests per minute.
-     *
-     * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_raise_exception_when_invalid_token_by_station(): void
     {
         $this->expectException(InvalidAccessToken::class);
@@ -417,10 +395,9 @@ class WAQITest extends TestCase
      * Tests that a QuotaExceeded Exception for getObservationByGeoLocation is thrown when the API quota has been exceeded.
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
-     * @test
-     *
      * @throws InvalidAccessToken|UnknownStation
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_raise_exception_when_quota_exceeded_by_geo_location(): void
     {
         $this->expectException(QuotaExceeded::class);
@@ -440,10 +417,9 @@ class WAQITest extends TestCase
      * Tests that an InvalidAccessToken Exception for getObservationByGeoLocation is thrown when an invalid access token is provided
      * The default quota is maximum 1000 (thousand) requests per minute.
      *
-     * @test
-     *
      * @throws QuotaExceeded|UnknownStation
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function should_raise_exception_when_invalid_token_by_geo_location(): void
     {
         $this->expectException(InvalidAccessToken::class);
