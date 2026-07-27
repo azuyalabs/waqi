@@ -6,9 +6,9 @@ The following versions are supported with security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.2.0   | :white_check_mark: |
-| 1.1.0   | :x:                |
-| <1.0    | :x:                |
+| 1.2.0  | :white_check_mark: |
+| 1.1.0  | :x: |
+| <1.0   | :x: |
 
 As for supported PHP versions, this project only supports the actively supported versions of PHP and versions of PHP
 that only receive critical security updates. Currently, that is PHP 8.2, 8.3, 8.4 and 8.5.
