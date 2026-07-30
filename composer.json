@@ -36,7 +36,7 @@
   "require": {
     "php": "^8.2",
     "ext-json": "*",
-    "guzzlehttp/guzzle": "^7.10"
+    "guzzlehttp/guzzle": "^8.0"
   },
   "require-dev": {
     "azuyalabs/php-cs-fixer-config": "^0.3",
