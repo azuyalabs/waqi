@@ -21,9 +21,9 @@ use Azuyalabs\WAQI\Exceptions\InvalidAccessToken;
 use Azuyalabs\WAQI\Exceptions\QuotaExceeded;
 use Azuyalabs\WAQI\Exceptions\UnknownStation;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ResponseException;
 use GuzzleHttp\Psr7\Message;
 use GuzzleHttp\Psr7\Utils;
 
@@ -368,10 +368,10 @@ final class WAQI implements AirQuality
 
         try {
             $response = $client->request('GET', $uri, ['query' => 'token=' . $this->token]);
-        } catch (ClientException | RequestException $e) {
+        } catch (RequestException $e) {
             echo Message::toString($e->getRequest());
 
-            if ($e->hasResponse()) {
+            if ($e instanceof ResponseException) {
                 echo Message::toString($e->getResponse());
             }
             exit;
